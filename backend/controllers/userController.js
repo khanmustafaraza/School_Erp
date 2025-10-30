@@ -163,7 +163,7 @@ const teacherList = async (req, res) => {
 const studentList = async (req, res) => {
   try {
     const students = await User.find({ role: "student" });
-    console.log(students);
+
     if (!students) {
       return res.status(400).json({
         success: false,

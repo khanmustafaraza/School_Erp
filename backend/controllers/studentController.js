@@ -6,7 +6,6 @@ const Student = require("../models/studentModel");
 const studentRegister = async (req, res) => {
   try {
     const { userId, classId } = req.body;
-    console.log(req.body);
 
     if (!userId || !classId) {
       return res.status(403).json({
@@ -15,7 +14,6 @@ const studentRegister = async (req, res) => {
       });
     }
     const teacher = await ClassTeacher.findOne({ classId: classId });
-    console.log(teacher);
 
     const newStudent = new Student({
       userId,

@@ -3,7 +3,6 @@ const Class = require("../models/classModel");
 const classRegister = async (req, res) => {
   try {
     const { name, section } = req.body;
-    console.log(req.body);
 
     if (!name || !section) {
       return res.status(403).json({
@@ -79,7 +78,7 @@ const classList = async (req, res) => {
         message: `Error While Fechting`,
       });
     }
-    return res.status(400).json({
+    return res.status(200).json({
       success: true,
       message: `All Admin Fectched Successfully`,
       data: classes,

@@ -43,6 +43,7 @@ app.post("/api/auth/admin", verifyToken, verifyAdmin, (req, res) => {
   }
 });
 
+// todo authentication for teacher
 app.post("/api/auth/teacher", verifyToken, verifyTeacher, (req, res) => {
   try {
     return res.status(200).json({
@@ -52,6 +53,8 @@ app.post("/api/auth/teacher", verifyToken, verifyTeacher, (req, res) => {
     console.log(error.message);
   }
 });
+
+// todo authentication of students
 app.post("/api/auth/student", verifyToken, verifyStudent, (req, res) => {
   try {
     return res.status(200).json({

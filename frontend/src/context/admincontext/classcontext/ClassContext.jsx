@@ -65,6 +65,7 @@ const ClassAppProvider = ({ children }) => {
         },
       });
       const data = await res.json();
+      console.log(data);
       if (data.success) {
         dispatch({
           type: "GET_CLASS_LIST",

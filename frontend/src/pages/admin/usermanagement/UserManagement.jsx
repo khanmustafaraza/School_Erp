@@ -34,13 +34,12 @@ const UserManagement = () => {
       icon: <FaChalkboardTeacher />,
       title: "Teacher List",
       subTitle: 2000,
-      subIcon: <TbArrowBadgeRight />,
 
       bgColor: "#7fd6b6",
       subIcon: <TbArrowBadgeRight />,
     },
     {
-      id: 1,
+      id: 3,
       link: "/admin/student-list", // ✅ fixed typo
       icon: <PiStudentDuotone />,
       title: "Student List",

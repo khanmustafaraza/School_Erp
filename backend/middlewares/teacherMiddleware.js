@@ -3,7 +3,6 @@ const User = require("../models/userModel");
 const verifyTeacher = async (req, res, next) => {
   try {
     const userId = req.user?.id || req.user?._id;
-    console.log(userId); // depends on your JWT structure
 
     if (!userId) {
       return res.status(401).json({

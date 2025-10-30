@@ -5,7 +5,6 @@ const ClassTeacher = require("../models/classTeacherModel");
 const classTeacherRegister = async (req, res) => {
   try {
     const { userId, classId } = req.body;
-    console.log(req.body);
 
     if (!userId || !classId) {
       return res.status(403).json({
