@@ -2,14 +2,19 @@ import Left from "components/left/Left";
 import Top from "components/top/Top";
 import { useTheme } from "../../context/themecontext/ThemeContext";
 import { FaArrowAltCircleUp } from "react-icons/fa";
-import { Tooltip } from "flowbite-react";
 import { useState, useEffect } from "react";
+import {
+  FaIcons,
+  MdIcons,
+  PiIcons,
+  SiIcons,
+  GiIcons,
+} from "components/icons/Icons";
 
 const AdminLayout = ({ children }) => {
   const { theme } = useTheme();
   const [showButton, setShowButton] = useState(false);
 
-  // Show button when user scrolls down
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 2) {
@@ -27,6 +32,49 @@ const AdminLayout = ({ children }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const { FaEnvelopeOpenText, FaUser } = FaIcons;
+  const { MdOutlineDashboard } = MdIcons;
+  const { PiStudentBold } = PiIcons;
+  const { SiGoogleclassroom } = SiIcons;
+  // const { GiSunglasses } = GiIcons;
+  const adminNavItems = [
+    {
+      id: 0,
+      title: "Dashboard",
+      icon: <MdOutlineDashboard />,
+      link: "/admin/dashboard",
+    },
+    {
+      id: 1,
+      title: "Enquiry",
+      icon: <FaEnvelopeOpenText />,
+      link: "/admin/enquiry-management",
+    },
+    {
+      id: 2,
+      title: "Classes",
+      icon: <FaEnvelopeOpenText />,
+      link: "/admin/class-management",
+    },
+    {
+      id: 3,
+      title: "User",
+      icon: <FaUser />,
+      link: "/admin/user-management",
+    },
+    {
+      id: 4,
+      title: "Student List",
+      icon: <PiStudentBold />,
+      link: "/admin/student-list",
+    },
+    {
+      id: 5,
+      title: "Class Teachers",
+      icon: <SiGoogleclassroom />,
+      link: "/admin/class-teacher-list",
+    },
+  ];
   return (
     <div
       className={
@@ -36,7 +84,8 @@ const AdminLayout = ({ children }) => {
       }
     >
       {/* Sidebar Navigation */}
-      <Left />
+
+      <Left data={adminNavItems} />
 
       {/* Main Content Area */}
       <div className="flex flex-col w-full sm:w-[70%] lg:w-[85%] xl:w-[87%]">

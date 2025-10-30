@@ -11,6 +11,14 @@ const userRouter = require("./routes/userRoute");
 const classRouter = require("./routes/classRoute");
 const classTeacherRouter = require("./routes/classTeacherRoute");
 const studentRouter = require("./routes/studentRoute");
+const verifyToken = require("./middlewares/tokenMiddleware");
+const verifyAdmin = require("./middlewares/adminMiddleware");
+const verifyTeacher = require("./middlewares/teacherMiddleware");
+const verifyStudent = require("./middlewares/studentMiddleware");
+
+// //  middlewares for authentication
+// const verifyToken = require("./middlewares/tokenMiddleware");
+// const verifyAdmin = require("./middlewares/adminMiddleware");
 // todo configrue dotenv
 // // Middlewares
 app.use(express.json());
@@ -23,6 +31,36 @@ app.use("/api/admin/user", userRouter);
 app.use("/api/admin/class", classRouter);
 app.use("/api/admin/classteacher", classTeacherRouter);
 app.use("/api/admin/student", studentRouter);
+
+// todo authentication  for admin
+app.post("/api/auth/admin", verifyToken, verifyAdmin, (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+app.post("/api/auth/teacher", verifyToken, verifyTeacher, (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+app.post("/api/auth/student", verifyToken, verifyStudent, (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 // ! Home Page Route
 app.get("/", (req, res) => {

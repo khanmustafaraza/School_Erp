@@ -17,9 +17,9 @@ const Login = () => {
 
   // const { handleAdminChange, handleAdminRegister, state } = useAdminAuth();
   const { handleLoginUserChange, state, handleLoginUserSubmit } = useAuth();
-  if (!state?.user?.token) {
-    return navigate("/");
-  }
+  // if (!state?.user?.token) {
+  //   return navigate("/");
+  // }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black  px-4">

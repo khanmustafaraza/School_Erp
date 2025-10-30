@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "adminContext/authcontext/AuthContext";
 
-const AdminRoute = ({ authRole = "admin" }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
+const TeacherRoute = ({ authRole = "teacher" }) => {
+  const [isTeacher, setIsTeacher] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -11,9 +11,9 @@ const AdminRoute = ({ authRole = "admin" }) => {
   const token = state?.user?.token;
   const role = state?.user?.role; // add this
 
-  const adminAuth = async () => {
+  const teacherAuth = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/admin", {
+      const res = await fetch("http://localhost:3000/api/auth/teacher", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -23,13 +23,13 @@ const AdminRoute = ({ authRole = "admin" }) => {
       const data = await res.json();
 
       if (res.ok && data.success && role === authRole) {
-        setIsAdmin(true);
+        setIsTeacher(true);
       } else {
-        setIsAdmin(false);
+        setIsTeacher(false);
       }
     } catch (error) {
       console.error("Error verifying admin:", error);
-      setIsAdmin(false);
+      setIsTeacher(false);
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ const AdminRoute = ({ authRole = "admin" }) => {
   useEffect(() => {
     // ✅ Only run if AuthContext has finished loading and user exists
     if (token && role) {
-      adminAuth();
+      teacherAuth();
     } else if (!token) {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ const AdminRoute = ({ authRole = "admin" }) => {
 
   // ✅ Only redirect once we *know* the user is unauthorized
   // return isAdmin ? <Outlet /> : <h1>Loading</h1>;
-  return isAdmin ? <Outlet /> : null;
+  return isTeacher ? <Outlet /> : null;
 };
 
-export default AdminRoute;
+export default TeacherRoute;

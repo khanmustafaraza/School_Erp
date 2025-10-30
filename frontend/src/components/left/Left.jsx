@@ -1,54 +1,14 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useTheme } from "../../context/themecontext/ThemeContext";
-import {} from "react-icons/gi";
 import { FaIcons, MdIcons, PiIcons, SiIcons, GiIcons } from "../icons/Icons";
 
-const Left = () => {
+const Left = ({ data }) => {
   const { handleTheme } = useTheme();
-  const { FaMoon, FaSun, FaEnvelopeOpenText, FaUser } = FaIcons;
-  const { MdOutlineDashboard } = MdIcons;
-  const { PiStudentBold } = PiIcons;
-  const { SiGoogleclassroom } = SiIcons;
+  const { FaMoon, FaSun } = FaIcons;
+
   const { GiSunglasses } = GiIcons;
-  const data = [
-    {
-      id: 0,
-      title: "Dashboard",
-      icon: <MdOutlineDashboard />,
-      link: "/admin/dashboard",
-    },
-    {
-      id: 1,
-      title: "Enquiry",
-      icon: <FaEnvelopeOpenText />,
-      link: "/admin/enquiry-management",
-    },
-    {
-      id: 2,
-      title: "Classes",
-      icon: <FaEnvelopeOpenText />,
-      link: "/admin/class-management",
-    },
-    {
-      id: 3,
-      title: "User",
-      icon: <FaUser />,
-      link: "/admin/user-management",
-    },
-    {
-      id: 4,
-      title: "Student List",
-      icon: <PiStudentBold />,
-      link: "/admin/student-list",
-    },
-    {
-      id: 5,
-      title: "Class Teachers",
-      icon: <SiGoogleclassroom />,
-      link: "/admin/class-teacher-list",
-    },
-  ];
+
   return (
     <div className="w-[40%] xl:w-[13%] lg:w-[15%] md:w-[30%] sm:w-[30%] border-r shadow bg-[#445669]  ">
       {/* Header */}
@@ -60,20 +20,6 @@ const Left = () => {
           <strong className="text-white">School Erp</strong>
         </div>
       </div>
-      {/* <div className="p-1">
-        <div className="bg-gray-50 px-1 rounded-md flex items-center gap-2 border ">
-          <div className="">
-            <FaSearch />
-          </div>
-          <div className="overflow-x-hidden">
-            <input
-              type="text"
-              className="border-0 bg-transparent py-[4px]"
-              placeholder="search"
-            />
-          </div>
-        </div>
-      </div> */}
 
       {/* Menu Items */}
       <div className="p-[1px]">

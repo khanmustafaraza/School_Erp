@@ -1,8 +1,9 @@
-const Register = require('../models/Register'); // Adjust path
+const User = require("../models/userModel");
 
-const verifyAdmin = async (req, res, next) => {
+const verifyStudent = async (req, res, next) => {
   try {
-    const userId = req.user?.id || req.user?._id; // depends on your JWT structure
+    const userId = req.user?.id || req.user?._id;
+    console.log(userId); // depends on your JWT structure
 
     if (!userId) {
       return res.status(401).json({
@@ -11,19 +12,19 @@ const verifyAdmin = async (req, res, next) => {
       });
     }
 
-    const adminUser = await Register.findById(userId);
+    const studentUser = await User.findById(userId);
 
-    if (!adminUser) {
+    if (!studentUser) {
       return res.status(404).json({
         success: false,
         message: "User not found",
       });
     }
 
-    if (!adminUser.isAdmin) {
+    if (!(studentUser && studentUser.role == "student")) {
       return res.status(403).json({
         success: false,
-        message: "Access denied: Admins only",
+        message: "Access denied: Student only",
       });
     }
 
@@ -32,9 +33,9 @@ const verifyAdmin = async (req, res, next) => {
     console.error("Admin verification error:", error.message);
     return res.status(500).json({
       success: false,
-      message: "Server error during admin verification",
+      message: "Server error during student verification",
     });
   }
 };
 
-module.exports = verifyAdmin;
+module.exports = verifyStudent;

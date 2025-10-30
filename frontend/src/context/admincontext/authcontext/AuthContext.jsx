@@ -131,10 +131,10 @@ const AuthAppProvider = ({ children }) => {
             navigate("/admin/dashboard");
             break;
           case "teacher":
-            navigate("/teacher/dashboard");
+            navigate("/teacher/teacher-dashboard");
             break;
           case "student":
-            navigate("/student/dashboard");
+            navigate("/student/student-dashboard");
             break;
           default:
             navigate("/");

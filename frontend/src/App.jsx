@@ -27,13 +27,20 @@ import Students from "./pages/admin/student/StudentList";
 
 // todo Student Page Import end
 
+// !teacher route start
+import TeacherRoute from "./routes/teacherroute/TeacherRoute";
+import TeacherDashboard from "./pages/teachers/teacherdashboard/TeacherDashboard";
+import UnAuthorized from "./pages/unauthorized/UnAuthorized";
+import NotFound from "./pages/notfound/NotFound";
+// !teacher route end
+
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       {/*😆 Admin Routes start here */}
-      <Route path="/admin" element={<AdminRoute />}>
+      <Route path="/admin" element={<AdminRoute authRole="admin" />}>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="enquiry-management" element={<EnquiryManagement />} />
         <Route path="user-management" element={<UserManagement />} />
@@ -53,17 +60,23 @@ const App = () => {
           element={<ClassTeacherRegister />}
         />
         <Route path="student-register/:id" element={<StudentRegister />} />
-        <Route path="student-list/" element={<Students />} />
+        <Route path="student-list" element={<Students />} />
       </Route>
 
       {/* ✔✔👍👍 Student Routes start */}
-      <Route path="/student" element={<StudentRoute />}>
-        <Route path="dashboard" element={<StudentDashboard />} />
+      <Route path="/student" element={<StudentRoute authRole="student" />}>
+        <Route path="student-dashboard" element={<StudentDashboard />} />
         {/* ✔✔👍👍 Student Routes end */}
       </Route>
 
       {/* 👍👍👍 Teacer Routes start */}
+
+      <Route path="/teacher" element={<TeacherRoute authRole="teacher" />}>
+        <Route path="teacher-dashboard" element={<TeacherDashboard />} />
+      </Route>
       {/* 👍👍👍 Teacer Routes end */}
+      <Route path="/unauthorized" element={<UnAuthorized />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
