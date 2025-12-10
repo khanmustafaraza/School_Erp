@@ -117,11 +117,12 @@ const userDelete = (req, res) => {
   }
 };
 
-const adminList = async (req, res) => {
+const userList = async (req, res) => {
   try {
-    const admins = await User.find({ role: "admin" });
+    const users = await User.find();
+
     // console.log(admins);
-    if (!admins) {
+    if (!users) {
       return res.status(400).json({
         success: false,
         message: `Error While Fechting`,
@@ -129,51 +130,8 @@ const adminList = async (req, res) => {
     }
     return res.status(400).json({
       success: true,
-      message: `All Admin Fectched Successfully`,
-      data: admins,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error while registration due to network",
-    });
-  }
-};
-const teacherList = async (req, res) => {
-  try {
-    const teachers = await User.find({ role: "teacher" });
-    if (!teachers) {
-      return res.status(200).json({
-        success: false,
-        message: `Error While Fechting`,
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "all teachers are fetched successfully",
-      data: teachers,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error while registration due to network",
-    });
-  }
-};
-const studentList = async (req, res) => {
-  try {
-    const students = await User.find({ role: "student" });
-
-    if (!students) {
-      return res.status(400).json({
-        success: false,
-        message: "Error While Fetching",
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      message: "Fechted Successfully",
-      data: students,
+      message: `All User Fectched Successfully`,
+      data: users,
     });
   } catch (error) {
     res.status(500).json({
@@ -188,7 +146,5 @@ module.exports = {
   userLogin,
   userUpdate,
   userDelete,
-  adminList,
-  teacherList,
-  studentList,
+  userList,
 };

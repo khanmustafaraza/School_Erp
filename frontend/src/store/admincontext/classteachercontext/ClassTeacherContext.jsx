@@ -5,8 +5,18 @@ import classTeacherReducer from "../../../reducers/adminreducer/classteacherredu
 const initialState = {
   isLoading: false,
   register: {
-    userId: "",
     classId: "",
+    mobile: "",
+
+    fullName: "",
+    email: "",
+    subjects: "",
+    qualification: "",
+    experience: "",
+    salary: "",
+    aadhaar: "",
+    marital: "",
+    address: "",
   },
   classTeacherList: [],
 };
@@ -17,6 +27,7 @@ const ClassTeacherAppContext = createContext();
 // ? Provider component
 const ClassTeacherAppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(classTeacherReducer, initialState);
+
   // todo Register a New Class Change By Admin
   const handleClassTeacherChange = (e) => {
     try {
@@ -33,11 +44,8 @@ const ClassTeacherAppProvider = ({ children }) => {
   // // submit class by admin
   const handleClassTeacherRegister = async (e, userId) => {
     e.preventDefault();
-    const registerObj = {
-      userId: userId,
-      classId: state.register.classId,
-    };
-    console.log(registerObj);
+    const classTeacherObj = { ...state.register, userId };
+
     try {
       const res = await fetch(
         "http://localhost:3000/api/admin/classteacher/register",
@@ -46,7 +54,7 @@ const ClassTeacherAppProvider = ({ children }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(registerObj),
+          body: JSON.stringify(classTeacherObj),
         }
       );
       const data = await res.json();
@@ -69,7 +77,7 @@ const ClassTeacherAppProvider = ({ children }) => {
         }
       );
       const data = await res.json();
-      // console.log(data);
+
       if (data.success) {
         dispatch({
           type: "GET_CLASS_TEACHER_LIST",
@@ -81,10 +89,32 @@ const ClassTeacherAppProvider = ({ children }) => {
       alert(error.message);
     }
   };
-  useEffect(() => {
-    getClassTeacherList();
-  }, []);
 
+  const getClassTeacherDetail = async (id) => {
+    console.log(id);
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/admin/classteacher/class-teacher-detail/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await res.json();
+
+      if (data.success) {
+        dispatch({
+          type: "GET_CLASS_TEACHER_DETAIL",
+          payload: data.data,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
   return (
     <ClassTeacherAppContext.Provider
       value={{
@@ -92,6 +122,7 @@ const ClassTeacherAppProvider = ({ children }) => {
         handleClassTeacherChange,
         handleClassTeacherRegister,
         getClassTeacherList,
+        getClassTeacherDetail,
       }}
     >
       {children}

@@ -58,14 +58,14 @@ const ClassAppProvider = ({ children }) => {
   // todo Get all admin list
   const getClassList = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/admin/class/list", {
+      const res = await fetch("http://localhost:3000/api/admin/class/class-list", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await res.json();
-      console.log(data);
+
       if (data.success) {
         dispatch({
           type: "GET_CLASS_LIST",
@@ -77,9 +77,6 @@ const ClassAppProvider = ({ children }) => {
       alert(error.message);
     }
   };
-  useEffect(() => {
-    getClassList();
-  }, []);
 
   return (
     <ClassAppContext.Provider

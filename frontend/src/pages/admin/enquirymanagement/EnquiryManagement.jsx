@@ -8,7 +8,7 @@ const EnquiryManagement = () => {
   const data = [
     {
       id: 0,
-      link: "/admin/enquiry-management", // ✅ fixed typo
+      link: "/admin/enquiry-management/enquiry-list", // ✅ fixed typo
       icon: <FaUser />,
       title: "Enquiry List",
       subTitle: 2000,

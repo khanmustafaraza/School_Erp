@@ -7,6 +7,7 @@ dotenv.config();
 
 // !Admin  Module
 const userRouter = require("./routes/userRoute");
+const enquiryRouter = require("./routes/enquiryRoute");
 // const classRouter = require("./routes/classRoute");
 const classRouter = require("./routes/classRoute");
 const classTeacherRouter = require("./routes/classTeacherRoute");
@@ -27,6 +28,7 @@ app.use(cors());
 // Routes
 
 // todo Admin Routes start  **********************
+app.use("/api/enquiry", enquiryRouter);
 app.use("/api/admin/user", userRouter);
 app.use("/api/admin/class", classRouter);
 app.use("/api/admin/classteacher", classTeacherRouter);

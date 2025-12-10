@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useTheme } from "../../context/themecontext/ThemeContext";
+// import { useTheme } from "../../context/themecontext/ThemeContext";
 import { FaIcons, GiIcons } from "../icons/Icons";
 
 const Left = ({ data }) => {
-  const { handleTheme } = useTheme();
+  // const { handleTheme } = useTheme();
   const { FaMoon, FaSun } = FaIcons;
   const { GiSunglasses } = GiIcons;
 
@@ -15,13 +15,11 @@ text-gray-500
  border-r border-gray-200 min-h-screen flex flex-col justify-between"
     >
       {/* Logo */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-100">
+      <div className="flex items-center gap-2 px-4 py-[10px] border-b border-gray-100">
         <div className="w-9 h-9 flex items-center justify-center bg-blue-100 rounded">
           <GiSunglasses className="text-lg text-blue-600" />
         </div>
-        <h1 className="font-medium text-base text-gray-700">
-          Krishna School
-        </h1>
+        <h1 className="font-medium text-base text-white">School Erp</h1>
       </div>
 
       {/* Menu */}
@@ -34,9 +32,11 @@ text-gray-500
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 text-sm mx-2
               transition-colors
-              ${isActive
-                ? "text-blue-900 bg-blue-50"
-                : "text-white hover:bg-gray-600"}`
+              ${
+                isActive
+                  ? "text-blue-900 bg-blue-50"
+                  : "text-white hover:bg-gray-600"
+              }`
             }
           >
             <div className="text-lg">{item.icon}</div>
@@ -50,7 +50,7 @@ text-gray-500
         <p className="text-xs text-gray-500 mb-2 font-medium">Theme</p>
         <div className="flex gap-2">
           <button
-            onClick={() => handleTheme("dark")}
+            // onClick={() => handleTheme("dark")}
             className="w-7 h-7 flex items-center justify-center
             bg-gray-800 hover:bg-gray-700 transition rounded"
           >
@@ -58,7 +58,7 @@ text-gray-500
           </button>
 
           <button
-            onClick={() => handleTheme("light")}
+            // onClick={() => handleTheme("light")}
             className="w-7 h-7 flex items-center justify-center
             bg-gray-200 hover:bg-gray-300 transition rounded"
           >

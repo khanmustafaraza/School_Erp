@@ -1,6 +1,6 @@
 import Left from "components/left/Left";
 import Top from "components/top/Top";
-import { useTheme } from "../../context/themecontext/ThemeContext";
+// import { useTheme } from "../../context/themecontext/ThemeContext";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import {
@@ -12,7 +12,7 @@ import {
 } from "components/icons/Icons";
 
 const AdminLayout = ({ children }) => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const AdminLayout = ({ children }) => {
       id: 0,
       title: "Dashboard",
       icon: <MdOutlineDashboard />,
-      link: "/admin/dashboard",
+      link: "/admin/admin-dashboard",
     },
     {
       id: 1,
@@ -50,14 +50,14 @@ const AdminLayout = ({ children }) => {
       icon: <FaEnvelopeOpenText />,
       link: "/admin/enquiry-management",
     },
-   
+
     {
       id: 2,
       title: "User",
       icon: <FaUser />,
       link: "/admin/user-management",
     },
-     {
+    {
       id: 3,
       title: "Classes",
       icon: <FaEnvelopeOpenText />,
@@ -78,11 +78,12 @@ const AdminLayout = ({ children }) => {
   ];
   return (
     <div
-      className={
-        theme
-          ? "flex min-h-screen text-gray-900"
-          : "flex min-h-screen text-white bg-black transition-all"
-      }
+      className="flex min-h-screen text-gray-900"
+      // className={
+      //   theme
+      //     ? "flex min-h-screen text-gray-900"
+      //     : "flex min-h-screen text-white bg-black transition-all"
+      // }
     >
       {/* Sidebar Navigation */}
 
@@ -92,11 +93,11 @@ const AdminLayout = ({ children }) => {
       <div className="flex flex-col w-full sm:w-[70%] lg:w-[85%] xl:w-[87%]">
         {/* Top Navigation */}
         <header
-          className={
-            theme
-              ? "border-b shadow-sm py-2 px-4"
-              : "border-b bg-black shadow-sm py-2 px-4"
-          }
+        // className={
+        //   theme
+        //     ? "border-b shadow-sm py-2 px-4"
+        //     : "border-b bg-black shadow-sm py-2 px-4"
+        // }
         >
           <Top />
         </header>

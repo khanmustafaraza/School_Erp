@@ -3,6 +3,22 @@
 const authReducer = (state, action) => {
   switch (action.type) {
     // Handle input change in Admin Register form
+    case "ENQUIRY_CHANGE":
+      return {
+        ...state,
+        enquiry: {
+          ...state.enquiry,
+          [action.payload.name]: action.payload.value,
+        },
+      };
+    // enquiry list
+    case "ENQUIRY_LIST":
+      return {
+        ...state,
+        enquiryList: action.payload,
+      };
+
+    // admin add user
     case "ADMIN_USER_CHANGE":
       return {
         ...state,
@@ -12,7 +28,7 @@ const authReducer = (state, action) => {
         },
       };
 
-    // Handle input change in Login form
+    // todo Handle input change in Login form
     case "LOGIN_USER_CHANGE":
       return {
         ...state,
@@ -22,7 +38,7 @@ const authReducer = (state, action) => {
         },
       };
 
-    // Set logged-in user from login or localStorage
+    // todo ============= Set logged-in user from login or localStorage =================
     case "SET_LOGGED_IN_USER":
       return {
         ...state,
@@ -30,24 +46,10 @@ const authReducer = (state, action) => {
       };
 
     // Fetch admin list
-    case "GET_ADMIN_LIST":
+    case "GET_USER_LIST":
       return {
         ...state,
-        adminList: action.payload,
-      };
-
-    // Fetch teacher list
-    case "GET_TEACHER_LIST":
-      return {
-        ...state,
-        teacherList: action.payload,
-      };
-
-    // Fetch student list
-    case "GET_STUDENT_LIST":
-      return {
-        ...state,
-        studentList: action.payload,
+        userList: action.payload,
       };
 
     default:
