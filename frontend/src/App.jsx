@@ -1,12 +1,11 @@
 import AdminDashboard from "admin/AdminDashboard";
 import { Routes, Route } from "react-router-dom";
 // todo common page
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 
 // ! Admin Page Import Start
 import AdminRoute from "./routes/adminroute/AdminRoute";
-import UserRegister from "admin/registration/userregister/UserRegister";
 import AdminList from "admin/registration/adminlist/AdminList";
 import TeacherList from "admin/registration/teacherlist/TeacherList";
 import StudentList from "admin/registration/studentlist/StudentList";
@@ -32,6 +31,8 @@ import TeacherRoute from "./routes/teacherroute/TeacherRoute";
 import TeacherDashboard from "./pages/teachers/teacherdashboard/TeacherDashboard";
 import UnAuthorized from "./pages/unauthorized/UnAuthorized";
 import NotFound from "./pages/notfound/NotFound";
+import UserRegister from "./pages/admin/usermanagement/UserRegister";
+// import Enquiry from "./pages/enquiry/Enquiry";
 // !teacher route end
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      {/* <Route path="/enquiry" element={<Enquiry />} /> */}
       {/*😆 Admin Routes start here */}
       <Route path="/admin" element={<AdminRoute authRole="admin" />}>
         <Route path="dashboard" element={<AdminDashboard />} />

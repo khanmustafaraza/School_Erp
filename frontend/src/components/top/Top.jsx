@@ -5,45 +5,51 @@ import { useAuth } from "../../context/admincontext/authcontext/AuthContext";
 const Top = () => {
   const { FaBell, FaSearch } = FaIcons;
   const { state } = useAuth();
-  console.log(state?.user?.userName);
+
   return (
-    <div className="flex items-center justify-between px-4 py-1 md:px-8  w-full">
-      {/* Logo */}
+    <div className="w-full bg-white border-b border-gray-200 px-4 py-2 
+      flex items-center justify-between">
+
+      {/* Brand */}
+      <h1 className="text-lg font-semibold text-blue-600 tracking-tight">
+        School ERP
+      </h1>
 
       {/* Search Bar */}
-      <div className="hidden md:flex flex-1 mx-4">
-        <div className="relative w-full max-w-lg">
-          <strong className="text-2xl">School Erp</strong>
+      <div className="flex-1 max-w-md mx-6 hidden sm:block">
+        <div className="relative">
+          <FaSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-full pl-8 pr-2 py-1.5 text-sm
+            border border-gray-300 bg-gray-50
+            focus:outline-none focus:ring-1 focus:ring-blue-400
+            rounded"
+          />
         </div>
-      </div>
-      <div className="search border flex-1 flex items-center px-2 rounded-md">
-        <FaSearch />
-        <input
-          type="text"
-          className="border-0 p-[8px] w-full"
-          placeholder="Search"
-        />
       </div>
 
       {/* Actions */}
-      <div className="flex items-center  flex-1 justify-center">
-        <button className="relative focus:outline-none hover:text-indigo-600 mx-5">
-          <FaBell className="w-6 h-6 text-gray-600" />
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 shadow">
+      <div className="flex items-center gap-3">
+
+        {/* Notifications */}
+        <button className="relative p-1.5 hover:bg-gray-100 rounded transition">
+          <FaBell className="w-5 h-5 text-gray-600" />
+          <span className="absolute -top-1 -right-1 bg-red-600 text-white 
+            text-[10px] rounded-full px-1">
             3
           </span>
         </button>
-        <button className="flex items-center space-x-2 focus:outline-none hover:text-indigo-600">
+
+        {/* User */}
+        <button className="flex items-center gap-2 p-1 hover:bg-gray-100 rounded transition">
           <img
             src="https://thumbs.dreamstime.com/b/portrait-handsome-smiling-young-man-folded-arms-smiling-joyful-cheerful-men-crossed-hands-isolated-studio-shot-172869765.jpg"
-            alt=""
-            className="w-[40px] h-[40px] rounded-full"
+            alt="User"
+            className="w-8 h-8 rounded-full object-cover"
           />
-          <span
-            className="hidden md:block font-medium text-gray-800"
-            title={`${state?.user?.userName}`}
-          >
-            {" "}
+          <span className="hidden md:block text-gray-700 text-sm truncate max-w-[110px]">
             {state?.user?.userName}
           </span>
         </button>

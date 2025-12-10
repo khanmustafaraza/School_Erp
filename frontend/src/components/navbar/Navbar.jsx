@@ -6,107 +6,95 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-lg py-2">
-      <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <a href="/" className="text-3xl font-extrabold text-gray-800 hover:text-blue-600 transition duration-300">
-              KRISHNA PUBLIC SCHOOL
-            </a>
-          </div>
+    <nav className="bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
 
-          {/* Hamburger Menu (Mobile) */}
-          <div className="flex lg:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-800 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              <svg
-                className="w-7 h-7"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition"
+          >
+            School ERP
+          </Link>
 
           {/* Desktop Links */}
-          <div className="hidden lg:flex space-x-8 items-center">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               to="/"
-              className="text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+              className="text-gray-700 hover:text-blue-600 text-sm font-medium transition"
             >
               Home
             </Link>
+
             <Link
               to="/login"
-              className="text-gray-800 hover:text-blue-600 px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition duration-300"
+              className="flex items-center gap-1 text-sm font-medium px-4 py-2 bg-black text-white rounded shadow hover:bg-blue-700 transition"
             >
-              <FaUserAlt className="text-lg" />
+              <FaUserAlt className="text-base" />
               Login
             </Link>
+
             <Link
-              to="/services"
-              className="text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+              to="/enquiry"
+              className="text-sm font-medium px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition"
             >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
-            >
-              Contact
+              Enquiry
             </Link>
           </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="lg:hidden text-gray-700 focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-gray-100 py-4 px-6 transition duration-300">
-          <div className="space-y-4">
+        <div className="lg:hidden bg-white border-t border-gray-200 shadow-sm">
+          <div className="flex flex-col py-4 px-4 space-y-3">
             <Link
               to="/"
-              className="block text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+              className="block text-gray-700 hover:text-blue-600 text-sm font-medium transition"
             >
               Home
             </Link>
             <Link
               to="/login"
-              className="block text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+              className="block text-white bg-blue-600 px-4 py-2 rounded-md text-sm font-medium text-center hover:bg-blue-700 transition"
             >
               Login
             </Link>
             <Link
-              to="/services"
-              className="block text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
-            >
-              Services
-            </Link>
-            <Link
               to="/contact"
-              className="block text-gray-800 hover:text-blue-600 px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+              className="block text-blue-600 border border-blue-600 px-4 py-2 rounded-md text-sm font-medium text-center hover:bg-blue-50 transition"
             >
-              Contact
+              Enquiry
             </Link>
           </div>
         </div>

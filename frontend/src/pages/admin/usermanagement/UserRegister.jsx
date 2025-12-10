@@ -1,8 +1,8 @@
 import React from "react";
-import AdminLayout from "../../../../layout/adminlayout/AdminLayout";
 import Input from "../../../../components/inputs/Input";
 import { FaUser } from "react-icons/fa";
 import { useAuth } from "../../../../context/admincontext/authcontext/AuthContext";
+import AdminLayout from "../../../layout/adminlayout/AdminLayout";
 
 const UserRegister = () => {
   const { state, handleUserChange, handleUserRegister } = useAuth();

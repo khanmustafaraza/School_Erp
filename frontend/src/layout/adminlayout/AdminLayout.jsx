@@ -50,17 +50,18 @@ const AdminLayout = ({ children }) => {
       icon: <FaEnvelopeOpenText />,
       link: "/admin/enquiry-management",
     },
+   
     {
       id: 2,
-      title: "Classes",
-      icon: <FaEnvelopeOpenText />,
-      link: "/admin/class-management",
-    },
-    {
-      id: 3,
       title: "User",
       icon: <FaUser />,
       link: "/admin/user-management",
+    },
+     {
+      id: 3,
+      title: "Classes",
+      icon: <FaEnvelopeOpenText />,
+      link: "/admin/class-management",
     },
     {
       id: 4,

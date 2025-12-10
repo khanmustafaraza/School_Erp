@@ -6,12 +6,17 @@ const Card = ({ curEle }) => {
 
   return (
     <NavLink to={link}>
-      <div className="flex items-center justify-between w-[300px] h-[150px] p-5 border border-gray-200 rounded-lg bg-white hover:bg-gray-50 transition-colors duration-200">
+      <div
+        className="flex items-center justify-between w-[260px] h-[120px]
+        p-4 border border-gray-200 rounded-md bg-white
+        hover:bg-gray-50 transition-colors"
+      >
         {/* Left Section */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Main Icon */}
           <div
-            className="w-[70px] h-[70px] flex justify-center items-center rounded-lg text-white text-3xl"
+            className="w-[55px] h-[55px] flex justify-center items-center 
+            rounded-md text-white text-2xl"
             style={{ backgroundColor: bgColor }}
           >
             {icon}
@@ -19,20 +24,20 @@ const Card = ({ curEle }) => {
 
           {/* Text */}
           <div>
-            <h5 className="text-xl font-semibold text-gray-700 capitalize">
+            <h5 className="text-base font-semibold text-gray-700 capitalize">
               {title}
             </h5>
-            <p className="text-gray-500 text-sm mt-1">{subTitle}</p>
+            <p className="text-gray-500 text-sm mt-0.5">{subTitle}</p>
           </div>
         </div>
 
         {/* Right Sub Icon */}
         {subIcon && (
           <div
-            className="w-[36px] h-[36px] flex justify-center items-center rounded-full text-lg font-bold"
+            className="w-8 h-8 flex justify-center items-center rounded-full text-base"
             style={{
               backgroundColor: subColor || "#f3f4f6",
-              color: `green`,
+              color: "green",
             }}
           >
             {subIcon}
