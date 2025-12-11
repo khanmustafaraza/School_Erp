@@ -1,82 +1,116 @@
 import React from "react";
-
-
-import { useParams } from "react-router-dom";
+import AdminLayout from "../../../layout/adminlayout/AdminLayout";
+import { FaUser, FaPhone, FaUserTie } from "react-icons/fa";
+import { MdDateRange, MdOutlineImage } from "react-icons/md";
+import useStudent from "../../../store/admincontext/studentcontext/StudentContext";
+import Input from "../../../components/inputs/Input";
 
 const StudentRegister = () => {
   const { state, handleStudentChange, handleStudentRegister } = useStudent();
-  const {
-    state: { classList },
-  } = useClass();
-
-  const userId = useParams().id;
 
   return (
     <AdminLayout>
-      <div className="flex h-screen items-center justify-center">
-        <div className="bg-white border border-gray-200 w-full  rounded-sm shadow-lg p-8">
+      <div className="flex justify-center py-8 px-4">
+        <div className="bg-white border border-gray-200 w-full max-w-3xl rounded-lg shadow p-8">
           {/* Title */}
-          <h3 className="text-2xl font-bold text-center text-gray-800 mb-6 flex items-center justify-center gap-2">
-            <span className="material-icons">account_box</span>
+          <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+            Register Student
+          </h2>
 
-            <span> Register A New Class Teacher</span>
-          </h3>
-
-          <form onSubmit={(e) => handleStudentRegister(e, userId)}>
-            <div>
-              <select name="classId" onChange={handleStudentChange}>
-                <option value="">Class & Section</option>
-                {classList.map((cur) => {
-                  return (
-                    <option
-                      value={cur._id}
-                      style={{ textTransform: "uppercase" }}
-                    >
-                      Class:- {cur.name} Section :-
-                      {cur.section}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            {/* User Name */}
-            {/* <div className="mb-5">
+          <form onSubmit={handleStudentRegister}>
+            {/* Row 1 → Full Name + Father Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Input
-                id=""
                 icon={<FaUser />}
                 iconType="react"
-                label="User Name"
+                label="Student Full Name *"
                 type="text"
-                name="userName"
-                placeholder="mrkec@gmail.com"
-                onChange={handleUserChange}
-                value={state.register.userName}
+                name="fullName"
+                placeholder="Enter full name"
+                value={state.register.fullName}
+                onChange={handleStudentChange}
               />
-            </div> */}
-            {/* Email */}
-            {/* <div className="mb-5">
+
               <Input
-                id="email"
-                icon="mark_email_read"
-                label="Email"
-                type="email"
-                name="email"
-                placeholder="khan@243122gmail.com"
-                value={state.register.email}
-                onChange={handleUserChange}
+                icon={<FaUserTie />}
+                iconType="react"
+                label="Father Name *"
+                type="text"
+                name="fatherName"
+                placeholder="Enter father name"
+                value={state.register.fatherName}
+                onChange={handleStudentChange}
               />
-            </div> */}
+            </div>
 
-            {/* Side-by-side Row */}
-            {/* password */}
+            {/* Row 2 → Phone + Date of Birth */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <Input
+                icon={<FaPhone />}
+                iconType="react"
+                label="Phone Number *"
+                type="text"
+                name="phone"
+                placeholder="Enter phone number"
+                value={state.register.phone}
+                onChange={handleStudentChange}
+              />
 
-            {/* Submit */}
-            <button
-              type="submit"
-              className="w-[160px] bg-blue-900  text-white font-semibold py-3 rounded-sm shadow-sm  transition"
-            >
-              Register
-            </button>
+              <Input
+                icon={<MdDateRange />}
+                iconType="react"
+                label="Date of Birth *"
+                type="date"
+                name="dob"
+                placeholder=""
+                value={state.register.dob}
+                onChange={handleStudentChange}
+              />
+            </div>
+
+            {/* Address */}
+            <div className="mt-4">
+              <label className="block mb-2 text-sm font-semibold text-gray-700">
+                Address *
+              </label>
+              <textarea
+                name="address"
+                rows="3"
+                placeholder="Enter full address"
+                onChange={handleStudentChange}
+                value={state.register.address}
+                required
+                className="w-full border border-gray-400 rounded-md px-3 py-2 outline-none bg-gray-50"
+              ></textarea>
+            </div>
+
+            {/* Photo Upload */}
+            <div className="mt-6">
+              <label className="block mb-2 text-sm font-semibold text-gray-700">
+                Upload Photo *
+              </label>
+              <div className="flex items-center border border-gray-400 rounded-md px-3 py-2 bg-gray-50">
+                <MdOutlineImage className="text-xl text-gray-500 mr-2" />
+                <input
+                  type="file"
+                  name="photo"
+                  accept="image/*"
+                  onChange={handleStudentChange}
+                  required
+                  className="w-full"
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="mt-8 text-center">
+              <button
+                type="submit"
+                className="px-10 py-3 bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-800 transition"
+              >
+                Register Student
+              </button>
+            </div>
           </form>
         </div>
       </div>

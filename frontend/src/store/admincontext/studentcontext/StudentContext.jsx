@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import studentReducer from "../../../reducers/adminreducer/studentreducer/StudentReducer";
+// import studentReducer from "../../../reducers/adminreducer/studentreducer/StudentReducer";
 
 // // Initial state
 const initialState = {
@@ -107,4 +108,5 @@ const useStudent = () => {
   return context;
 };
 
-export { StudentAppProvider, useStudent };
+export { StudentAppProvider };
+export default useStudent;

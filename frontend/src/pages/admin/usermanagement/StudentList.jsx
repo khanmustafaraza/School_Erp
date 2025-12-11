@@ -9,7 +9,7 @@ const StudentList = () => {
   const location = useLocation();
   const [pagePath, setPagePath] = useState("");
   const { state, getUserList } = useAuth();
- const navigate =  useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPagePath(location.pathname);
@@ -54,7 +54,12 @@ const StudentList = () => {
             />
           </div>
           <div>
-            <button className="py-2 px-8 bg-slate-500 text-white rounded" onClick={()=>navigate("/admin/user-management")}>User List</button>
+            <button
+              className="py-2 px-8 bg-slate-500 text-white rounded"
+              onClick={() => navigate("/admin/user-management")}
+            >
+              User List
+            </button>
           </div>
         </div>
 
@@ -118,14 +123,16 @@ const StudentList = () => {
                         >
                           <FiTrash2 size={18} />
                         </button>
-                       <NavLink>
-                         <button
-                          className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-green-600 transition shadow-sm"
-                          title="Add Student Details"
+                        <NavLink
+                          to={`/admin/student-management/student-register/${cur._id}`}
                         >
-                          <FiEdit size={18} />
-                        </button>
-                       </NavLink>
+                          <button
+                            className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-green-600 transition shadow-sm"
+                            title="Add Student Details"
+                          >
+                            <FiEdit size={18} />
+                          </button>
+                        </NavLink>
                       </div>
                     </td>
                   </tr>

@@ -9,18 +9,20 @@ import "./index.css";
 // import { ThemeAppProvider } from "./context/themecontext/ThemeContext.jsx";
 import { AuthAppProvider } from "./store/authcontext/AuthContext.jsx";
 import { ClassAppProvider } from "./store/admincontext/classcontext/ClassContext.jsx";
+import { StudentAppProvider } from "./store/admincontext/studentcontext/StudentContext.jsx";
+import { ClassTeacherAppProvider } from "./store/admincontext/classteachercontext/ClassTeacherContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     {/* <ThemeAppProvider> */}
     <AuthAppProvider>
       <ClassAppProvider>
-          {/* <ClassTeacherAppProvider>
-            <StudentAppProvider> */}
-      <App />
-      {/* </StudentAppProvider>
-          </ClassTeacherAppProvider> */}
-        </ClassAppProvider>
+        <ClassTeacherAppProvider>
+          <StudentAppProvider>
+            <App />
+          </StudentAppProvider>
+        </ClassTeacherAppProvider>
+      </ClassAppProvider>
     </AuthAppProvider>
     {/* </ThemeAppProvider> */}
   </BrowserRouter>

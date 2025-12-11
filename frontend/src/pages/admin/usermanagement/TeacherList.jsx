@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
 import { FiEye, FiTrash2 } from "react-icons/fi";
-import { FaSearch } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FaEdit, FaSearch } from "react-icons/fa";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../store/authcontext/AuthContext";
 
 const TeacherList = () => {
   const location = useLocation();
   const [pagePath, setPagePath] = useState("");
   const { state, getUserList } = useAuth();
- const navigate =  useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPagePath(location.pathname);
@@ -54,7 +54,12 @@ const TeacherList = () => {
             />
           </div>
           <div>
-            <button className="py-2 px-8 bg-slate-500 text-white rounded" onClick={()=>navigate("/admin/user-management")}>User List</button>
+            <button
+              className="py-2 px-8 bg-slate-500 text-white rounded"
+              onClick={() => navigate("/admin/user-management")}
+            >
+              User List
+            </button>
           </div>
         </div>
 
@@ -118,6 +123,17 @@ const TeacherList = () => {
                         >
                           <FiTrash2 size={18} />
                         </button>
+
+                        <NavLink
+                          to={`/admin/classteacher-management/classteacher-register/${cur._id}`}
+                        >
+                          <button
+                            className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-green-600 transition shadow-sm"
+                            title="Add Class Teacher"
+                          >
+                            <FaEdit size={18} />
+                          </button>
+                        </NavLink>
                       </div>
                     </td>
                   </tr>

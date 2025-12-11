@@ -84,3 +84,71 @@ const App = () => {
 };
 
 export default App;
+
+// {
+//   _id: ObjectId,
+//   classId: ObjectId,
+//   studentId: ObjectId,
+//   date: Date,
+//   status: "present" | "absent" | "leave",
+//   markedBy: ObjectId, // teacher id
+//   createdAt: Date,
+// }
+
+// {
+//   _id: ObjectId(),
+//   classId: "10A",
+//   date: "2025-01-10",
+//   period: "1",
+//   attendance: [
+//     { studentId: "stu101", status: "Present" },
+//     { studentId: "stu102", status: "Absent" },
+//     { studentId: "stu103", status: "Present" }
+//   ],
+//   markedBy: "teacher123",
+//   timestamp: Date
+// }
+
+await Attendance.updateOne(
+  { classId, date, period, "attendance.studentId": studentId },
+  {
+    $set: {
+      "attendance.$.status": newStatus,
+    },
+  }
+);
+
+// {
+//   _id: ObjectId(),
+//   studentId: "stu101",
+//   classId: "10A",
+//   examId: "exam2025_midterm",
+//   academicYear: "2024-2025",
+
+//   marks: [
+//     {
+//       subjectId: "math101",
+//       subjectName: "Mathematics",
+//       maxMarks: 100,
+//       obtained: 82,
+//       grade: "A"
+//     },
+//     {
+//       subjectId: "eng101",
+//       subjectName: "English",
+//       maxMarks: 100,
+//       obtained: 76,
+//       grade: "B+"
+//     }
+//   ],
+
+//   totalObtained: 158,
+//   totalMax: 200,
+//   percentage: 79,
+//   grade: "B+",
+//   status: "Pass", // Fail if one subject fails
+
+//   remarks: "Good performance",
+//   createdAt: Date,
+//   updatedAt: Date
+// }

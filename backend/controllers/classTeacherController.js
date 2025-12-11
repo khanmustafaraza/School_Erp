@@ -1,110 +1,124 @@
-const Class = require("../models/classModel");
-const User = require("../models/userModel");
 const ClassTeacher = require("../models/classTeacherModel");
+const User = require("../models/userModel");
+const Class = require("../models/classModel");
 
-const classTeacherRegister = async (req, res) => {
+// ✅ Create Class Teacher
+const createClassTeacher = async (req, res) => {
   try {
-    const { userId, classId } = req.body;
+    const { userId, classId, academicYear, remarks } = req.body;
 
-    if (!userId || !classId) {
-      return res.status(403).json({
-        success: false,
-        message: "All Fields are required",
+    // Validate teacher exists
+    const user = await User.findById(userId);
+    if (!user || user.role !== "teacher") {
+      return res.status(400).json({
+        message: "Invalid teacher ID or user is not a teacher",
       });
     }
 
-    const newClassTeacher = new ClassTeacher({
+    // Validate class exists
+    const classObj = await Class.findById(classId);
+    if (!classObj) {
+      return res.status(400).json({ message: "Invalid class ID" });
+    }
+
+    // Check if teacher is already assigned to this class for this year
+    const existing = await ClassTeacher.findOne({
       userId,
       classId,
+      academicYear,
+      status: "active",
     });
-    await newClassTeacher.save();
-    return res.status(201).json({
-      success: true,
-      message: "Class Teacher Created Successfylly",
+
+    if (existing) {
+      return res.status(400).json({
+        message: "Teacher is already assigned to this class",
+      });
+    }
+
+    const newAssignment = await ClassTeacher.create({
+      userId,
+      classId,
+      academicYear,
+      remarks,
+    });
+
+    res.status(201).json({
+      message: "Class Teacher assigned successfully",
+      data: newAssignment,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error while registration due to network",
-    });
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
-const classUpdate = async (req, res) => {
+// ✅ Get all class teacher assignments
+exports.getAllClassTeachers = async (req, res) => {
+  try {
+    const result = await ClassTeacher.find()
+      .populate("userId", "fullName userName email")
+      .populate("classId", "name section");
+
+    res.status(200).json({ count: result.length, data: result });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
+// ✅ Get single class teacher by ID
+exports.getClassTeacherById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate ID format before using it in a query
-    if (!id) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid class ID format",
-      });
-    }
+    const teacher = await ClassTeacher.findById(id)
+      .populate("userId", "fullName userName email")
+      .populate("classId", "name section");
 
-    const updatedClass = await Class.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true } // runValidators ensures schema rules apply
-    );
+    if (!teacher)
+      return res.status(404).json({ message: "Class Teacher not found" });
 
-    if (!updatedClass) {
-      return res.status(404).json({
-        success: false,
-        message: "Class not found",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Class updated successfully",
-      data: updatedClass,
-    });
+    res.status(200).json(teacher);
   } catch (error) {
-    console.error("Error updating class:", error);
-    res.status(500).json({
-      success: false,
-      message: "Error updating class. Please try again later.",
-      error: error.message,
-    });
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
-const classTeacherList = async (req, res) => {
+// ✅ Update class teacher assignment
+exports.updateClassTeacher = async (req, res) => {
   try {
-    const classTeachers = await ClassTeacher.find({});
-    const classTeacherArr = [];
+    const { id } = req.params;
 
-    for (let index = 0; index < classTeachers.length; index++) {
-      const element = classTeachers[index];
+    const updated = await ClassTeacher.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-      // Fetch related data
-      const userData = await User.findOne({ _id: element.userId });
-      const classData = await Class.findOne({ _id: element.classId });
-
-      // Combine all into a single object
-      const finalObj = {
-        classTeacher: element,
-        user: userData,
-        class: classData,
-      };
-
-      // Push to result array
-      classTeacherArr.push(finalObj);
-    }
+    if (!updated)
+      return res.status(404).json({ message: "Class Teacher not found" });
 
     res.status(200).json({
-      success: true,
-      message: "All Fectched Successfully",
-      data: classTeacherArr,
+      message: "Class Teacher updated successfully",
+      data: updated,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error", error });
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
-module.exports = {
-  classTeacherRegister,
-  classTeacherList,
+// ✅ Delete class teacher assignment
+exports.deleteClassTeacher = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const removed = await ClassTeacher.findByIdAndDelete(id);
+
+    if (!removed)
+      return res.status(404).json({ message: "Class Teacher not found" });
+
+    res.status(200).json({
+      message: "Class Teacher removed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
 };
+
+module.exports = { createClassTeacher };

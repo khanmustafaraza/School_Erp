@@ -59,3 +59,105 @@ const AdminRoute = ({ authRole = "admin" }) => {
 };
 
 export default AdminRoute;
+
+
+
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+
+const teacherProfileSchema = new Schema(
+  {
+    // 👩‍🏫 Link to the teacher user account
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      unique: true,
+    },
+
+    // 🪪 Personal Information
+    gender: {
+      type: String,
+      enum: ["male", "female", "other"],
+    },
+
+    dateOfBirth: {
+      type: Date,
+    },
+
+    aadharNumber: {
+      type: String,
+      trim: true,
+      unique: true,
+    },
+
+    bloodGroup: {
+      type: String,
+      enum: [
+        "A+",
+        "A-",
+        "B+",
+        "B-",
+        "O+",
+        "O-",
+        "AB+",
+        "AB-",
+        "Unknown",
+      ],
+      default: "Unknown",
+    },
+
+    // 🏠 Address
+    address: {
+      street: String,
+      city: String,
+      district: String,
+      state: String,
+      pincode: String,
+    },
+
+    // 📚 Qualification
+    qualification: {
+      highestQualification: String,
+      specialization: String,
+      passingYear: Number,
+      university: String,
+    },
+
+    // 👨‍🏫 Work Experience
+    experience: [
+      {
+        schoolName: String,
+        position: String,
+        fromYear: Number,
+        toYear: Number,
+      },
+    ],
+
+    // 📞 Emergency Contact
+    emergencyContact: {
+      name: String,
+      relation: String,
+      phone: String,
+    },
+
+    // 💳 Bank / Salary Info
+    bankDetails: {
+      accountHolder: String,
+      accountNumber: String,
+      ifscCode: String,
+      bankName: String,
+      branch: String,
+    },
+
+    // 📸 Photo
+    profilePhoto: {
+      type: String, // URL
+    },
+  },
+  { timestamps: true }
+);
+
+const TeacherProfile = model("TeacherProfile", teacherProfileSchema);
+module.exports = TeacherProfile;
+

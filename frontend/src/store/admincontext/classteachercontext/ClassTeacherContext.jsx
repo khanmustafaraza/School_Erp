@@ -1,142 +1,119 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import classTeacherReducer from "../../../reducers/adminreducer/classteacherreducer/ClassTeacherReducer";
 
-// // Initial state
+// Initial state
 const initialState = {
   isLoading: false,
   register: {
+    userId: "",
     classId: "",
-    mobile: "",
-
-    fullName: "",
-    email: "",
-    subjects: "",
-    qualification: "",
-    experience: "",
-    salary: "",
-    aadhaar: "",
-    marital: "",
-    address: "",
+    academicYear: "2024-2025",
+    status: "active",
+    remarks: "",
   },
   classTeacherList: [],
+  userList: [], // all users for select dropdown
+  classList: [], // all classes for select dropdown
 };
 
-// todo Create context
-const ClassTeacherAppContext = createContext();
+const ClassTeacherContext = createContext();
 
-// ? Provider component
+// Provider
 const ClassTeacherAppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(classTeacherReducer, initialState);
 
-  // todo Register a New Class Change By Admin
+  // Handle input change
   const handleClassTeacherChange = (e) => {
-    try {
-      const { name, value } = e.target;
-      // console.log(name, "????", value);
-      dispatch({
-        type: "ADMIN_CLASS_TEACHER_CHANGE",
-        payload: { name, value },
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
+    const { name, value } = e.target;
+    dispatch({ type: "UPDATE_REGISTER_FIELD", payload: { name, value } });
   };
-  // // submit class by admin
-  const handleClassTeacherRegister = async (e, userId) => {
-    e.preventDefault();
-    const classTeacherObj = { ...state.register, userId };
 
+  // Register new teacher
+  const handleClassTeacherRegister = async (e) => {
+    e.preventDefault();
     try {
       const res = await fetch(
         "http://localhost:3000/api/admin/classteacher/register",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(classTeacherObj),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(state.register),
         }
       );
       const data = await res.json();
-      alert(data.message);
+      if (data.success) {
+        alert("Teacher registered successfully!");
+        getClassTeacherList(); // refresh list
+        dispatch({ type: "RESET_REGISTER" });
+      } else {
+        alert(data.message);
+      }
     } catch (error) {
       alert(error.message);
     }
   };
 
-  // todo Get all admin list
+  // Get all teachers
   const getClassTeacherList = async () => {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/admin/classteacher/class-teacher-list",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        "http://localhost:3000/api/admin/classteacher/class-teacher-list"
       );
       const data = await res.json();
-
       if (data.success) {
-        dispatch({
-          type: "GET_CLASS_TEACHER_LIST",
-          payload: data.data,
-        });
+        dispatch({ type: "SET_CLASS_TEACHER_LIST", payload: data.data });
       }
     } catch (error) {
       console.log(error.message);
-      alert(error.message);
     }
   };
 
-  const getClassTeacherDetail = async (id) => {
-    console.log(id);
+  // Get users and classes for dropdowns
+  const fetchDropdownData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/admin/classteacher/class-teacher-detail/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await res.json();
+      const [usersRes, classesRes] = await Promise.all([
+        fetch("http://localhost:3000/api/admin/users"),
+        fetch("http://localhost:3000/api/admin/classes"),
+      ]);
 
-      if (data.success) {
-        dispatch({
-          type: "GET_CLASS_TEACHER_DETAIL",
-          payload: data.data,
-        });
-      }
+      const usersData = await usersRes.json();
+      const classesData = await classesRes.json();
+
+      dispatch({ type: "SET_USER_LIST", payload: usersData.data || [] });
+      dispatch({ type: "SET_CLASS_LIST", payload: classesData.data || [] });
     } catch (error) {
       console.log(error.message);
-      alert(error.message);
     }
   };
+
+  useEffect(() => {
+    fetchDropdownData();
+    getClassTeacherList();
+  }, []);
+
   return (
-    <ClassTeacherAppContext.Provider
+    <ClassTeacherContext.Provider
       value={{
         state,
         handleClassTeacherChange,
         handleClassTeacherRegister,
         getClassTeacherList,
-        getClassTeacherDetail,
       }}
     >
       {children}
-    </ClassTeacherAppContext.Provider>
+    </ClassTeacherContext.Provider>
   );
 };
 
-// // Custom hook to use the auth context
+// Custom hook
 const useClassTeacher = () => {
-  const context = useContext(ClassTeacherAppContext);
+  const context = useContext(ClassTeacherContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthAppProvider");
+    throw new Error("useClassTeacher must be used within ClassTeacherProvider");
   }
   return context;
 };
 
-export { ClassTeacherAppProvider, useClassTeacher };
+export default useClassTeacher;
+
+export { ClassTeacherAppProvider };
