@@ -27,6 +27,7 @@ const enquiryRegister = async (req, res) => {
 };
 const enquiryList = async (req, res) => {
   const searchValue = req.query.search || "";
+  console.log("first")
 
   try {
     // console.log(req.body);
@@ -40,7 +41,8 @@ const enquiryList = async (req, res) => {
           }
         : {}; // ✅ empty filter = fetch all
 
-    const enquiryListData = await Enquiry.find(filter);
+    const enquiryListData = await Enquiry.find({});
+    console.log(enquiryListData)
 
     if (enquiryListData) {
       res.status(200).json({

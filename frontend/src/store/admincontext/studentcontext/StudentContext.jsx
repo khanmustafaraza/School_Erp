@@ -1,29 +1,28 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
-import classReducer from "../../../reducers/adminreducer/classreducer/ClassReducer";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import studentReducer from "../../../reducers/adminreducer/studentreducer/StudentReducer";
 
 // // Initial state
 const initialState = {
   isLoading: false,
   register: {
-    name: "",
-    section: "",
+    classId: "",
   },
-  classList: [],
+  studentList: [],
 };
 
 // todo Create context
-const ClassAppContext = createContext();
+const StudentAppContext = createContext();
 
 // ? Provider component
-const ClassAppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(classReducer, initialState);
+const StudentAppProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(studentReducer, initialState);
   // todo Register a New Class Change By Admin
-  const handleClassChange = (e) => {
+  const handleStudentChange = (e) => {
     try {
       const { name, value } = e.target;
       // console.log(name, "????", value);
       dispatch({
-        type: "ADMIN_CLASS_CHANGE",
+        type: "ADMIN_STUDENT_CHANGE",
         payload: { name, value },
       });
     } catch (error) {
@@ -31,15 +30,16 @@ const ClassAppProvider = ({ children }) => {
     }
   };
   // // submit class by admin
-  const handleClassRegister = async (e) => {
+  const handleStudentRegister = async (e, userId) => {
     e.preventDefault();
     const registerObj = {
-      name: state.register.name,
-      section: state.register.section,
+      userId: userId,
+      classId: state.register.classId,
     };
+    console.log(registerObj);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/class/register",
+        "http://localhost:3000/api/admin/student/register",
         {
           method: "POST",
           headers: {
@@ -56,19 +56,22 @@ const ClassAppProvider = ({ children }) => {
   };
 
   // todo Get all admin list
-  const getClassList = async () => {
+  const getStudentList = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/class/class-list", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "http://localhost:3000/api/admin/student/student-list",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
 
       if (data.success) {
         dispatch({
-          type: "GET_CLASS_LIST",
+          type: "GET_STUDENT_LIST",
           payload: data.data,
         });
       }
@@ -77,28 +80,31 @@ const ClassAppProvider = ({ children }) => {
       alert(error.message);
     }
   };
+  useEffect(() => {
+    getStudentList();
+  }, []);
 
   return (
-    <ClassAppContext.Provider
+    <StudentAppContext.Provider
       value={{
         state,
-        handleClassChange,
-        handleClassRegister,
-        getClassList,
+        handleStudentChange,
+        handleStudentRegister,
+        getStudentList,
       }}
     >
       {children}
-    </ClassAppContext.Provider>
+    </StudentAppContext.Provider>
   );
 };
 
 // // Custom hook to use the auth context
-const useClass = () => {
-  const context = useContext(ClassAppContext);
+const useStudent = () => {
+  const context = useContext(StudentAppContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthAppProvider");
   }
   return context;
 };
 
-export { ClassAppProvider, useClass };
+export { StudentAppProvider, useStudent };

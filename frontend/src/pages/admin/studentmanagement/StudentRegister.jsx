@@ -1,9 +1,7 @@
 import React from "react";
-import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import { useClassTeacher } from "../../../context/admincontext/classteachercontext/ClassTeacherContext";
-import { useClass } from "../../../context/admincontext/classcontext/ClassContext";
+
+
 import { useParams } from "react-router-dom";
-import { useStudent } from "../../../context/admincontext/studentcontext/StudentContext";
 
 const StudentRegister = () => {
   const { state, handleStudentChange, handleStudentRegister } = useStudent();

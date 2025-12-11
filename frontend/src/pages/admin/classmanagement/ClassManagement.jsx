@@ -8,7 +8,7 @@ const ClassManagement = () => {
   const data = [
     {
       id: 0,
-      link: "/admin/class-register", // ✅ fixed typo
+      link: "/admin/class-management/class-register", // ✅ fixed typo
       icon: <FaUser />,
       title: "Add Class",
       subTitle: 2000,
@@ -17,7 +17,7 @@ const ClassManagement = () => {
     },
     {
       id: 1,
-      link: "/admin/class-list", // ✅ fixed typo
+      link: "/admin/class-management/class-list", // ✅ fixed typo
       icon: <FaUser />,
       title: "Class List",
       subTitle: 2000,

@@ -72,7 +72,7 @@ app.get("/", (req, res) => {
   res.send(`<h1>Test file to Show Server is Running</h1>`);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // ! Configure Server With DataBase Connection
 

@@ -9,6 +9,12 @@ import EnquiryList from "./pages/admin/enquirymanagement/EnquiryList";
 import UserManagement from "./pages/admin/usermanagement/UserManagement";
 import UserRegister from "./pages/admin/usermanagement/UserRegister";
 import AdminList from "./pages/admin/usermanagement/AdminList";
+import TeacherList from "./pages/admin/usermanagement/TeacherList";
+import StudentList from "./pages/admin/usermanagement/StudentList";
+import ClassManagement from "./pages/admin/classmanagement/ClassManagement";
+import ClassRegister from "./pages/admin/classmanagement/ClassRegister";
+import ClassList from "./pages/admin/classmanagement/ClassList";
+import StudentRegister from "./pages/admin/studentmanagement/StudentRegister";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -31,6 +37,12 @@ const App = () => {
           element={<UserRegister />}
         />
         <Route path="user-management/admin-list" element={<AdminList />} />
+        <Route path="user-management/teacher-list" element={<TeacherList />} />
+        <Route path="user-management/student-list" element={<StudentList />} />
+        <Route path="class-management" element={<ClassManagement />} />
+        <Route path="class-management/class-register" element={<ClassRegister />} />
+        <Route path="class-management/class-list" element={<ClassList />} />
+           <Route path="student-management/student-register/:id" element={<StudentRegister />} />
       </Route>
     </Routes>
   );

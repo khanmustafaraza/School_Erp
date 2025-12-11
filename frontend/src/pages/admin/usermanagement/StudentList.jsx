@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import { FiEye, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../store/authcontext/AuthContext";
 
-const AdminList = () => {
+const StudentList = () => {
   const location = useLocation();
   const [pagePath, setPagePath] = useState("");
   const { state, getUserList } = useAuth();
@@ -40,7 +40,7 @@ const AdminList = () => {
         {/* Header + Search */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
           <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">
-            Admin Register List
+            Students Register List
           </h2>
 
           <div className="relative w-full sm:w-72">
@@ -75,7 +75,7 @@ const AdminList = () => {
 
             <tbody>
               {state?.userList
-                ?.filter((user) => user.role === "admin")
+                ?.filter((user) => user.role === "student")
                 .map((cur, index) => (
                   <tr
                     key={cur._id}
@@ -92,7 +92,7 @@ const AdminList = () => {
                       <span
                         className={`px-3 py-1 text-sm rounded-full font-medium 
       ${
-        cur.role === "admin"
+        cur.role === "student"
           ? "bg-blue-100 text-blue-800"
           : cur.role === "teacher"
           ? "bg-green-100 text-green-800"
@@ -118,6 +118,14 @@ const AdminList = () => {
                         >
                           <FiTrash2 size={18} />
                         </button>
+                       <NavLink>
+                         <button
+                          className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-green-600 transition shadow-sm"
+                          title="Add Student Details"
+                        >
+                          <FiEdit size={18} />
+                        </button>
+                       </NavLink>
                       </div>
                     </td>
                   </tr>
@@ -130,4 +138,4 @@ const AdminList = () => {
   );
 };
 
-export default AdminList;
+export default StudentList;

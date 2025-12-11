@@ -77,7 +77,7 @@ const AuthAppProvider = ({ children }) => {
     const enquiryObj = { ...state.enquiry };
 
     try {
-      const res = await fetch("http://localhost:3000/api/enquiry/register", {
+      const res = await fetch("http://localhost:5000/api/enquiry/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enquiryObj),
@@ -93,11 +93,13 @@ const AuthAppProvider = ({ children }) => {
   // ! ************** get enquiry list ****************
 
   const enquiryList = async (value = "") => {
+    console.log("called")
     try {
       const res = await fetch(
         `http://localhost:5000/api/enquiry/enquiry-list?search=${value}`
       );
       const data = await res.json();
+      console.log(data)
 
       if (data.success) dispatch({ type: "ENQUIRY_LIST", payload: data.data });
     } catch (error) {
@@ -119,7 +121,7 @@ const AuthAppProvider = ({ children }) => {
     e.preventDefault();
     const registerObj = { ...state.register };
     try {
-      const res = await fetch("http://localhost:3000/api/admin/user/register", {
+      const res = await fetch("http://localhost:5000/api/admin/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(registerObj),
@@ -147,7 +149,7 @@ const AuthAppProvider = ({ children }) => {
     e.preventDefault();
     const loginObj = { ...state.login };
     try {
-      const res = await fetch("http://localhost:3000/api/admin/user/login", {
+      const res = await fetch("http://localhost:5000/api/admin/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginObj),

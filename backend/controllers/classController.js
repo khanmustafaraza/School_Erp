@@ -10,7 +10,21 @@ const classRegister = async (req, res) => {
         message: "All Fields are required",
       });
     }
-
+    const query =  {
+      $and :[
+        {
+          name:name,
+          section:section
+        }
+      ]
+    }
+const exsistClass = await Class.findOne(query);
+if(exsistClass){
+return res.status(200).json({
+      success: false,
+      message: "Class With section Alreday exsist",
+    });
+}
     const newClass = new Class({
       name,
       section,
@@ -71,6 +85,7 @@ const classUpdate = async (req, res) => {
 const classList = async (req, res) => {
   try {
     const classes = await Class.find({});
+    console.log(classes)
 
     if (!classes) {
       return res.status(400).json({

@@ -37,7 +37,7 @@ const UserManagement = () => {
     },
     {
       id: 3,
-      link: "//user-management/student-list",
+      link: "/admin/user-management/student-list",
       icon: <PiStudentDuotone />,
       title: "Student List",
       subTitle: 2000,

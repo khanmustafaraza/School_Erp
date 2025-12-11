@@ -47,6 +47,7 @@ const EnquiryList = () => {
   useEffect(() => {
     enquiryList();
   }, []);
+  console.log(state)
 
   return (
     <AdminLayout>
@@ -102,7 +103,7 @@ const EnquiryList = () => {
             </thead>
 
             <tbody>
-              {state?.enquiryList.map((item, index) => (
+              {state?.enquiryList?.map((item, index) => (
                 <tr
                   key={item._id}
                   className={`border-b transition ${

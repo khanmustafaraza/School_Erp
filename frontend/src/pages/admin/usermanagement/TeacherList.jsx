@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../store/authcontext/AuthContext";
 
-const AdminList = () => {
+const TeacherList = () => {
   const location = useLocation();
   const [pagePath, setPagePath] = useState("");
   const { state, getUserList } = useAuth();
@@ -40,7 +40,7 @@ const AdminList = () => {
         {/* Header + Search */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
           <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">
-            Admin Register List
+            Teacher Register List
           </h2>
 
           <div className="relative w-full sm:w-72">
@@ -75,7 +75,7 @@ const AdminList = () => {
 
             <tbody>
               {state?.userList
-                ?.filter((user) => user.role === "admin")
+                ?.filter((user) => user.role === "teacher")
                 .map((cur, index) => (
                   <tr
                     key={cur._id}
@@ -92,7 +92,7 @@ const AdminList = () => {
                       <span
                         className={`px-3 py-1 text-sm rounded-full font-medium 
       ${
-        cur.role === "admin"
+        cur.role === "teacher"
           ? "bg-blue-100 text-blue-800"
           : cur.role === "teacher"
           ? "bg-green-100 text-green-800"
@@ -130,4 +130,4 @@ const AdminList = () => {
   );
 };
 
-export default AdminList;
+export default TeacherList;
