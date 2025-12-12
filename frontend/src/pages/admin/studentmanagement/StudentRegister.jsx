@@ -2,11 +2,15 @@ import React from "react";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
 import { FaUser, FaPhone, FaUserTie } from "react-icons/fa";
 import { MdDateRange, MdOutlineImage } from "react-icons/md";
-import useStudent from "../../../store/admincontext/studentcontext/StudentContext";
 import Input from "../../../components/inputs/Input";
+import useStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
+import { useClass } from "../../../store/admincontext/classcontext/ClassContext";
+import useClassTeacher from "../../../store/admincontext/classteachercontext/ClassTeacherContext";
 
 const StudentRegister = () => {
   const { state, handleStudentChange, handleStudentRegister } = useStudent();
+  const {state:{classList}}= useClass()
+  const{state:{classTeacherList}}= useClassTeacher()
 
   return (
     <AdminLayout>
@@ -19,6 +23,33 @@ const StudentRegister = () => {
 
           <form onSubmit={handleStudentRegister}>
             {/* Row 1 → Full Name + Father Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="w-full">
+                <select name="" id="" className="w-full">
+                <option>Selet Class</option>
+                {
+                  classList.map((c)=>{
+                    return <option key={c._id} value={c._id}>{c.name}-{ c.section}</option>
+                  })
+                }
+                
+              </select>
+            </div>
+            <div>
+             <select name="" id="" className="w-full">
+                <option>Selet Class Teacher</option>
+                {
+                  classTeacherList.map((c)=>{
+                    return <option key={c._id} value={c._id}>{c.userId.userName}</option>
+                  })
+                }
+                
+              </select>
+            </div>
+          
+
+            
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Input
                 icon={<FaUser />}

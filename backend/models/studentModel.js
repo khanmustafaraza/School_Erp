@@ -3,63 +3,40 @@ const { Schema, model } = mongoose;
 
 const studentSchema = new Schema(
   {
-    // 👩‍🏫 The teacher (User with role: "teacher")
+    // 👩‍🏫 Teacher assigned to this student
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
 
-    // 🏫 The class assigned to this teacher
+    // 🏫 Class assigned to this student
     classId: {
       type: Schema.Types.ObjectId,
       ref: "Class",
       required: true,
     },
+
+    // 👨‍🏫 ClassTeacher reference
     teacherId: {
       type: Schema.Types.ObjectId,
       ref: "ClassTeacher",
       required: true,
     },
 
-    // // 📘 Subject taught by the teacher in this class
-    // subject: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    // },
+    // 🧑‍🎓 Student info
+    fullName: { type: String, required: true, trim: true },
+    fatherName: { type: String, required: true, trim: true },
+    phone: { type: String, required: true },
+    dob: { type: Date, required: true },
+    address: { type: String, required: true, trim: true },
+    photo: { type: String }, // store image path or URL
 
-    // // 📅 Academic year (e.g. 2024–2025)
-    // academicYear: {
-    //   type: String,
-    //   required: true,
-    //   trim: true,
-    // },
-
-    // // 📆 When the teacher was assigned to this class
-    // assignedDate: {
-    //   type: Date,
-    //   default: Date.now,
-    // },
-
-    // // ✅ Whether teacher is currently handling this class
-    // isActive: {
-    //   type: Boolean,
-    //   default: true,
-    // },
-
-    // // 🗒️ Notes or extra remarks (optional)
-    // remarks: {
-    //   type: String,
-    //   trim: true,
-    // },
+    // optional fields
+    remarks: { type: String, trim: true },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// Model creation
 const Student = model("Student", studentSchema);
-
 module.exports = Student;

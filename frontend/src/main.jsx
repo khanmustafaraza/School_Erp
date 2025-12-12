@@ -9,8 +9,8 @@ import "./index.css";
 // import { ThemeAppProvider } from "./context/themecontext/ThemeContext.jsx";
 import { AuthAppProvider } from "./store/authcontext/AuthContext.jsx";
 import { ClassAppProvider } from "./store/admincontext/classcontext/ClassContext.jsx";
-import { StudentAppProvider } from "./store/admincontext/studentcontext/StudentContext.jsx";
 import { ClassTeacherAppProvider } from "./store/admincontext/classteachercontext/ClassTeacherContext.jsx";
+import { StudentAdminAppProvider } from "./store/admincontext/studentadmincontext/StudentAdminContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -18,9 +18,9 @@ createRoot(document.getElementById("root")).render(
     <AuthAppProvider>
       <ClassAppProvider>
         <ClassTeacherAppProvider>
-          <StudentAppProvider>
+          <StudentAdminAppProvider>
             <App />
-          </StudentAppProvider>
+          </StudentAdminAppProvider>
         </ClassTeacherAppProvider>
       </ClassAppProvider>
     </AuthAppProvider>

@@ -45,7 +45,7 @@ const SchoolAppProvider = ({ children }) => {
 
     try {
       const res = await fetch(
-        "http://localhost:3000/api/admin/school/register",
+        "http://localhost:5000/api/admin/school/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -64,7 +64,7 @@ const SchoolAppProvider = ({ children }) => {
   const schoolList = async (value = " ") => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/admin/school/school-list`
+        `http://localhost:5000/api/admin/school/school-list`
       );
       const data = await res.json();
 

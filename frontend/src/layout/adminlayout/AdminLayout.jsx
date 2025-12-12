@@ -73,7 +73,7 @@ const AdminLayout = ({ children }) => {
       id: 5,
       title: "Class Teachers",
       icon: <SiGoogleclassroom />,
-      link: "/admin/class-teacher-list",
+      link: "/admin/classteacher-management/classteacher-list",
     },
   ];
   return (

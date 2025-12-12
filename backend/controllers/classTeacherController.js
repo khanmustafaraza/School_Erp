@@ -6,12 +6,14 @@ const Class = require("../models/classModel");
 const createClassTeacher = async (req, res) => {
   try {
     const { userId, classId, academicYear, remarks } = req.body;
+    console.log(userId)
+    console.log(classId)
 
-    // Validate teacher exists
+    // Validate user exists
     const user = await User.findById(userId);
-    if (!user || user.role !== "teacher") {
+    if (!user) {
       return res.status(400).json({
-        message: "Invalid teacher ID or user is not a teacher",
+        message: "Invalid user ID",
       });
     }
 
@@ -21,12 +23,10 @@ const createClassTeacher = async (req, res) => {
       return res.status(400).json({ message: "Invalid class ID" });
     }
 
-    // Check if teacher is already assigned to this class for this year
+    // Check duplicate assignment
     const existing = await ClassTeacher.findOne({
       userId,
-      classId,
-      academicYear,
-      status: "active",
+     
     });
 
     if (existing) {
@@ -47,25 +47,31 @@ const createClassTeacher = async (req, res) => {
       data: newAssignment,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error: error.message });
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
   }
 };
 
+
 // ✅ Get all class teacher assignments
-exports.getAllClassTeachers = async (req, res) => {
+const getAllClassTeachers = async (req, res) => {
+  console.log("first")
   try {
     const result = await ClassTeacher.find()
-      .populate("userId", "fullName userName email")
+      .populate("userId", "userName email")
       .populate("classId", "name section");
+      console.log("classteacher",result)
 
-    res.status(200).json({ count: result.length, data: result });
+    res.status(200).json({success:true, count: result.length, data: result });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
 // ✅ Get single class teacher by ID
-exports.getClassTeacherById = async (req, res) => {
+const getClassTeacherById = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -83,7 +89,7 @@ exports.getClassTeacherById = async (req, res) => {
 };
 
 // ✅ Update class teacher assignment
-exports.updateClassTeacher = async (req, res) => {
+const updateClassTeacher = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -121,4 +127,4 @@ exports.deleteClassTeacher = async (req, res) => {
   }
 };
 
-module.exports = { createClassTeacher };
+module.exports = { createClassTeacher,getAllClassTeachers };

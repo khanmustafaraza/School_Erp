@@ -5,6 +5,6 @@ const classTeacherController = require("../controllers/classTeacherController");
 // Routes
 router.post("/register", classTeacherController.createClassTeacher); // Create class
 // router.put("/update/:id", classController.classUpdate); // Update class
-// router.get("/class-teacher-list", classTeacherController.classTeacherList); // Get all classes
+router.get("/class-teacher-list", classTeacherController.getAllClassTeachers); // Get all classes
 
 module.exports = router;

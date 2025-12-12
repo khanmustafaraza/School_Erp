@@ -1,112 +1,122 @@
-import React from "react";
-import { RiAdminFill } from "react-icons/ri";
-import AdminLayout from "adminLayout/AdminLayout";
-import { NavLink } from "react-router-dom";
-import { useClassTeacher } from "adminContext/classteachercontext/ClassTeacherContext";
-import { useTheme } from "../../../context/themecontext/ThemeContext";
+import React, { useEffect, useState } from "react";
+import AdminLayout from "../../../layout/adminlayout/AdminLayout";
+import { FiEye, FiTrash2 } from "react-icons/fi";
+import { FaEdit, FaSearch } from "react-icons/fa";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../../store/authcontext/AuthContext";
+import useClassTeacher from "../../../store/admincontext/classteachercontext/ClassTeacherContext";
 
 const ClassTeacherList = () => {
-  const { state } = useClassTeacher();
-  const { theme } = useTheme();
+  const location = useLocation();
+  const [pagePath, setPagePath] = useState("");
+  const [classTeachers, setClassTeachers] = useState([]);
+  const {state}= useClassTeacher();
+  console.log(state)
+   // add a function to fetch ClassTeacher data
+  
+
+  useEffect(() => {
+    setPagePath(location.pathname);
+  }, [location]);
+
+
   return (
     <AdminLayout>
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2
-            className={
-              theme
-                ? "text-xl text-blue-600 flex items-center gap-2"
-                : "text-xl text-white flex items-center gap-2"
-            }
-          >
-            <RiAdminFill
-              className={theme ? "text-xl text-blue-600" : "text-xl text-white"}
-            />{" "}
-            Class List
+      <div className="p-4">
+        {/* Breadcrumb */}
+        <div className="flex items-center text-sm text-gray-500 mb-6 space-x-1">
+          {pagePath
+            .split("/")
+            .filter(Boolean)
+            .map((segment, i, arr) => (
+              <span key={i} className="flex items-center capitalize">
+                {segment.replace(/-/g, " ")}
+                {i !== arr.length - 1 && (
+                  <span className="mx-2 text-gray-400">/</span>
+                )}
+              </span>
+            ))}
+        </div>
+
+        {/* Header + Search */}
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
+          <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">
+            Class Teacher List
           </h2>
-          <button className="flex items-center gap-1 bg-blue-900 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-            <NavLink to="/admin/class-register">
-              <span className="material-icons text-sm">add</span>
-              Add Class
-            </NavLink>
-          </button>
+
+          <div className="relative w-full sm:w-72">
+            <FaSearch className="absolute left-3 top-3 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search class teachers..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 
+                focus:ring-2 focus:ring-indigo-500 
+                focus:border-indigo-500 outline-none text-sm transition"
+            />
+          </div>
         </div>
 
         {/* Table */}
-        <div
-          className={
-            theme
-              ? " bg-white border border-gray-200 rounded-sm shadow overflow-x-auto cursor-pointer p-1"
-              : "bg-black border border-gray-200 rounded-sm shadow overflow-x-auto cursor-pointer p-1"
-          }
-        >
-          <table className="w-full text-center">
-            <thead className={theme ? "bg-gray-100" : "bg-black"}>
-              <tr>
-                <th className="px-4 py-2">#</th>
-                <th className="px-4 py-2">Class Name</th>
-                <th className="px-4 py-2">Section</th>
-                <th className="px-4 py-2">Teacher Name</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Role</th>
-                <th className="px-4 py-2">Created</th>
-                <th className="px-4 py-2">Actions</th>
+        <div className="overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+          <table className="w-full text-left">
+            <thead className="bg-gray-100 text-gray-700">
+              <tr className="border-b">
+                <th className="px-6 py-3 text-sm font-semibold">#</th>
+                <th className="px-6 py-3 text-sm font-semibold">Full Name</th>
+                <th className="px-6 py-3 text-sm font-semibold">Email</th>
+                <th className="px-6 py-3 text-sm font-semibold">Class</th>
+                <th className="px-6 py-3 text-sm font-semibold">Section</th>
+                <th className="px-6 py-3 text-sm font-semibold">Academic Year</th>
+                <th className="px-6 py-3 text-sm font-semibold text-center">
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody>
-              {state?.classTeacherList?.map((cls, index) => (
+              {state?.classTeacherList.map((ct, index) => (
                 <tr
-                  key={cls.classTeacher._id}
-                  className="border-t hover:bg-gray-400 hover:text-white transition-all"
+                  key={ct._id}
+                  className={`border-b transition ${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  } hover:bg-indigo-50`}
                 >
-                  {/* Serial Number */}
-                  <td className="px-4 py-2">{index + 1}</td>
-
-                  {/* Class Name */}
-                  <td className="px-4 py-2 capitalize flex items-center gap-2 justify-center">
-                    <span className="material-icons text-blue-500">school</span>
-                    {cls.class?.name || "N/A"}
+                  <td className="px-6 py-3 text-gray-700">{index + 1}</td>
+                  <td className="px-6 py-3 font-medium text-gray-800">
+                    {ct.userId?.userName || "-"}
                   </td>
+                  <td className="px-6 py-3 text-gray-800">{ct.userId?.email || "-"}</td>
+                  <td className="px-6 py-3 text-gray-800">{ct.classId?.name || "-"}</td>
+                  <td className="px-6 py-3 text-gray-800">{ct.classId?.section || "-"}</td>
+                  <td className="px-6 py-3 text-gray-800">{ct.academicYear}</td>
 
-                  {/* Section */}
-                  <td className="px-4 py-2 capitalize">
-                    {cls.class?.section || "N/A"}
-                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center justify-center gap-3">
+                      <button
+                        className="p-2 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 transition shadow-sm"
+                        title="View"
+                      >
+                        <FiEye size={18} />
+                      </button>
 
-                  {/* Teacher Name */}
-                  <td className="px-4 py-2 capitalize flex items-center gap-2 justify-center">
-                    <span className="material-icons text-green-500">
-                      person
-                    </span>
-                    {cls.user?.userName || "N/A"}
-                  </td>
+                      <button
+                        className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-red-600 transition shadow-sm"
+                        title="Delete"
+                      >
+                        <FiTrash2 size={18} />
+                      </button>
 
-                  {/* Email */}
-                  <td className="px-4 py-2">{cls.user?.email || "N/A"}</td>
-
-                  {/* Role */}
-                  <td className="px-4 py-2 capitalize">
-                    {cls.user?.role || "N/A"}
-                  </td>
-
-                  {/* Created At */}
-                  <td className="px-4 py-2">
-                    {new Date(cls.classTeacher?.createdAt).toLocaleDateString()}
-                  </td>
-
-                  {/* Actions */}
-                  <td className="px-4 py-2 flex gap-2 justify-center">
-                    <button className="flex items-center gap-1 text-blue-600 hover:text-blue-800">
-                      <span className="material-icons text-sm">edit</span>
-                      Edit
-                    </button>
-
-                    <button className="flex items-center gap-1 text-red-600 hover:text-red-800">
-                      <span className="material-icons text-sm">delete</span>
-                      Delete
-                    </button>
+                      <NavLink
+                        to={`/admin/classteacher-management/classteacher-register/${ct._id}`}
+                      >
+                        <button
+                          className="p-2 rounded-full bg-green-50 hover:bg-green-100 text-green-600 transition shadow-sm"
+                          title="Edit Class Teacher"
+                        >
+                          <FaEdit size={18} />
+                        </button>
+                      </NavLink>
+                    </div>
                   </td>
                 </tr>
               ))}

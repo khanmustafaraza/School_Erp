@@ -16,6 +16,7 @@ import ClassRegister from "./pages/admin/classmanagement/ClassRegister";
 import ClassList from "./pages/admin/classmanagement/ClassList";
 import StudentRegister from "./pages/admin/studentmanagement/StudentRegister";
 import ClassTeacherRegister from "./pages/admin/classteachermanagement/ClassTeacherRegister";
+import ClassTeacherList from "./pages/admin/classteachermanagement/ClassTeacherList";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -49,6 +50,10 @@ const App = () => {
         <Route
           path="classteacher-management/classteacher-register/:id"
           element={<ClassTeacherRegister />}
+        />
+        <Route
+          path="classteacher-management/classteacher-list"
+          element={<ClassTeacherList />}
         />
         <Route
           path="student-management/student-register/:id"

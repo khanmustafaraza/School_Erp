@@ -85,7 +85,7 @@ const classUpdate = async (req, res) => {
 const classList = async (req, res) => {
   try {
     const classes = await Class.find({});
-    console.log(classes)
+  
 
     if (!classes) {
       return res.status(400).json({
