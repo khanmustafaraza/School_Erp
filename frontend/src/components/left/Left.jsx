@@ -23,19 +23,24 @@ const Left = ({ data }) => {
       </div>
 
       {/* Menu */}
-      <nav className="flex-1 mt-3 px-2 space-y-1">
+      <nav className="flex-1 mt-1 px-1 space-y-[2px]">
         {data?.map((item) => (
           <NavLink
+            title={`${item.title}`}
             key={item.id}
             to={item.link}
             className={({ isActive }) =>
-              `group flex items-center gap-2 px-3 py-2 rounded text-sm font-medium transition
-              ${isActive 
-                ? "bg-emerald-100 text-emerald-800 font-semibold" 
-                : "text-gray-600 hover:bg-emerald-50 hover:text-emerald-700"}`
+              `group flex items-center gap-2 lg:gap-5 px-3 py-[9px] rounded-sm text-sm font-bold transition
+              ${
+                isActive
+                  ? "bg-teal-500 text-white font-semibold"
+                  : "text-gray-500 hover:bg-teal-400 hover:text-white"
+              }`
             }
           >
-            <span className={`text-lg flex-shrink-0 ${"text-gray-400 group-hover:text-emerald-600"}`}>
+            <span
+              className={` text-xs lg:text-[22px] flex-shrink-0 ${"text-gray-500 group-hover:text-gray-600"}`}
+            >
               {item.icon}
             </span>
             <span>{item.title}</span>

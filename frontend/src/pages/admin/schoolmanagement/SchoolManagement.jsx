@@ -21,7 +21,7 @@ const SchoolManagement = () => {
     },
     {
       id: 1,
-      link: "/admin/user-management/school-list",
+      link: "/admin/school-management/school-list",
       icon: <MdAdminPanelSettings />,
       title: "School List",
       subTitle: 2000,
@@ -30,28 +30,22 @@ const SchoolManagement = () => {
       subIcon: <TbArrowBadgeRight />,
       subColor: "#b2ebf2",
     },
-   
   ];
 
   return (
     <AdminLayout>
-      <div className="p-2 md:p-6">
+      <div className="p-1">
         {/* Header */}
-        <div className="mb-2">
-          <h2 className="text-3xl font-semibold text-gray-800 tracking-tight py-2">
+        <div className="my-2">
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight p-1">
             School Management
           </h2>
-         
-       
         </div>
 
         {/* Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="flex gap-2 flex-wrap">
           {data?.map((curEle) => (
-            <div
-              key={curEle.id}
-              className="transition-transform transform hover:-translate-y-1"
-            >
+            <div key={curEle.id}>
               <Card curEle={curEle} />
             </div>
           ))}

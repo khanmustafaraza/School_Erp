@@ -19,6 +19,7 @@ import ClassTeacherRegister from "./pages/admin/classteachermanagement/ClassTeac
 import ClassTeacherList from "./pages/admin/classteachermanagement/ClassTeacherList";
 import SchoolManagement from "./pages/admin/schoolmanagement/SchoolManagement";
 import SchoolRegister from "./pages/admin/schoolmanagement/SchoolRegister";
+import SchoolList from "./pages/admin/schoolmanagement/SchoolList";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -35,14 +36,12 @@ const App = () => {
           path="enquiry-management/enquiry-list"
           element={<EnquiryList />}
         />
-        <Route
-          path="school-management"
-          element={<SchoolManagement />}
-        />
+        <Route path="school-management" element={<SchoolManagement />} />
         <Route
           path="school-management/school-register"
           element={<SchoolRegister />}
         />
+        <Route path="school-management/school-list" element={<SchoolList />} />
         <Route path="user-management" element={<UserManagement />} />
         <Route
           path="user-management/user-register"

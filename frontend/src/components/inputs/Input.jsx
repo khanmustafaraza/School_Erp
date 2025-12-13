@@ -21,7 +21,7 @@ const Input = ({
       </label>
 
       {/* Icon + Input in one row */}
-      <div className="flex items-center border border-gray-400 rounded-md px-2">
+      <div className="flex items-center border border-gray-400 rounded-sm px-2">
         {iconType == "react" ? (
           <span className="mr-2 text-gray-500 text-xl"> {icon}</span>
         ) : (

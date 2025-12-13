@@ -8,11 +8,11 @@ const Card = ({ curEle }) => {
     <NavLink to={link}>
       <div
         className="flex items-center justify-between w-[260px] h-[120px]
-          p-2 rounded-sm shadow-md hover:shadow-xl
+          p-2 rounded-sm shadow-sm hover:shadow-md
           transition-all duration-300 bg-[#ffeecc]"
       >
         {/* Left Section */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {/* Main Icon */}
           <div
             className={`w-14 h-14 flex justify-center items-center rounded-xl text-3xl shadow-sm`}
