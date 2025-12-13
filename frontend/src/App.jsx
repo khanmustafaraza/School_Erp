@@ -17,6 +17,8 @@ import ClassList from "./pages/admin/classmanagement/ClassList";
 import StudentRegister from "./pages/admin/studentmanagement/StudentRegister";
 import ClassTeacherRegister from "./pages/admin/classteachermanagement/ClassTeacherRegister";
 import ClassTeacherList from "./pages/admin/classteachermanagement/ClassTeacherList";
+import SchoolManagement from "./pages/admin/schoolmanagement/SchoolManagement";
+import SchoolRegister from "./pages/admin/schoolmanagement/SchoolRegister";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -32,6 +34,14 @@ const App = () => {
         <Route
           path="enquiry-management/enquiry-list"
           element={<EnquiryList />}
+        />
+        <Route
+          path="school-management"
+          element={<SchoolManagement />}
+        />
+        <Route
+          path="school-management/school-register"
+          element={<SchoolRegister />}
         />
         <Route path="user-management" element={<UserManagement />} />
         <Route

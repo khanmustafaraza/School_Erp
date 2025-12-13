@@ -6,13 +6,13 @@ import { TbArrowBadgeRight } from "react-icons/tb";
 import { MdAdminPanelSettings } from "react-icons/md";
 import Card from "components/card/Card";
 
-const UserManagement = () => {
+const SchoolManagement = () => {
   const data = [
     {
       id: 0,
-      link: "/admin/user-management/user-register",
+      link: "/admin/school-management/school-register",
       icon: <FaRegRegistered />,
-      title: "Add User",
+      title: "Add School",
       subTitle: 2000,
       bgColor: "#e6f4ea",
       iconColor: "#2f855a",
@@ -21,51 +21,28 @@ const UserManagement = () => {
     },
     {
       id: 1,
-      link: "/admin/user-management/admin-list",
+      link: "/admin/user-management/school-list",
       icon: <MdAdminPanelSettings />,
-      title: "Admin List",
+      title: "School List",
       subTitle: 2000,
       bgColor: "#e0f7fa",
       iconColor: "#0097a7",
       subIcon: <TbArrowBadgeRight />,
       subColor: "#b2ebf2",
     },
-    {
-      id: 2,
-      link: "/admin/user-management/teacher-list",
-      icon: <FaChalkboardTeacher />,
-      title: "Teacher List",
-      subTitle: 2000,
-      bgColor: "#fff4e6",
-      iconColor: "#f59e0b",
-      subIcon: <TbArrowBadgeRight />,
-      subColor: "#ffe8b3",
-    },
-    {
-      id: 3,
-      link: "/admin/user-management/student-list",
-      icon: <PiStudentDuotone />,
-      title: "Student List",
-      subTitle: 2000,
-      bgColor: "#f3e8ff",
-      iconColor: "#9f7aea",
-      subIcon: <TbArrowBadgeRight />,
-      subColor: "#e9d8fd",
-    },
+   
   ];
 
   return (
     <AdminLayout>
-      <div className="p-4 md:p-6">
+      <div className="p-2 md:p-6">
         {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800 tracking-tight">
-            User Management
+        <div className="mb-2">
+          <h2 className="text-3xl font-semibold text-gray-800 tracking-tight py-2">
+            School Management
           </h2>
-          <p className="text-gray-500 mt-1 text-sm">
-            Manage users, admins, teachers, and students efficiently.
-          </p>
-          <div className="mt-3 border-t border-gray-200"></div>
+         
+       
         </div>
 
         {/* Card Grid */}
@@ -84,4 +61,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default SchoolManagement;
