@@ -181,7 +181,7 @@ const ClassTeacherList = () => {
                 onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
                 className="px-3 py-1 rounded-md text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300"
               >
-                Next
+                Nexttttt
               </button>
             </div>
           )}
