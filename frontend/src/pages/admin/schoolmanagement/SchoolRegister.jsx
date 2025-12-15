@@ -1,53 +1,35 @@
 import React, { useEffect, useState } from "react";
-import {
-  FaUser,
-  FaLock,
-  FaEnvelope,
-  FaUserShield,
-  FaSchool,
-} from "react-icons/fa";
-import useAuth from "../../../store/authcontext/AuthContext";
-import Input from "../../../components/inputs/Input";
-import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FaSchool } from "react-icons/fa";
+import useAuth from "store/authcontext/AuthContext";
+import Input from "components/inputs/Input";
+import AdminLayout from "adminLayout/AdminLayout";
 import { FaSchoolFlag } from "react-icons/fa6";
+import MainHeading from "components/headings/MainHeading";
+import usePage from "store/pagelocationcontext/PageLocationContext";
+import { useSchool } from "../../../store/schoolcontext/SchoolContext";
+import { FiUpload } from "react-icons/fi";
+import { useRef } from "react";
 
 const SchoolRegister = () => {
-  const { state, handleUserChange, handleUserRegister } = useAuth();
-  const [schoolData, setSchoolData] = useState({
-    name: "",
-    subName: "",
-    affiCode: "",
-    code: "",
-    board: "",
-    email: "",
-    contact: "",
-    address: "",
-  });
-
-  const handleSchoolChange = (e) => {
-    const { name, value } = e.target;
-    setSchoolData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSchoolSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  const location = useLocation();
-  const [pagePath, setPagePath] = useState("");
-  const navigate = useNavigate();
+  const { handlePageUrl, pageUrl } = usePage();
+  const { state, handleSchoolChange, handleSchoolRegister ,handleSchoolPhotoChange,schoolPhoto} = useSchool();
 
   useEffect(() => {
-    setPagePath(location.pathname);
-  }, [location]);
+    handlePageUrl();
+  }, []);
+
+  const fileInputRef = useRef(null);
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <AdminLayout>
       {/* Breadcrumb */}
       <div className="flex items-center text-sm my-1">
         <span className=" capitalize bg-teal-600 font-bold   p-[5px] py-2 text-white rounded ">
-          {pagePath}
+          {pageUrl && pageUrl}
         </span>
       </div>
 
@@ -55,36 +37,19 @@ const SchoolRegister = () => {
       <div className="flex justify-center">
         <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
           {/* Header */}
-          <div className=" bg-[#ffeecc] p-1 flex justify-between items-center flex-wrap">
-            <div className="flex items-center gap-3">
-              <FaSchool className="text-teal-600 text-xl lg:text-3xl" />
-              <div>
-                <h1
-                  className="text-sm lg:text-2xl font-bold text-gray-900"
-                  style={{ fontFamily: "cursive" }}
-                >
-                  REGISTER SCHOOL
-                </h1>
-                <p className="text-gray-600 text-sm font-bold">
-                  Fill in the details to add a new school info
-                </p>
-              </div>
-            </div>
-            <div>
-              <button
-                onClick={() => navigate("/admin/school-management")}
-                className=" px-4 py-1 lg:px-5  lg:py-3 bg-teal-600 text-white font-medium rounded-sm hover:bg-teal-500 transition"
-              >
-                School Management
-              </button>
-            </div>
-          </div>
+          <MainHeading
+            icon={<FaSchool className="text-teal-600 text-xl lg:text-3xl" />}
+            title="REGISTER SCHOOL"
+            subTitle="Fill in the details to add a new school info"
+            path="/admin/school-management"
+          />
+        
 
           {/* Form Body */}
           <form
             className="p-1"
             onSubmit={(e) => {
-              handleSchoolSubmit(e);
+              handleSchoolRegister(e);
             }}
           >
             {/* Section: School Info */}
@@ -101,7 +66,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="name"
                   placeholder="Enter School Name"
-                  value={schoolData.name}
+                  value={state.school.name}
                   onChange={handleSchoolChange}
                 />
               </div>
@@ -113,7 +78,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="subName"
                   placeholder="Enter school Sub Title"
-                  value={schoolData.subName}
+                  value={state.school.subName}
                   onChange={handleSchoolChange}
                 />
               </div>
@@ -126,7 +91,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="affiCode"
                   placeholder="Enter affiliation number"
-                  value={schoolData.affiCode}
+                  value={state.school.affiCode}
                   onChange={handleSchoolChange}
                   className="flex-1"
                 />
@@ -137,7 +102,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="code"
                   placeholder="Enter Code of School"
-                  value={schoolData.code}
+                  value={state.school.code}
                   onChange={handleSchoolChange}
                   className="flex-1"
                 />
@@ -148,7 +113,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="board"
                   placeholder="Enter board of School"
-                  value={schoolData.board}
+                  value={state.school.board}
                   onChange={handleSchoolChange}
                   className="flex-1"
                 />
@@ -162,7 +127,7 @@ const SchoolRegister = () => {
                   type="email"
                   name="email"
                   placeholder="Enter Email Address"
-                  value={schoolData.email}
+                  value={state.school.email}
                   onChange={handleSchoolChange}
                   className="flex-1"
                 />
@@ -173,7 +138,7 @@ const SchoolRegister = () => {
                   type="text"
                   name="contact"
                   placeholder="Enter contact number"
-                  value={schoolData.contact}
+                  value={state.school.contact}
                   onChange={handleSchoolChange}
                   className="flex-1"
                 />
@@ -187,9 +152,27 @@ const SchoolRegister = () => {
                   type="text"
                   name="address"
                   placeholder="Enter Address"
-                  value={schoolData.address}
+                  value={state.school.address}
                   onChange={handleSchoolChange}
                 />
+              </div>
+              <div className="mb-5">
+                {/* Hidden file input */}
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  onChange={(e) =>handleSchoolPhotoChange(e)}
+                />
+
+                {/* Custom upload button */}
+                <div
+                  onClick={handleClick}
+                  className="flex items-center justify-center gap-2 border border-gray-400 py-2 cursor-pointer hover:bg-gray-100 rounded-sm"
+                >
+                  {!schoolPhoto&&<FiUpload className="text-xl" />}
+                  <span>{schoolPhoto?schoolPhoto.name:"Upload School Photo"}</span>
+                </div>
               </div>
             </div>
 

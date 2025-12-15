@@ -1,59 +1,34 @@
-import React from "react";
-import { useLocation, NavLink } from "react-router-dom";
-import { useTheme } from "../../context/themecontext/ThemeContext";
-import { FaPlus, FaHome } from "react-icons/fa";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const MainHeading = ({ isButton, btnTitle }) => {
-  const location = useLocation();
-  const { theme } = useTheme();
-
-  // Split pathname safely
-  const pathParts = location.pathname.split("/").filter(Boolean);
-  console.log(location);
-  const mainPath = pathParts[0] || "dashboard";
-  const subPath = pathParts[1] || "";
-
+const MainHeading = ({icon,title,subTitle,path}) => {
+  const navigate = useNavigate()
   return (
-    <div className="flex items-center justify-between mb-6 border-b">
-      {/* 🏷️ Heading Section */}
-      <div className="flex items-center gap-3">
-        <div
-          className={`p-3 rounded-full ${
-            theme ? "bg-blue-100 text-blue-700" : "bg-gray-700 text-blue-400"
-          }`}
-        >
-          <FaHome className="text-xl" />
-        </div>
-        <div>
-          <h2
-            className={`text-2xl font-semibold capitalize ${
-              theme ? "text-blue-700" : "text-white"
-            }`}
-          >
-            {mainPath}
-            {subPath && <span className="text-gray-400"> / {subPath}</span>}
-          </h2>
-          <p
-            className={`text-sm ${
-              theme ? "text-gray-500" : "text-gray-400"
-            } mt-1`}
-          >
-            Manage and organize your {mainPath} easily.
-          </p>
-        </div>
-      </div>
+      <div className=" bg-[#ffeecc] p-1 flex justify-between items-center flex-wrap">
+            <div className="flex items-center gap-3">
+             {icon}
+              <div>
+                <h1
+                  className="text-sm lg:text-2xl font-bold text-gray-900"
+                  style={{ fontFamily: "cursive" }}
+                >
+               {title}
+                </h1>
+                <p className="text-gray-600 text-sm font-bold">
+                 {subTitle}
+                </p>
+              </div>
+            </div>
+            <div>
+              <button
+                onClick={() => navigate(`${path}`)}
+                className=" px-4 py-1 lg:px-5  lg:py-3 bg-teal-600 text-white font-medium rounded-sm hover:bg-teal-500 transition"
+              >
+                School Management
+              </button>
+            </div>
+          </div>
+  )
+}
 
-      {/* ➕ Add Button */}
-      {isButton && (
-        <NavLink
-          to={`${location.pathname}`}
-          className="flex items-center gap-2 mr-1 bg-[#ddd2fd]  text-white px-5 py-2.5 rounded-sm shadow transition-all duration-200 hover:scale-[1.03]"
-        >
-          <span className="font-medium">{btnTitle}</span>
-        </NavLink>
-      )}
-    </div>
-  );
-};
-
-export default MainHeading;
+export default MainHeading

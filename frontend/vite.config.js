@@ -10,7 +10,7 @@ export default defineConfig({
       admin: path.resolve(__dirname, "./src/pages/admin"),
       components: path.resolve(__dirname, "./src/components"),
       adminLayout: path.resolve(__dirname, "./src/layout/adminlayout"),
-      adminContext: path.resolve(__dirname, "./src/context/admincontext"),
+      store: path.resolve(__dirname, "./src/store"),
     },
   },
 });

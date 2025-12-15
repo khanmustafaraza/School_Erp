@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../../../layout/adminlayout/AdminLayout";
+import AdminLayout from "adminLayout/AdminLayout";
 import { FiEye, FiTrash2 } from "react-icons/fi";
-import { FaEdit, FaSchool, FaSearch } from "react-icons/fa";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import useClassTeacher from "../../../store/admincontext/classteachercontext/ClassTeacherContext";
+import { FaEdit, FaSchool,} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { useSchool } from "store/schoolcontext/SchoolContext";
 
 const SchoolList = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { state } = useClassTeacher();
-  const [pagePath, setPagePath] = useState("");
+   const {schoolList} = useSchool()
+ 
 
   // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+ 
 
   // Compute sliced data for current page
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -34,6 +31,10 @@ const SchoolList = () => {
   const hoverColors = ["#FFE8B3", "#C8E6C9", "#BBDEFB", "#E1BEE7", "#FFE0B2"];
 
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(()=>{
+schoolList
+  },[])
 
   return (
     <AdminLayout>

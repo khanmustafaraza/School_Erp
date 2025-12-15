@@ -7,23 +7,29 @@ import { BrowserRouter } from "react-router-dom";
 // import { StudentAppProvider } from "adminContext/studentcontext/StudentContext.jsx";
 import "./index.css";
 // import { ThemeAppProvider } from "./context/themecontext/ThemeContext.jsx";
-import { AuthAppProvider } from "./store/authcontext/AuthContext.jsx";
-import { ClassAppProvider } from "./store/admincontext/classcontext/ClassContext.jsx";
-import { ClassTeacherAppProvider } from "./store/admincontext/classteachercontext/ClassTeacherContext.jsx";
-import { StudentAdminAppProvider } from "./store/admincontext/studentadmincontext/StudentAdminContext.jsx";
+import { AuthAppProvider } from "store/authcontext/AuthContext.jsx";
+import { ClassAppProvider } from "store/admincontext/classcontext/ClassContext.jsx";
+import { ClassTeacherAppProvider } from "store/admincontext/classteachercontext/ClassTeacherContext.jsx";
+import { StudentAdminAppProvider } from "store/admincontext/studentadmincontext/StudentAdminContext.jsx";
+import { PageAppProvider } from "store/pagelocationcontext/PageLocationContext.jsx";
+import { SchoolAppProvider } from "./store/schoolcontext/SchoolContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    {/* <ThemeAppProvider> */}
-    <AuthAppProvider>
-      <ClassAppProvider>
-        <ClassTeacherAppProvider>
-          <StudentAdminAppProvider>
-            <App />
-          </StudentAdminAppProvider>
-        </ClassTeacherAppProvider>
-      </ClassAppProvider>
-    </AuthAppProvider>
+    <PageAppProvider>
+      <SchoolAppProvider>
+        {/* <ThemeAppProvider> */}
+        <AuthAppProvider>
+          <ClassAppProvider>
+            <ClassTeacherAppProvider>
+              <StudentAdminAppProvider>
+                <App />
+              </StudentAdminAppProvider>
+            </ClassTeacherAppProvider>
+          </ClassAppProvider>
+        </AuthAppProvider>
+      </SchoolAppProvider>
+    </PageAppProvider>
     {/* </ThemeAppProvider> */}
   </BrowserRouter>
 );

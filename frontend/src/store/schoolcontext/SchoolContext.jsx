@@ -1,6 +1,13 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
-import schoolReducer from "../../../reducers/adminreducer/schoolreducer/SchoolReducer";
+import schoolReducer from "../../reducers/schoolreducer/SchoolReducer";
+import { toast } from "react-toastify";
 
 //  ========================== Initial state ================================
 const initialState = {
@@ -11,17 +18,19 @@ const initialState = {
     code: "",
     affiCode: "",
     board: "",
-    address: "",
+
     email: "",
     contact: "",
+    address: "",
   },
 
   schoolList: [],
 };
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const SchoolAppContext = createContext();
 
 const SchoolAppProvider = ({ children }) => {
+  const [schoolPhoto, setSchoolPhoto] = useState(null);
   // // ************* use Reducer start **********************
 
   const [state, dispatch] = useReducer(schoolReducer, initialState);
@@ -37,23 +46,41 @@ const SchoolAppProvider = ({ children }) => {
       payload: { name, value },
     });
   };
+  const handleSchoolPhotoChange = (e) => {
+    setSchoolPhoto(e.target.files[0]);
+    console.log(schoolPhoto);
+  };
   // ! ================== handle enquiry change  end ================
   // todo *********************** handle enquiry submit start *********************
   const handleSchoolRegister = async (e) => {
     e.preventDefault();
-    const schoolObj = { ...state.school };
+    console.log(state.school, schoolPhoto);
+    if (!schoolPhoto) {
+      toast("School Photo is Required");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", state.school.name);
+    formData.append("subName", state.school.subName);
+   
+    formData.append("affiCode", state.school.affiCode);
+    formData.append("board", state.school.board);
+    formData.append("email", state.school.email);
+    formData.append("contact", state.school.contact);
+    formData.append("address", state.school.address);
+    formData.append("schoolPhoto", schoolPhoto);
+    // const schoolObj = { ...state.school };
 
     try {
-      const res = await fetch(
-        "http://localhost:5000/api/admin/school/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(schoolObj),
-        }
-      );
+      const res = await fetch(`${apiUrl}/api/admin/school/register`, {
+        method: "POST",
+
+        body: formData,
+      });
       const data = await res.json();
-      alert(data.message);
+      console.log(data)
+      toast(data.message);
     } catch (error) {
       alert(error.message);
     }
@@ -64,9 +91,10 @@ const SchoolAppProvider = ({ children }) => {
   const schoolList = async (value = " ") => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/admin/school/school-list`
+        `${apiUrl}/api/admin/school/school-list`
       );
       const data = await res.json();
+      console.log(data)
 
       if (data.success) dispatch({ type: "SCHOOL_LIST", payload: data.data });
     } catch (error) {
@@ -82,6 +110,8 @@ const SchoolAppProvider = ({ children }) => {
         handleSchoolChange,
         handleSchoolRegister,
         schoolList,
+        handleSchoolPhotoChange,
+        schoolPhoto,
       }}
     >
       {children}

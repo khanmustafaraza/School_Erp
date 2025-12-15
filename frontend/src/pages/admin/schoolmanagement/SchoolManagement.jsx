@@ -1,7 +1,6 @@
 import React from "react";
 import AdminLayout from "adminLayout/AdminLayout";
-import { FaChalkboardTeacher, FaRegRegistered } from "react-icons/fa";
-import { PiStudentDuotone } from "react-icons/pi";
+import { FaRegRegistered } from "react-icons/fa";
 import { TbArrowBadgeRight } from "react-icons/tb";
 import { MdAdminPanelSettings } from "react-icons/md";
 import Card from "components/card/Card";

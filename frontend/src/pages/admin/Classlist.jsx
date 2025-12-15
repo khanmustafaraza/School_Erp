@@ -32,7 +32,7 @@ const Classlist = () => {
             ) : null} */}
           </div>
           <h2 className="text-xl sm:text-3xl font-bold text-center text-indigo-400">
-            ALL Class List & Section and aa
+            ALL Class List & Section
           </h2>
           <div className=" flex flex-wrap justify-center items-center gap-6 ">
             {state.allClasses?.map((curEle) => {
