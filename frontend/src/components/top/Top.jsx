@@ -10,7 +10,7 @@ const Top = () => {
     <header className="w-full bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shadow-sm">
       {/* Brand */}
       <h1 className="text-lg font-semibold text-slate-900 tracking-tight">
-        School ERP
+        School
       </h1>
 
       {/* Actions */}
