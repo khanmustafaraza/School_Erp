@@ -93,13 +93,11 @@ const AuthAppProvider = ({ children }) => {
   // ! ************** get enquiry list ****************
 
   const enquiryList = async (value = "") => {
-    console.log("called")
     try {
       const res = await fetch(
         `http://localhost:5000/api/enquiry/enquiry-list?search=${value}`
       );
       const data = await res.json();
-      console.log(data)
 
       if (data.success) dispatch({ type: "ENQUIRY_LIST", payload: data.data });
     } catch (error) {
@@ -194,7 +192,7 @@ const AuthAppProvider = ({ children }) => {
     try {
       const res = await fetch("http://localhost:5000/api/admin/user/user-list");
       const data = await res.json();
-      console.log("data", data.data);
+
       if (data.success) dispatch({ type: "GET_USER_LIST", payload: data.data });
     } catch (error) {
       console.error(error.message);

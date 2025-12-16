@@ -48,13 +48,12 @@ const SchoolAppProvider = ({ children }) => {
   };
   const handleSchoolPhotoChange = (e) => {
     setSchoolPhoto(e.target.files[0]);
-    console.log(schoolPhoto);
   };
   // ! ================== handle enquiry change  end ================
   // todo *********************** handle enquiry submit start *********************
   const handleSchoolRegister = async (e) => {
     e.preventDefault();
-    console.log(state.school, schoolPhoto);
+
     if (!schoolPhoto) {
       toast("School Photo is Required");
       return;
@@ -63,7 +62,8 @@ const SchoolAppProvider = ({ children }) => {
     const formData = new FormData();
     formData.append("name", state.school.name);
     formData.append("subName", state.school.subName);
-   
+    formData.append("code", state.school.code);
+
     formData.append("affiCode", state.school.affiCode);
     formData.append("board", state.school.board);
     formData.append("email", state.school.email);
@@ -79,7 +79,7 @@ const SchoolAppProvider = ({ children }) => {
         body: formData,
       });
       const data = await res.json();
-      console.log(data)
+
       toast(data.message);
     } catch (error) {
       alert(error.message);
@@ -90,11 +90,8 @@ const SchoolAppProvider = ({ children }) => {
   // ! ************** get school list ****************
   const getSchoolList = async () => {
     try {
-      const res = await fetch(
-        `${apiUrl}/api/admin/school/school-list`
-      );
+      const res = await fetch(`${apiUrl}/api/admin/school/school-list`);
       const data = await res.json();
-      console.log("data",data)
 
       if (data.success) dispatch({ type: "SCHOOL_LIST", payload: data.data });
     } catch (error) {
@@ -102,7 +99,6 @@ const SchoolAppProvider = ({ children }) => {
     }
   };
   // ! ************** get school list ****************
-  
 
   return (
     <SchoolAppContext.Provider

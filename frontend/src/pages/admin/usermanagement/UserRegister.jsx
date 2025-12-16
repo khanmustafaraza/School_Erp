@@ -3,65 +3,41 @@ import { FaUser, FaLock, FaEnvelope, FaUserShield } from "react-icons/fa";
 import useAuth from "../../../store/authcontext/AuthContext";
 import Input from "../../../components/inputs/Input";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import { useLocation, useNavigate } from "react-router-dom";
+import usePage from "../../../store/pagelocationcontext/PageLocationContext";
+import MainHeading from "../../../components/headings/MainHeading";
+import RegisterBtn from "../../../components/registerbtn/RegisterBtn";
 
 const UserRegister = () => {
   const { state, handleUserChange, handleUserRegister } = useAuth();
-  const location = useLocation();
-  const [pagePath, setPagePath] = useState("");
-  const navigate = useNavigate();
+  const { handlePageUrl, pageUrl } = usePage();
 
   useEffect(() => {
-    setPagePath(location.pathname);
-  }, [location]);
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
       {/* Breadcrumb */}
-      <div className="flex items-center text-sm text-gray-500 mb-6">
-        {pagePath
-          .split("/")
-          .filter(Boolean)
-          .map((segment, i, arr) => (
-            <span key={i} className="flex items-center">
-              <span className="capitalize">{segment.replace(/-/g, " ")}</span>
-              {i !== arr.length - 1 && (
-                <span className="mx-2 text-gray-400">/</span>
-              )}
-            </span>
-          ))}
-      </div>
 
       {/* Main Form Container */}
-      <div className="flex justify-center py-6">
-        <div className="w-full max-w-3xl bg-white rounded-lg shadow-md overflow-hidden">
-          
-          {/* Header */}
-          <div className="bg-[#ffeecc] p-6 flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <FaUserShield className="text-indigo-600 text-3xl" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Add New User</h1>
-                <p className="text-gray-600 text-sm">
-                  Enter the user details to create a new account
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => navigate("/admin/user-list")}
-              className="px-5 py-2 bg-teal-100 text-teal-700 font-medium rounded-md hover:bg-teal-200 transition"
-            >
-              User List
-            </button>
+      <div className="flex justify-center">
+        <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
           </div>
+          {/* Header */}
+          <MainHeading
+            title="REGISTER A NEW USER"
+            path="/admin/user-management"
+            btnTitle="User Management"
+          />
 
           {/* Form Body */}
-          <form 
-            onSubmit={handleUserRegister} 
-            className="p-6 space-y-8"
-          >
+          <form onSubmit={handleUserRegister}>
             {/* Section: Basic Info */}
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-gray-50 p-2 rounded-sm shadow-sm">
               <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
                 <FaUser className="text-indigo-600" /> Basic Information
               </h2>
@@ -123,21 +99,7 @@ const UserRegister = () => {
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
-              <button
-                type="button"
-                className="px-8 py-3 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-10 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition"
-              >
-                Register User
-              </button>
-            </div>
+            <RegisterBtn />
           </form>
         </div>
       </div>

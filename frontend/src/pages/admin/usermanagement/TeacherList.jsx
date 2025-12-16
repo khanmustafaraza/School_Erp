@@ -4,142 +4,125 @@ import { FiEye, FiTrash2 } from "react-icons/fi";
 import { FaEdit, FaSearch } from "react-icons/fa";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../store/authcontext/AuthContext";
+import MainHeading from "../../../components/headings/MainHeading";
+import usePage from "../../../store/pagelocationcontext/PageLocationContext";
 
 const TeacherList = () => {
-  const location = useLocation();
-  const [pagePath, setPagePath] = useState("");
   const { state, getUserList } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setPagePath(location.pathname);
-  }, [location]);
 
   useEffect(() => {
     getUserList();
   }, []);
+  const { handlePageUrl, pageUrl } = usePage();
+
+  useEffect(() => {
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
-      <div className="p-4">
+      <div className="">
         {/* Breadcrumb */}
-        <div className="flex items-center text-sm text-gray-500 mb-6 space-x-1">
-          {pagePath
-            .split("/")
-            .filter(Boolean)
-            .map((segment, i, arr) => (
-              <span key={i} className="flex items-center capitalize">
-                {segment.replace(/-/g, " ")}
-                {i !== arr.length - 1 && (
-                  <span className="mx-2 text-gray-400">/</span>
-                )}
-              </span>
-            ))}
-        </div>
 
-        {/* Header + Search */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
-          <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">
-            Teacher Register List
-          </h2>
-
-          <div className="relative w-full sm:w-72">
-            <FaSearch className="absolute left-3 top-3 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search admins..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 
-                focus:ring-2 focus:ring-indigo-500 
-                focus:border-indigo-500 outline-none text-sm transition"
-            />
+        <div className="shadow border p-1">
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-3 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
           </div>
-          <div>
-            <button
-              className="py-2 px-8 bg-slate-500 text-white rounded"
-              onClick={() => navigate("/admin/user-management")}
-            >
-              User List
-            </button>
-          </div>
-        </div>
+          <MainHeading
+            title="LIST OF USER REGISTER (TEACHERS)*"
+            path="/admin/User-management"
+            btnTitle="User Management"
+          />
 
-        {/* Table */}
-        <div className="overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
-          <table className="w-full text-left">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr className="border-b">
-                <th className="px-6 py-3 text-sm font-semibold">#</th>
-                <th className="px-6 py-3 text-sm font-semibold">Full Name</th>
-                <th className="px-6 py-3 text-sm font-semibold">Email</th>
-                <th className="px-6 py-3 text-sm font-semibold">Role</th>
-                <th className="px-6 py-3 text-sm font-semibold text-center">
-                  Actions
-                </th>
-              </tr>
-            </thead>
+          {/* Table */}
+          {/* Table */}
+          <div className="overflow-x-auto rounded-sm shadow-sm bg-white border border-gray-200 p-1">
+            <table className="min-w-full  rounded overflow-hidden text-center">
+              <thead className="bg-black text-white">
+                <tr>
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+                    #
+                  </th>
+                  <th className="px-4 py-3 text-xs font-semibold  uppercase tracking-wider">
+                    User Name
+                  </th>
+                  <th className="px-4 py-3 text-xs font-semibold  uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th className="px-4 py-3 text-xs font-semibold  uppercase tracking-wider">
+                    Role
+                  </th>
 
-            <tbody>
-              {state?.userList
-                ?.filter((user) => user.role === "teacher")
-                .map((cur, index) => (
-                  <tr
-                    key={cur._id}
-                    className={`border-b transition ${
-                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } hover:bg-indigo-50`}
-                  >
-                    <td className="px-6 py-3 text-gray-700">{index + 1}</td>
-                    <td className="px-6 py-3 font-medium text-gray-800">
-                      {cur.userName}
-                    </td>
-                    <td className="px-6 py-3 text-gray-800">{cur.email}</td>
-                    <td className="px-6 py-3">
-                      <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium 
+                  <th className="px-4 py-3 text-xs font-semibold  uppercase tracking-wider text-center">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="">
+                {state?.userList
+                  ?.filter((user) => user.role === "teacher")
+                  .map((u, index) => (
+                    <tr key={u._id} className="bg-gray-100 hover:bg-gray-300 ">
+                      <td className="px-4 py-3 text-gray-700">{index + 1}</td>
+                      <td className="px-4 py-3 font-medium text-gray-800">
+                        {u?.userName || "-"}
+                      </td>
+                      <td className="px-4 py-3 text-gray-800">
+                        {u.email || "-"}
+                      </td>
+                      <td className="px-4 py-3 text-gray-800">
+                        <span
+                          className={`px-3 py-3 text-sm rounded-full font-medium 
       ${
-        cur.role === "teacher"
+        u.role === "teacher"
           ? "bg-blue-100 text-blue-800"
-          : cur.role === "teacher"
+          : u.role === "teacher"
           ? "bg-green-100 text-green-800"
           : "bg-purple-100 text-purple-800"
       }`}
-                      >
-                        {cur.role}
-                      </span>
-                    </td>
-
-                    <td className="px-6 py-3">
-                      <div className="flex items-center justify-center gap-3">
-                        <button
-                          className="p-2 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 transition shadow-sm"
-                          title="View"
                         >
-                          <FiEye size={18} />
-                        </button>
+                          {u.role}
+                        </span>
+                      </td>
 
-                        <button
-                          className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-red-600 transition shadow-sm"
-                          title="Delete"
-                        >
-                          <FiTrash2 size={18} />
-                        </button>
-
-                        <NavLink
-                          to={`/admin/classteacher-management/classteacher-register/${cur._id}`}
-                        >
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-center gap-1">
                           <button
-                            className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-green-600 transition shadow-sm"
-                            title="Add Class Teacher"
+                            className="p-1.5 rounded-full bg-gray-900 hover:bg-gray-700 
+                          text-white  transition text-sm"
+                            title="View"
                           >
-                            <FaEdit size={18} />
+                            <FiEye size={16} />
                           </button>
-                        </NavLink>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+
+                          <button
+                            className="p-1.5 rounded-full bg-red-600 hover:bg-red-900 
+                          text-white transition text-sm"
+                            title="Delete"
+                          >
+                            <FiTrash2 size={16} />
+                          </button>
+
+                          <NavLink
+                            to={`/admin/classteacher-management/classteacher-register/${u._id}`}
+                          >
+                            <button
+                              className="p-1.5 rounded-full bg-teal-500                  text-white shadow hover:bg-teal-700 transition text-sm"
+                              title="Edit Class Teacher"
+                            >
+                              <FaEdit size={16} />
+                            </button>
+                          </NavLink>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </AdminLayout>

@@ -56,25 +56,18 @@ const UserManagement = () => {
 
   return (
     <AdminLayout>
-      <div className="p-4 md:p-6">
+      <div className="p-1">
         {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800 tracking-tight">
+        <div className="my-2">
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight p-1">
             User Management
           </h2>
-          <p className="text-gray-500 mt-1 text-sm">
-            Manage users, admins, teachers, and students efficiently.
-          </p>
-          <div className="mt-3 border-t border-gray-200"></div>
         </div>
 
         {/* Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="flex gap-2 flex-wrap">
           {data?.map((curEle) => (
-            <div
-              key={curEle.id}
-              className="transition-transform transform hover:-translate-y-1"
-            >
+            <div key={curEle.id}>
               <Card curEle={curEle} />
             </div>
           ))}

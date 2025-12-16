@@ -1,52 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
 import Input from "../../../components/inputs/Input";
 import { useClass } from "../../../store/admincontext/classcontext/ClassContext";
 import { FaIcons, LuIcons, MdIcons } from "../../../components/icons/Icons";
+import MainHeading from "../../../components/headings/MainHeading";
+import usePage from "../../../store/pagelocationcontext/PageLocationContext";
 
 const ClassRegister = () => {
   const { state, handleClassChange, handleClassRegister } = useClass();
   const { MdClass } = MdIcons;
   const { LuSection } = LuIcons;
+  const { handlePageUrl, pageUrl } = usePage();
+
+  useEffect(() => {
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
+      {/* Breadcrumb */}
 
-      {/* 🔹 Top Heading + Button (Side-by-Side & Responsive) */}
-      <div className="w-full flex flex-col md:flex-row items-center justify-between px-4 py-6 gap-3">
-        
-        {/* Heading */}
-        <div className="text-center md:text-left">
-          <h1 className="text-3xl font-extrabold text-gray-800 tracking-wide">
-            Class Management
-          </h1>
-          <p className="text-gray-500 mt-1 text-sm">
-            Create and manage school classes easily
-          </p>
-        </div>
-
-        {/* Button */}
-        <button
-          className="px-5 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-sm text-sm font-medium transition-all"
-        >
-          Class List
-        </button>
-
-      </div>
-
-      <div className="flex items-center justify-center py-6">
-        <div className="bg-white border border-gray-200 w-full max-w-3xl rounded-md shadow-lg p-8">
-
-          {/* Center Card Title + Button */}
-          <div className="relative mb-8">
-            <h3 className="text-2xl font-bold text-center text-gray-800">
-              Register a New Class
-            </h3>
-
-           
+      {/* Main Form Container */}
+      <div className="flex justify-center">
+        <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
           </div>
+          {/* Header */}
+          <MainHeading
+            title="REGISTER A NEW USER"
+            path="/admin/user-management"
+            btnTitle="User Management"
+          />
 
-          {/* Form */}
+          {/* Form Body */}
           <form onSubmit={handleClassRegister}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Input
@@ -83,10 +72,8 @@ const ClassRegister = () => {
               </button>
             </div>
           </form>
-
         </div>
       </div>
-
     </AdminLayout>
   );
 };

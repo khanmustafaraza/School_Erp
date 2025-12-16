@@ -1,34 +1,25 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const MainHeading = ({icon,title,subTitle,path}) => {
-  const navigate = useNavigate()
+const MainHeading = ({ title, path, btnTitle }) => {
+  const navigate = useNavigate();
   return (
-      <div className=" bg-[#ffeecc] p-1 flex justify-between items-center flex-wrap">
-            <div className="flex items-center gap-3">
-             {icon}
-              <div>
-                <h1
-                  className="text-sm lg:text-2xl font-bold text-gray-900"
-                  style={{ fontFamily: "cursive" }}
-                >
-               {title}
-                </h1>
-                <p className="text-gray-600 text-sm font-bold">
-                 {subTitle}
-                </p>
-              </div>
-            </div>
-            <div>
-              <button
-                onClick={() => navigate(`${path}`)}
-                className=" px-4 py-1 lg:px-5  lg:py-3 bg-teal-600 text-white font-medium rounded-sm hover:bg-teal-500 transition"
-              >
-                School Management
-              </button>
-            </div>
-          </div>
-  )
-}
+    <div className="sp-1">
+      <h1 className="text-sm lg:text-xl font-bold text-gray-400 text-center">
+        {title}
+      </h1>
+      <div className="flex justify-end my-2">
+        <div>
+          <button
+            onClick={() => navigate(`${path}`)}
+            className=" px-2 py-1 lg:px-3  lg:py-2 bg-teal-400 text-white font-medium rounded-sm hover:bg-teal-500 transition"
+          >
+            {btnTitle}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default MainHeading
+export default MainHeading;

@@ -1,7 +1,9 @@
 const School = require("../models/schoolModel");
 
 const registerSchool = async (req, res) => {
-  const { name, subName, code, affiCode, board, contact, email, address } = req.body;
+  const { name, subName, code, affiCode, board, contact, email, address } =
+    req.body;
+  console.log(req.body);
 
   try {
     let photoObj = "";
@@ -33,7 +35,7 @@ const registerSchool = async (req, res) => {
   }
 };
 const schoolList = async (req, res) => {
-  console.log("school")
+  console.log("school");
   try {
     const schools = await School.find().sort({ createdAt: -1 });
     res.status(200).json({
@@ -45,6 +47,4 @@ const schoolList = async (req, res) => {
   }
 };
 
-
-
-module.exports = { registerSchool ,schoolList};
+module.exports = { registerSchool, schoolList };

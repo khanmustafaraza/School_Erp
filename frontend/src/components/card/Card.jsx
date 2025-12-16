@@ -9,13 +9,13 @@ const Card = ({ curEle }) => {
       <div
         className="flex items-center justify-between w-[260px] h-[120px]
           p-2 rounded-sm shadow-sm hover:shadow-md
-          transition-all duration-300 bg-[#ffeecc]"
+          transition-all duration-300 bg-[#af986a]"
       >
         {/* Left Section */}
         <div className="flex items-center gap-2">
           {/* Main Icon */}
           <div
-            className={`w-14 h-14 flex justify-center items-center rounded-xl text-3xl shadow-sm`}
+            className={`w-10 h-10 flex justify-center items-center rounded-sm text-xl shadow-sm border border-black`}
             style={{ backgroundColor: bgColor }}
           >
             {icon}
@@ -23,7 +23,7 @@ const Card = ({ curEle }) => {
 
           {/* Text */}
           <div>
-            <h5 className="text-base font-semibold text-gray-900 capitalize">
+            <h5 className="text-base font-bold text-gray-600 capitalize">
               {title}
             </h5>
             <p className="text-gray-500 text-sm mt-1">{subTitle}</p>

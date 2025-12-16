@@ -47,42 +47,42 @@ const AdminLayout = ({ children }) => {
     },
     {
       id: 1,
-      title: "School Management",
+      title: "Schools",
       icon: <FaSchool />,
       link: "/admin/school-management",
     },
     {
       id: 2,
-      title: "Enquiry List",
+      title: "Enquiries",
       icon: <FaEnvelopeOpenText />,
       link: "/admin/enquiry-management",
     },
-
     {
       id: 3,
-      title: "User Management",
+      title: "Users",
       icon: <FaUser />,
       link: "/admin/user-management",
     },
     {
       id: 4,
-      title: "Class Mangament",
+      title: "Classes",
       icon: <FaEnvelopeOpenText />,
       link: "/admin/class-management",
     },
     {
       id: 5,
-      title: "Student List",
+      title: "Students",
       icon: <PiStudentBold />,
       link: "/admin/student-list",
     },
     {
       id: 6,
-      title: "Class Teachers List",
+      title: "Class Teachers",
       icon: <SiGoogleclassroom />,
       link: "/admin/classteacher-management/classteacher-list",
     },
   ];
+
   return (
     <>
       <div

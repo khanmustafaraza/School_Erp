@@ -1,144 +1,124 @@
 import React, { useEffect, useState } from "react";
-import AdminLayout from "../../../layout/adminlayout/AdminLayout";
+import AdminLayout from "adminLayout/AdminLayout";
 import { FiEye, FiTrash2 } from "react-icons/fi";
-import { FaSearch } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
-import useAuth from "../../../store/authcontext/AuthContext";
-
-const enquiryList = [
-  {
-    id: 1,
-    fullName: "Kathleen Meyer",
-    phone: "+1 (519) 546-4122",
-    subject: "Fuga Facilis tempor",
-    message: "Molestias sit elit",
-  },
-  {
-    id: 2,
-    fullName: "Kathleen Meyer",
-    phone: "+1 (519) 546-4122",
-    subject: "Fuga Facilis tempor",
-    message: "Molestias sit elit",
-  },
-  {
-    id: 3,
-    fullName: "Kathleen Meyer",
-    phone: "+1 (519) 546-4122",
-    subject: "Fuga Facilis tempor",
-    message: "Molestias sit elit",
-  },
-  {
-    id: 4,
-    fullName: "Kathleen Meyer",
-    phone: "+1 (519) 546-4122",
-    subject: "Fuga Facilis tempor",
-    message: "Molestias sit elit",
-  },
-];
+import { FaEdit, FaSchool } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import usePage from "store/pagelocationcontext/PageLocationContext";
+import MainHeading from "components/headings/MainHeading";
+import useAuth from "store/authcontext/AuthContext";
 
 const EnquiryList = () => {
-  const location = useLocation();
-  const [pagePath, setPagePath] = useState("");
   const { state, enquiryList } = useAuth();
+  const { handlePageUrl, pageUrl } = usePage();
 
-  useEffect(() => {
-    setPagePath(location.pathname);
-  }, [location]);
   useEffect(() => {
     enquiryList();
   }, []);
-  console.log(state)
+  useEffect(() => {
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
-      <div className="p-1">
-        {/* Elegant Breadcrumb */}
-        <div className="flex items-center text-sm text-gray-500 mb-4">
-          {pagePath
-            .split("/")
-            .filter(Boolean)
-            .map((segment, i, arr) => (
-              <span key={i} className="flex items-center">
-                <span className="capitalize">{segment.replace(/-/g, " ")}</span>
-                {i !== arr.length - 1 && (
-                  <span className="mx-2 text-gray-400">/</span>
-                )}
-              </span>
-            ))}
-        </div>
+      <div className="">
+        {/* Breadcrumb */}
 
-        {/* Header + Search */}
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-2xl font-semibold text-gray-800 tracking-wide">
-            Enquiry List
-          </h2>
-
-          {/* Elegant Search Bar */}
-          <div className="relative w-72">
-            <FaSearch className="absolute left-3 top-3 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search enquiries..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 
-              focus:ring-2 focus:ring-indigo-500 
-              focus:border-indigo-500 outline-none text-sm transition"
-            />
+        <div className="shadow border p-1">
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
           </div>
-        </div>
+          <MainHeading
+            title="LIST OF ENQUIRY"
+            path="/admin/enquiry-management"
+            btnTitle="Enquiry Management"
+          />
 
-        {/* Table */}
-        <div className="overflow-x-auto bg-white border border-gray-200 rounded shadow-sm">
-          <table className="w-full text-left">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr className="border-b">
-                <th className="px-6 py-3 text-sm font-semibold">#</th>
-                <th className="px-6 py-3 text-sm font-semibold">Full Name</th>
-                <th className="px-6 py-3 text-sm font-semibold">Phone</th>
-                <th className="px-6 py-3 text-sm font-semibold">Subject</th>
-                <th className="px-6 py-3 text-sm font-semibold">Message</th>
-                <th className="px-6 py-3 text-sm font-semibold text-center">
-                  Actions
-                </th>
-              </tr>
-            </thead>
+          {/* Table */}
+          <div className="overflow-x-auto rounded-sm shadow-sm bg-white border border-gray-200 p-1">
+            <table className="min-w-full  rounded overflow-hidden text-center">
+              <thead className="bg-black text-white">
+                <tr>
+                  <th className="px-4 py-2 text-xs font-semibold uppercase tracking-wider">
+                    #
+                  </th>
+                  <th className="px-4 py-2 text-xs font-semibold  uppercase tracking-wider">
+                    Full Name
+                  </th>
+                  <th className="px-4 py-2 text-xs font-semibold  uppercase tracking-wider">
+                    Mobile No
+                  </th>
+                  <th className="px-4 py-2 text-xs font-semibold  uppercase tracking-wider">
+                    Subject
+                  </th>
+                  <th className="px-4 py-2 text-xs font-semibold  uppercase tracking-wider">
+                    Message
+                  </th>
 
-            <tbody>
-              {state?.enquiryList?.map((item, index) => (
-                <tr
-                  key={item._id}
-                  className={`border-b transition ${
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  } hover:bg-indigo-50`}
-                >
-                  <td className="px-6 py-3 text-gray-700">{index + 1}</td>
-                  <td className="px-6 py-3 font-medium text-gray-800">
-                    {item.fullName}
-                  </td>
-                  <td className="px-6 py-3 text-gray-800">{item.phone}</td>
-                  <td className="px-6 py-3 text-gray-800">{item.subject}</td>
-                  <td className="px-6 py-3 text-gray-800">{item.message}</td>
-
-                  <td className="px-6 py-3">
-                    <div className="flex items-center justify-center gap-4">
-                      <button
-                        className="p-2 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-600 transition"
-                        title="View"
-                      >
-                        <FiEye size={18} />
-                      </button>
-
-                      <button
-                        className="p-2 rounded-full bg-red-50 hover:bg-red-100 text-red-600 transition"
-                        title="Delete"
-                      >
-                        <FiTrash2 size={18} />
-                      </button>
-                    </div>
-                  </td>
+                  <th className="px-4 py-2 text-xs font-semibold  uppercase tracking-wider text-center">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody className="">
+                {state?.enquiryList?.map((e, index) => (
+                  <tr
+                    key={e._id}
+                    className="bg-gray-100 hover:bg-gray-300 border-b"
+                  >
+                    <td className="px-4 py-1 text-gray-700">{index + 1}</td>
+                    <td className="px-4 py-1 font-medium text-gray-800">
+                      {e?.fullName || "-"}
+                    </td>
+                    <td className="px-4 py-1 text-gray-800">
+                      {e.phone || "-"}
+                    </td>
+                    <td className="px-4 py-1 text-gray-800">
+                      {e?.subject || "-"}
+                    </td>
+                    <td className="px-4 py-1 text-gray-800">
+                      {e?.message || "-"}
+                    </td>
+
+                    <td className="px-4 py-1">
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          className="p-1.5 rounded-full bg-gray-900 hover:bg-gray-700 
+                          text-white  transition text-sm"
+                          title="View"
+                        >
+                          <FiEye size={16} />
+                        </button>
+
+                        <button
+                          className="p-1.5 rounded-full bg-red-600 hover:bg-red-900 
+                          text-white transition text-sm"
+                          title="Delete"
+                        >
+                          <FiTrash2 size={16} />
+                        </button>
+
+                        <NavLink
+                          to={`/admin/classteacher-management/classteacher-register/${e._id}`}
+                        >
+                          <button
+                            className="p-1.5 rounded-full bg-teal-500                  text-white shadow hover:bg-teal-700 transition text-sm"
+                            title="Edit Class Teacher"
+                          >
+                            <FaEdit size={16} />
+                          </button>
+                        </NavLink>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Pagination Controls */}
+          </div>
         </div>
       </div>
     </AdminLayout>

@@ -2,6 +2,7 @@ import React from "react";
 import AdminLayout from "adminLayout/AdminLayout";
 import Card from "components/card/Card";
 import { FaIcons } from "components/icons/Icons";
+import { FaListAlt } from "react-icons/fa";
 
 const EnquiryManagement = () => {
   const { FaUser } = FaIcons;
@@ -9,7 +10,7 @@ const EnquiryManagement = () => {
     {
       id: 0,
       link: "/admin/enquiry-management/enquiry-list", // ✅ fixed typo
-      icon: <FaUser />,
+      icon: <FaListAlt />,
       title: "Enquiry List",
       subTitle: 2000,
 
@@ -18,7 +19,7 @@ const EnquiryManagement = () => {
   ];
 
   return (
-     <AdminLayout>
+    <AdminLayout>
       <div className="p-1">
         {/* Header */}
         <div className="my-2">

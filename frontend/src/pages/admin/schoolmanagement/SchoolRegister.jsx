@@ -12,7 +12,13 @@ import { useRef } from "react";
 
 const SchoolRegister = () => {
   const { handlePageUrl, pageUrl } = usePage();
-  const { state, handleSchoolChange, handleSchoolRegister ,handleSchoolPhotoChange,schoolPhoto} = useSchool();
+  const {
+    state,
+    handleSchoolChange,
+    handleSchoolRegister,
+    handleSchoolPhotoChange,
+    schoolPhoto,
+  } = useSchool();
 
   useEffect(() => {
     handlePageUrl();
@@ -27,23 +33,21 @@ const SchoolRegister = () => {
   return (
     <AdminLayout>
       {/* Breadcrumb */}
-      <div className="flex items-center text-sm my-1">
-        <span className=" capitalize bg-teal-600 font-bold   p-[5px] py-2 text-white rounded ">
-          {pageUrl && pageUrl}
-        </span>
-      </div>
 
       {/* Main Form Container */}
       <div className="flex justify-center">
         <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
+          </div>
           {/* Header */}
           <MainHeading
-            icon={<FaSchool className="text-teal-600 text-xl lg:text-3xl" />}
-            title="REGISTER SCHOOL"
-            subTitle="Fill in the details to add a new school info"
+            title="REGISTER A NEW SCHOOL"
             path="/admin/school-management"
+            btnTitle="School Management"
           />
-        
 
           {/* Form Body */}
           <form
@@ -53,11 +57,10 @@ const SchoolRegister = () => {
             }}
           >
             {/* Section: School Info */}
-            <div className="bg-teal-10 p-2 rounded-sm shadow-sm">
+            <div className="bg-gray-50 p-2 rounded-sm shadow-sm">
               <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                <FaSchoolFlag className="text-teal-600" /> School Information
+                <FaSchool className="text-indigo-600" /> Basic Information
               </h2>
-
               <div className="mb-5">
                 <Input
                   id="name"
@@ -162,7 +165,7 @@ const SchoolRegister = () => {
                   type="file"
                   ref={fileInputRef}
                   className="hidden"
-                  onChange={(e) =>handleSchoolPhotoChange(e)}
+                  onChange={(e) => handleSchoolPhotoChange(e)}
                 />
 
                 {/* Custom upload button */}
@@ -170,8 +173,10 @@ const SchoolRegister = () => {
                   onClick={handleClick}
                   className="flex items-center justify-center gap-2 border border-gray-400 py-2 cursor-pointer hover:bg-gray-100 rounded-sm"
                 >
-                  {!schoolPhoto&&<FiUpload className="text-xl" />}
-                  <span>{schoolPhoto?schoolPhoto.name:"Upload School Photo"}</span>
+                  {!schoolPhoto && <FiUpload className="text-xl" />}
+                  <span>
+                    {schoolPhoto ? schoolPhoto.name : "Upload School Photo"}
+                  </span>
                 </div>
               </div>
             </div>

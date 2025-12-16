@@ -10,35 +10,30 @@ import MainHeading from "../../../components/headings/MainHeading";
 const SchoolList = () => {
   const { state, getSchoolList } = useSchool();
   const { handlePageUrl, pageUrl } = usePage();
-  console.log(state)
 
   useEffect(() => {
     getSchoolList();
-    
   }, []);
-  useEffect(()=>{
-handlePageUrl()
-  },[])
- 
+  useEffect(() => {
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
       <div className="">
         {/* Breadcrumb */}
 
-        <div className="flex items-center text-sm my-1">
-          <span className=" capitalize bg-teal-600 font-bold   p-[5px] py-2 text-white rounded ">
-            {pageUrl && pageUrl}
-          </span>
-        </div>
         <div className="shadow border p-1">
-          <MainHeading icon ={ <FaSchool className="text-teal-600 text-xl lg:text-3xl" />}
-          title ="SCHOOL LIST"
-          subTitle ="  List Of Schools Register"
-          path="/admin/school-management"
-          
+          <div className="flex items-center text-sm my-1">
+            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
+              Page Address:- {pageUrl && pageUrl}
+            </span>
+          </div>
+          <MainHeading
+            title="LIST OF SCHOOL REGISTER"
+            path="/admin/school-management"
+            btnTitle="School Management"
           />
-         
 
           {/* Table */}
           <div className="overflow-x-auto rounded-sm shadow-sm bg-white border border-gray-200 p-1">
