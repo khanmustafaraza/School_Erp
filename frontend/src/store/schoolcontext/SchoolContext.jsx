@@ -88,13 +88,13 @@ const SchoolAppProvider = ({ children }) => {
   // todo *********************** handle enquiry submit end *****************
 
   // ! ************** get school list ****************
-  const schoolList = async (value = " ") => {
+  const getSchoolList = async () => {
     try {
       const res = await fetch(
         `${apiUrl}/api/admin/school/school-list`
       );
       const data = await res.json();
-      console.log(data)
+      console.log("data",data)
 
       if (data.success) dispatch({ type: "SCHOOL_LIST", payload: data.data });
     } catch (error) {
@@ -102,6 +102,7 @@ const SchoolAppProvider = ({ children }) => {
     }
   };
   // ! ************** get school list ****************
+  
 
   return (
     <SchoolAppContext.Provider
@@ -109,7 +110,7 @@ const SchoolAppProvider = ({ children }) => {
         state,
         handleSchoolChange,
         handleSchoolRegister,
-        schoolList,
+        getSchoolList,
         handleSchoolPhotoChange,
         schoolPhoto,
       }}

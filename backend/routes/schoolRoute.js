@@ -14,6 +14,6 @@ router.post(
   upload.single("schoolPhoto"),
   schoolController.registerSchool
 );
-router.get("school-list",schoolController.schoolList)
+router.get("/school-list",schoolController.schoolList)
 
 module.exports = router;

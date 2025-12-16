@@ -18,11 +18,23 @@ const EnquiryManagement = () => {
   ];
 
   return (
-    <AdminLayout>
-      <div className="flex flex-wrap gap-4">
-        {data?.map((curEle) => {
-          return <Card key={curEle.id} curEle={curEle} />; // ✅ proper return
-        })}
+     <AdminLayout>
+      <div className="p-1">
+        {/* Header */}
+        <div className="my-2">
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight p-1">
+            Enquiry Management
+          </h2>
+        </div>
+
+        {/* Card Grid */}
+        <div className="flex gap-2 flex-wrap">
+          {data?.map((curEle) => (
+            <div key={curEle.id}>
+              <Card curEle={curEle} />
+            </div>
+          ))}
+        </div>
       </div>
     </AdminLayout>
   );

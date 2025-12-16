@@ -57,12 +57,12 @@ const createClassTeacher = async (req, res) => {
 
 // ✅ Get all class teacher assignments
 const getAllClassTeachers = async (req, res) => {
-  console.log("first")
+
   try {
     const result = await ClassTeacher.find()
       .populate("userId", "userName email")
       .populate("classId", "name section");
-      console.log("classteacher",result)
+  
 
     res.status(200).json({success:true, count: result.length, data: result });
   } catch (error) {

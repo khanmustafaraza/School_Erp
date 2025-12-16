@@ -33,6 +33,7 @@ const registerSchool = async (req, res) => {
   }
 };
 const schoolList = async (req, res) => {
+  console.log("school")
   try {
     const schools = await School.find().sort({ createdAt: -1 });
     res.status(200).json({
