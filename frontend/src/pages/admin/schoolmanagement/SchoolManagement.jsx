@@ -36,7 +36,7 @@ const SchoolManagement = () => {
       <div className="p-1">
         {/* Header */}
         <div className="my-2">
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight p-1">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight p-1">
             School Management
           </h2>
         </div>
@@ -44,7 +44,7 @@ const SchoolManagement = () => {
         {/* Card Grid */}
         <div className="flex gap-2 flex-wrap">
           {data?.map((curEle) => (
-            <div key={curEle.id}>
+            <div key={curEle.id} title={`${curEle.title}`}>
               <Card curEle={curEle} />
             </div>
           ))}

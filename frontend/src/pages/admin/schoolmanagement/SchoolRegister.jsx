@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaSchool } from "react-icons/fa";
-import useAuth from "store/authcontext/AuthContext";
 import Input from "components/inputs/Input";
 import AdminLayout from "adminLayout/AdminLayout";
-import { FaSchoolFlag } from "react-icons/fa6";
 import MainHeading from "components/headings/MainHeading";
 import usePage from "store/pagelocationcontext/PageLocationContext";
-import { useSchool } from "../../../store/schoolcontext/SchoolContext";
+import { useSchool } from "store/schoolcontext/SchoolContext";
 import { FiUpload } from "react-icons/fi";
 import { useRef } from "react";
+import FormContainer from "components/form/FormContainer";
+import PageUrl from "components/pageurl/PageUrl";
 
 const SchoolRegister = () => {
   const { handlePageUrl, pageUrl } = usePage();
@@ -32,35 +32,26 @@ const SchoolRegister = () => {
 
   return (
     <AdminLayout>
-      {/* Breadcrumb */}
-
       {/* Main Form Container */}
       <div className="flex justify-center">
         <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
-          <div className="flex items-center text-sm my-1">
-            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
-              Page Address:- {pageUrl && pageUrl}
-            </span>
-          </div>
+          {/* page url */}
+
+          <PageUrl pageUrl={pageUrl} />
           {/* Header */}
           <MainHeading
             title="REGISTER A NEW SCHOOL"
             path="/admin/school-management"
-            btnTitle="School Management"
+            btnTitle="School List"
           />
-
-          {/* Form Body */}
-          <form
-            className="p-1"
+          <FormContainer
             onSubmit={(e) => {
               handleSchoolRegister(e);
             }}
+            icon ={ <FaSchool className="text-indigo-600" />}
+            title ="Basic Information"
           >
-            {/* Section: School Info */}
-            <div className="bg-gray-50 p-2 rounded-sm shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                <FaSchool className="text-indigo-600" /> Basic Information
-              </h2>
+            <div>
               <div className="mb-5">
                 <Input
                   id="name"
@@ -180,23 +171,7 @@ const SchoolRegister = () => {
                 </div>
               </div>
             </div>
-
-            {/* Actions */}
-            <div className="flex justify-start gap-4 pt-2 flex-wrap">
-              <button
-                type="button"
-                className="px-8 py-3 bg-[#ffeecc] text-gray-700 rounded-sm hover:bg-[#f0ca7e] transition"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-8 py-3 bg-teal-600 text-white font-medium rounded-sm hover:bg-teal-500 transition"
-              >
-                Register
-              </button>
-            </div>
-          </form>
+          </FormContainer>
         </div>
       </div>
     </AdminLayout>

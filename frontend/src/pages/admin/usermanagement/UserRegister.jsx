@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaUser, FaLock, FaEnvelope, FaUserShield } from "react-icons/fa";
 import useAuth from "../../../store/authcontext/AuthContext";
-import Input from "../../../components/inputs/Input";
+import Input from "components/inputs/Input";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
 import usePage from "../../../store/pagelocationcontext/PageLocationContext";
-import MainHeading from "../../../components/headings/MainHeading";
-import RegisterBtn from "../../../components/registerbtn/RegisterBtn";
+import MainHeading from "components/headings/MainHeading";
+import RegisterBtn from "components/btn/registerbtn/RegisterBtn";
+import PageUrl from "../../../components/pageurl/PageUrl";
+import FormContainer from "../../../components/form/FormContainer";
 
 const UserRegister = () => {
   const { state, handleUserChange, handleUserRegister } = useAuth();
@@ -22,26 +24,20 @@ const UserRegister = () => {
       {/* Main Form Container */}
       <div className="flex justify-center">
         <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
-          <div className="flex items-center text-sm my-1">
-            <span className=" capitalize font-bold   p-[5px] py-2 text-gray-400 border-b-2">
-              Page Address:- {pageUrl && pageUrl}
-            </span>
-          </div>
+         <PageUrl pageUrl={pageUrl} />
           {/* Header */}
           <MainHeading
             title="REGISTER A NEW USER"
             path="/admin/user-management"
-            btnTitle="User Management"
+            btnTitle="User List"
           />
 
           {/* Form Body */}
-          <form onSubmit={handleUserRegister}>
-            {/* Section: Basic Info */}
-            <div className="bg-gray-50 p-2 rounded-sm shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                <FaUser className="text-indigo-600" /> Basic Information
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <FormContainer 
+          onSubmit={(e)=>handleUserRegister(e)}
+          >
+            <div>
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <Input
                   id="userName"
                   icon={<FaUser />}
@@ -98,9 +94,7 @@ const UserRegister = () => {
                 </div>
               </div>
             </div>
-
-            <RegisterBtn />
-          </form>
+          </FormContainer>
         </div>
       </div>
     </AdminLayout>

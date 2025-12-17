@@ -67,7 +67,7 @@ const UserManagement = () => {
         {/* Card Grid */}
         <div className="flex gap-2 flex-wrap">
           {data?.map((curEle) => (
-            <div key={curEle.id}>
+            <div key={curEle.id} title={`${curEle.title}`}>
               <Card curEle={curEle} />
             </div>
           ))}
