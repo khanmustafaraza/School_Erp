@@ -53,7 +53,7 @@ const AdminLayout = ({ children }) => {
     },
     {
       id: 2,
-      title: "Enquiries",
+      title: "Enquiries List",
       icon: <FaEnvelopeOpenText />,
       link: "/admin/enquiry-management",
     },
@@ -65,19 +65,19 @@ const AdminLayout = ({ children }) => {
     },
     {
       id: 4,
-      title: "Classes",
+      title: "Classes List",
       icon: <FaEnvelopeOpenText />,
       link: "/admin/class-management",
     },
     {
       id: 5,
-      title: "Students",
+      title: "Students List",
       icon: <PiStudentBold />,
       link: "/admin/student-list",
     },
     {
       id: 6,
-      title: "Class Teachers",
+      title: "Class Teachers List",
       icon: <SiGoogleclassroom />,
       link: "/admin/classteacher-management/classteacher-list",
     },

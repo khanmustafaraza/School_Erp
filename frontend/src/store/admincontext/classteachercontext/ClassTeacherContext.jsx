@@ -11,7 +11,6 @@ const initialState = {
     remarks: "",
   },
   classTeacherList: [],
-  
 };
 
 const ClassTeacherContext = createContext();
@@ -27,12 +26,12 @@ const ClassTeacherAppProvider = ({ children }) => {
   };
 
   // Register new teacher
-  const handleClassTeacherRegister = async (e,userId) => {
+  const handleClassTeacherRegister = async (e, userId) => {
     e.preventDefault();
-    const classTeacherObj ={
+    const classTeacherObj = {
       ...state.register,
-      userId
-    }
+      userId,
+    };
     try {
       const res = await fetch(
         "http://localhost:5000/api/admin/classteacher/register",
@@ -62,6 +61,7 @@ const ClassTeacherAppProvider = ({ children }) => {
         "http://localhost:5000/api/admin/classteacher/class-teacher-list"
       );
       const data = await res.json();
+
       if (data.success) {
         dispatch({ type: "SET_CLASS_TEACHER_LIST", payload: data.data });
       }
@@ -70,10 +70,7 @@ const ClassTeacherAppProvider = ({ children }) => {
     }
   };
 
-  
-
   useEffect(() => {
-    
     getClassTeacherList();
   }, []);
 

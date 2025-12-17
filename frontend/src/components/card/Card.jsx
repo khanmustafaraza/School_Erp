@@ -9,7 +9,7 @@ const Card = ({ curEle }) => {
       <div
         className="flex items-center justify-between w-[260px] h-[120px]
           p-2 rounded-sm shadow-sm hover:shadow-md
-          transition-all duration-300 bg-[#af986a]"
+          transition-all duration-300 bg-teal-400"
       >
         {/* Left Section */}
         <div className="flex items-center gap-2">

@@ -11,9 +11,9 @@ const initialState = {
     dob: "",
     address: "",
     photo: null,
-    userId: "",      // Teacher ID
-    classId: "",     // Class ID
-    teacherId: "",   // ClassTeacher ID
+    userId: "", // Teacher ID
+    classId: "", // Class ID
+    teacherId: "", // ClassTeacher ID
   },
   studentList: [],
 };
@@ -109,15 +109,13 @@ const StudentAdminAppProvider = ({ children }) => {
 };
 
 // Custom hook
-const useStudent = () => {
+const useAdminStudent = () => {
   const context = useContext(StudentAdminAppContext);
   if (!context) {
-    throw new Error(
-      "useStudent must be used within a StudentAppProvider"
-    );
+    throw new Error("useStudent must be used within a StudentAppProvider");
   }
   return context;
 };
 
 export { StudentAdminAppProvider };
-export default useStudent;
+export default useAdminStudent;

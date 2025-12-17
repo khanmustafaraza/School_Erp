@@ -15,7 +15,6 @@ const classTeacherReducer = (state, action) => {
       };
     // todo Get class list
     case "SET_CLASS_TEACHER_LIST":
-      console.log('action',action.payload)
       return {
         ...state,
         classTeacherList: action.payload,

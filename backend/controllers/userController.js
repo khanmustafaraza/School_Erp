@@ -128,7 +128,7 @@ const userList = async (req, res) => {
         message: `Error While Fechting`,
       });
     }
-    return res.status(400).json({
+    return res.status(200).json({
       success: true,
       message: `All User Fectched Successfully`,
       data: users,

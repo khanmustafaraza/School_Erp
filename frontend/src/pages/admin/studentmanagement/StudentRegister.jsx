@@ -1,152 +1,174 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  FaUser,
+  FaLock,
+  FaEnvelope,
+  FaUserShield,
+  FaUserTie,
+  FaPhone,
+} from "react-icons/fa";
+import useAuth from "../../../store/authcontext/AuthContext";
+import Input from "components/inputs/Input";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import { FaUser, FaPhone, FaUserTie } from "react-icons/fa";
-import { MdDateRange, MdOutlineImage } from "react-icons/md";
-import Input from "../../../components/inputs/Input";
-import useStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
+import usePage from "../../../store/pagelocationcontext/PageLocationContext";
+import MainHeading from "components/headings/MainHeading";
+import RegisterBtn from "components/btn/registerbtn/RegisterBtn";
+import PageUrl from "../../../components/pageurl/PageUrl";
+import FormContainer from "components/form/FormContainer";
+import useClassTeacher from "store/admincontext/classteachercontext/ClassTeacherContext";
 import { useClass } from "../../../store/admincontext/classcontext/ClassContext";
-import useClassTeacher from "../../../store/admincontext/classteachercontext/ClassTeacherContext";
+import { useParams } from "react-router-dom";
+import useAdminStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
 
 const StudentRegister = () => {
-  const { state, handleStudentChange, handleStudentRegister } = useStudent();
-  const {state:{classList}}= useClass()
-  const{state:{classTeacherList}}= useClassTeacher()
+  const { handlePageUrl, pageUrl } = usePage();
+  const { state, handleStudentChange, handleStudentRegister } =
+    useAdminStudent();
+  const {
+    state: { classTeacherList },
+
+    handleClassTeacherRegister,
+  } = useClassTeacher();
+  const {
+    state: { classList },
+    getClassList,
+  } = useClass();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    handlePageUrl();
+    getClassList();
+  }, []);
 
   return (
     <AdminLayout>
-      <div className="flex justify-center py-8 px-4">
-        <div className="bg-white border border-gray-200 w-full max-w-3xl rounded-lg shadow p-8">
-          {/* Title */}
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-            Register Student
-          </h2>
+      <div className="flex justify-center">
+        <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
+          <PageUrl pageUrl={pageUrl} />
+          {/* Header */}
+          <MainHeading
+            title="ADD A NEW STUDENT"
+            path="/admin/user-management"
+            btnTitle="Register Student"
+          />
 
-          <form onSubmit={handleStudentRegister}>
-            {/* Row 1 → Full Name + Father Name */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="w-full">
-                <select name="" id="" className="w-full">
-                <option>Selet Class</option>
-                {
-                  classList.map((c)=>{
-                    return <option key={c._id} value={c._id}>{c.name}-{ c.section}</option>
-                  })
-                }
-                
-              </select>
-            </div>
+          {/* Form Body */}
+          <FormContainer onSubmit={(e) => handleStudentRegister(e, id)}>
             <div>
-             <select name="" id="" className="w-full">
-                <option>Selet Class Teacher</option>
-                {
-                  classTeacherList.map((c)=>{
-                    return <option key={c._id} value={c._id}>{c.userId.userName}</option>
-                  })
-                }
-                
-              </select>
-            </div>
-          
-
-            
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <Input
-                icon={<FaUser />}
-                iconType="react"
-                label="Student Full Name *"
-                type="text"
-                name="fullName"
-                placeholder="Enter full name"
-                value={state.register.fullName}
-                onChange={handleStudentChange}
-              />
-
-              <Input
-                icon={<FaUserTie />}
-                iconType="react"
-                label="Father Name *"
-                type="text"
-                name="fatherName"
-                placeholder="Enter father name"
-                value={state.register.fatherName}
-                onChange={handleStudentChange}
-              />
-            </div>
-
-            {/* Row 2 → Phone + Date of Birth */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <Input
-                icon={<FaPhone />}
-                iconType="react"
-                label="Phone Number *"
-                type="text"
-                name="phone"
-                placeholder="Enter phone number"
-                value={state.register.phone}
-                onChange={handleStudentChange}
-              />
-
-              <Input
-                icon={<MdDateRange />}
-                iconType="react"
-                label="Date of Birth *"
-                type="date"
-                name="dob"
-                placeholder=""
-                value={state.register.dob}
-                onChange={handleStudentChange}
-              />
-            </div>
-
-            {/* Address */}
-            <div className="mt-4">
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                Address *
-              </label>
-              <textarea
-                name="address"
-                rows="3"
-                placeholder="Enter full address"
-                onChange={handleStudentChange}
-                value={state.register.address}
-                required
-                className="w-full border border-gray-400 rounded-md px-3 py-2 outline-none bg-gray-50"
-              ></textarea>
-            </div>
-
-            {/* Photo Upload */}
-            <div className="mt-6">
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                Upload Photo *
-              </label>
-              <div className="flex items-center border border-gray-400 rounded-md px-3 py-2 bg-gray-50">
-                <MdOutlineImage className="text-xl text-gray-500 mr-2" />
-                <input
-                  type="file"
-                  name="photo"
-                  accept="image/*"
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="w-full">
+                  <select name="" id="" className="w-full">
+                    <option>Selet Class</option>
+                    {classList.map((c) => {
+                      return (
+                        <option key={c._id} value={c._id}>
+                          {c.name}-{c.section}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div>
+                  <select name="" id="" className="w-full">
+                    <option>Selet Class Teacher</option>
+                    {classTeacherList.map((c) => {
+                      return (
+                        <option key={c._id} value={c._id}>
+                          {c.userId.userName}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <Input
+                  icon={<FaUser />}
+                  iconType="react"
+                  label="Student Full Name *"
+                  type="text"
+                  name="fullName"
+                  placeholder="Enter full name"
+                  value={state.register.fullName}
                   onChange={handleStudentChange}
-                  required
-                  className="w-full"
+                />
+
+                <Input
+                  icon={<FaUserTie />}
+                  iconType="react"
+                  label="Father Name *"
+                  type="text"
+                  name="fatherName"
+                  placeholder="Enter father name"
+                  value={state.register.fatherName}
+                  onChange={handleStudentChange}
                 />
               </div>
-            </div>
 
-            {/* Submit Button */}
-            <div className="mt-8 text-center">
-              <button
-                type="submit"
-                className="px-10 py-3 bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-800 transition"
-              >
-                Register Student
-              </button>
+              {/* Row 2 → Phone + Date of Birth */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <Input
+                  icon={<FaPhone />}
+                  iconType="react"
+                  label="Phone Number *"
+                  type="text"
+                  name="phone"
+                  placeholder="Enter phone number"
+                  value={state.register.phone}
+                  onChange={handleStudentChange}
+                />
+
+                <Input
+                  icon=""
+                  iconType="react"
+                  label="Date of Birth *"
+                  type="date"
+                  name="dob"
+                  placeholder=""
+                  value={state.register.dob}
+                  onChange={handleStudentChange}
+                />
+              </div>
+
+              {/* Address */}
+              <div className="mt-4">
+                <label className="block mb-2 text-sm font-semibold text-gray-700">
+                  Address *
+                </label>
+                <textarea
+                  name="address"
+                  rows="3"
+                  placeholder="Enter full address"
+                  onChange={handleStudentChange}
+                  value={state.register.address}
+                  required
+                  className="w-full border border-gray-400 rounded-md px-3 py-2 outline-none bg-gray-50"
+                ></textarea>
+              </div>
+
+              {/* Photo Upload */}
+              <div className="mt-6">
+                <label className="block mb-2 text-sm font-semibold text-gray-700">
+                  Upload Photo *
+                </label>
+                <div className="flex items-center border border-gray-400 rounded-md px-3 py-2 bg-gray-50">
+                  {/* <MdOutlineImage className="text-xl text-gray-500 mr-2" /> */}
+                  <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    onChange={handleStudentChange}
+                    required
+                    className="w-full"
+                  />
+                </div>
+              </div>
             </div>
-          </form>
+          </FormContainer>
         </div>
       </div>
     </AdminLayout>
   );
 };
-
 export default StudentRegister;

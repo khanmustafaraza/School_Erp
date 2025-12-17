@@ -1,118 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { FaUser, FaLock, FaEnvelope, FaUserShield } from "react-icons/fa";
+import useAuth from "../../../store/authcontext/AuthContext";
+import Input from "components/inputs/Input";
 import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import Input from "../../../components/inputs/Input";
-import useClassTeacher from "../../../store/admincontext/classteachercontext/ClassTeacherContext";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import usePage from "../../../store/pagelocationcontext/PageLocationContext";
+import MainHeading from "components/headings/MainHeading";
+import RegisterBtn from "components/btn/registerbtn/RegisterBtn";
+import PageUrl from "../../../components/pageurl/PageUrl";
+import FormContainer from "components/form/FormContainer";
+import useClassTeacher from "store/admincontext/classteachercontext/ClassTeacherContext";
 import { useClass } from "../../../store/admincontext/classcontext/ClassContext";
 import { useParams } from "react-router-dom";
 
 const ClassTeacherRegister = () => {
-  const { state, handleClassTeacherChange, handleClassTeacherRegister } =
-    useClassTeacher();
-    const {state:{classList}}=useClass();
+  const { state, handleUserChange, handleUserRegister } = useAuth();
+  const { handlePageUrl, pageUrl } = usePage();
+  const {
+    state: {},
+    handleClassTeacherChange,
+    handleClassTeacherRegister,
+  } = useClassTeacher();
+  const {
+    state: { classList },
+    getClassList,
+  } = useClass();
 
-  const {id} =   useParams()
-  console.log(id)
+  const { id } = useParams();
+
+  useEffect(() => {
+    handlePageUrl();
+    getClassList();
+  }, []);
 
   return (
     <AdminLayout>
-      <div className="flex justify-center py-8 px-4">
-        <div className="bg-white border border-gray-200 w-full max-w-3xl rounded-xl shadow-lg p-10">
+      <div className="flex justify-center">
+        <div className="w-full bg-white rounded-sm shadow-sm border overflow-hidden p-1">
+          <PageUrl pageUrl={pageUrl} />
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center items-center gap-2 mb-2">
-              <FaChalkboardTeacher className="text-3xl text-blue-600" />
-              <h2 className="text-2xl font-bold text-gray-800">
-                Register Class Teacher
-              </h2>
-            </div>
-            <p className="text-gray-500 text-sm">
-              Fill in the details below to assign a teacher to a class.
-            </p>
-          </div>
+          <MainHeading
+            title="REGISTER A NEW USER"
+            path="/admin/user-management"
+            btnTitle="User List"
+          />
 
-          <form onSubmit={(e)=>handleClassTeacherRegister(e,id)} className="space-y-6">
-            {/* Teacher & Class */}
-            <div className="w-full">
-           
-
+          {/* Form Body */}
+          <FormContainer onSubmit={(e) => handleClassTeacherRegister(e, id)}>
+            <div>
               <div className="w-full">
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
                   Class <sup className="text-red-500">*</sup>
                 </label>
                 <select
                   name="classId"
-                 
                   onChange={handleClassTeacherChange}
                   className="w-full border border-gray-300 rounded-sm p-2.5 focus:ring-2 focus:ring-blue-500 transition"
                 >
                   <option value="">Select Class</option>
                   {classList?.map((cls) => (
                     <option key={cls._id} value={cls._id}>
-                      {cls.name.toUpperCase()} -   {cls.section.toUpperCase()}
+                      {cls.name.toUpperCase()} - {cls.section.toUpperCase()}
                     </option>
                   ))}
                 </select>
               </div>
-            </div>
 
-            {/* Academic Year & Status */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Academic Year *"
-                type="text"
-                name="academicYear"
-                placeholder="2024-2025"
-                value={state.register.academicYear}
-                onChange={handleClassTeacherChange}
-              />
+              {/* Academic Year & Status */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2">
+                <Input
+                  label="Academic Year *"
+                  type="text"
+                  name="academicYear"
+                  placeholder="2024-2025"
+                  value={state.register.academicYear}
+                  onChange={handleClassTeacherChange}
+                />
 
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    Status <sup className="text-red-500">*</sup>
+                  </label>
+                  <select
+                    name="status"
+                    value={state.register.status}
+                    onChange={handleClassTeacherChange}
+                    className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 transition"
+                  >
+                    <option value="active">Active</option>
+                    <option value="transferred">Transferred</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Remarks */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
-                  Status <sup className="text-red-500">*</sup>
+                  Remarks
                 </label>
-                <select
-                  name="status"
-                  value={state.register.status}
+                <textarea
+                  name="remarks"
+                  value={state.register.remarks}
                   onChange={handleClassTeacherChange}
-                  className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 transition"
-                >
-                  <option value="active">Active</option>
-                  <option value="transferred">Transferred</option>
-                  <option value="inactive">Inactive</option>
-                </select>
+                  placeholder="Any notes..."
+                  className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 transition resize-none"
+                  rows={3}
+                />
               </div>
             </div>
-
-            {/* Remarks */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Remarks
-              </label>
-              <textarea
-                name="remarks"
-                value={state.register.remarks}
-                onChange={handleClassTeacherChange}
-                placeholder="Any notes..."
-                className="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 transition resize-none"
-                rows={3}
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="text-center mt-6">
-              <button
-                type="submit"
-                className="px-10 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
-              >
-                Register Teacher
-              </button>
-            </div>
-          </form>
+          </FormContainer>
         </div>
       </div>
     </AdminLayout>
   );
 };
-
 export default ClassTeacherRegister;
