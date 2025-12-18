@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import studentReducer from "../../../reducers/adminreducer/studentreducer/StudentReducer";
+import studentAdminReducer from "../../../reducers/adminreducer/studentreducer/StudentReducer";
 
 // Initial state
 const initialState = {
   isLoading: false,
   register: {
+    classId: "",
+    classTeacherId: "",
     fullName: "",
     fatherName: "",
     phone: "",
@@ -21,12 +23,13 @@ const initialState = {
 const StudentAdminAppContext = createContext();
 
 const StudentAdminAppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(studentReducer, initialState);
+  const [state, dispatch] = useReducer(studentAdminReducer, initialState);
 
   // Handle input changes
   const handleStudentChange = (e) => {
     try {
       const { name, value, files } = e.target;
+      console.log(e.target.name, e.target.value);
       const fieldValue = files ? files[0] : value;
       dispatch({
         type: "ADMIN_STUDENT_CHANGE",
@@ -38,13 +41,16 @@ const StudentAdminAppProvider = ({ children }) => {
   };
 
   // Register a new student
-  const handleStudentRegister = async (e) => {
+  const handleStudentRegister = async (e, id) => {
     e.preventDefault();
 
     const formData = new FormData();
-    Object.entries(state.register).forEach(([key, value]) => {
-      if (value !== null) formData.append(key, value);
+    Object.entries(studentData).forEach(([key, value]) => {
+      formData.append(key, value);
     });
+
+    // append extra field
+    formData.append("userId", id);
 
     try {
       const res = await fetch(

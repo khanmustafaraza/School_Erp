@@ -1,11 +1,11 @@
 // ! Reducer function to handle state updates
-const studentReducer = (state, action) => {
+const studentAdminReducer = (state, action) => {
   switch (action.type) {
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
 
     // todo handle change of user by admin
-    case "ADMIN_CLASS_CHANGE":
+    case "ADMIN_STUDENT_CHANGE":
       return {
         ...state,
         register: {
@@ -25,4 +25,4 @@ const studentReducer = (state, action) => {
   }
 };
 
-export default studentReducer;
+export default studentAdminReducer;

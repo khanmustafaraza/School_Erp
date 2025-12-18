@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
-import {
-  FaUser,
-  FaLock,
-  FaEnvelope,
-  FaUserShield,
-  FaUserTie,
-  FaPhone,
-} from "react-icons/fa";
-import useAuth from "../../../store/authcontext/AuthContext";
+import React, { useEffect } from "react";
+import { FaUser, FaUserTie, FaPhone } from "react-icons/fa";
 import Input from "components/inputs/Input";
-import AdminLayout from "../../../layout/adminlayout/AdminLayout";
-import usePage from "../../../store/pagelocationcontext/PageLocationContext";
+import AdminLayout from "adminLayout/AdminLayout";
+import usePage from "store/pagelocationcontext/PageLocationContext";
 import MainHeading from "components/headings/MainHeading";
-import RegisterBtn from "components/btn/registerbtn/RegisterBtn";
-import PageUrl from "../../../components/pageurl/PageUrl";
+import PageUrl from "components/pageurl/PageUrl";
 import FormContainer from "components/form/FormContainer";
 import useClassTeacher from "store/admincontext/classteachercontext/ClassTeacherContext";
-import { useClass } from "../../../store/admincontext/classcontext/ClassContext";
+import { useClass } from "store/admincontext/classcontext/ClassContext";
 import { useParams } from "react-router-dom";
-import useAdminStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
+import useAdminStudent from "store/admincontext/studentadmincontext/StudentAdminContext";
 
 const StudentRegister = () => {
   const { handlePageUrl, pageUrl } = usePage();
@@ -26,8 +17,6 @@ const StudentRegister = () => {
     useAdminStudent();
   const {
     state: { classTeacherList },
-
-    handleClassTeacherRegister,
   } = useClassTeacher();
   const {
     state: { classList },
@@ -58,8 +47,8 @@ const StudentRegister = () => {
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="w-full">
-                  <select name="" id="" className="w-full">
-                    <option>Selet Class</option>
+                  <select name="classId"  className="w-full" onChange={handleStudentChange}>
+                    <option>Select Class</option>
                     {classList.map((c) => {
                       return (
                         <option key={c._id} value={c._id}>
@@ -70,7 +59,7 @@ const StudentRegister = () => {
                   </select>
                 </div>
                 <div>
-                  <select name="" id="" className="w-full">
+                  <select name="classTeacherId"  className="w-full" onChange={handleStudentChange}>
                     <option>Selet Class Teacher</option>
                     {classTeacherList.map((c) => {
                       return (
