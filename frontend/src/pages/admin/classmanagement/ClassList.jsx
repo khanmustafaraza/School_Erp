@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useClass } from "store/admincontext/classcontext/ClassContext";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import AdminLayout from "adminLayout/AdminLayout";
 import MainHeading from "components/headings/MainHeading";
 import usePage from "store/pagelocationcontext/PageLocationContext";
@@ -13,65 +14,59 @@ const ClassList = () => {
 
   useEffect(() => {
     handlePageUrl();
-  }, []);
-
-  useEffect(() => {
     getClassList();
   }, []);
 
   return (
     <AdminLayout>
-      <div className="p-2 shadow">
+      <div className="p-4">
         <PageUrl pageUrl={pageUrl} />
         <MainHeading
-          title="List of All Class Registered"
-          btnTitle="Class Register"
+          title="All Classes Registered"
+          btnTitle="Register New Class"
           path="/admin/class-management"
         />
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4"></div>
 
-        {/* Cards */}
-        <div className="flex flex-wrap gap-2 items-center ">
-          {state?.classList?.map((cls) => (
-            <div
+        {/* Cards Container */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+          {state?.classList?.map((cls, idx) => (
+            <NavLink
               key={cls._id}
-              className="flex-1 hover:bg-teal-400 bg-white border border-gray-200 rounded-sm p-4 shadow-sm hover:shadow-md transition"
+              to={`/admin/student-management/student-class-list/${cls._id}`}
+              className="group bg-white border border-gray-200 rounded-md shadow-sm hover:shadow-lg transition overflow-hidden"
             >
-              {/* Top */}
-              <div className="flex items-center gap-4 ">
-                <div className="w-11 h-11 flex items-center justify-center bg-blue-900 rounded-full">
-                  <FaChalkboardTeacher className="text-white text-lg" />
+              {/* Card Top */}
+              <div className="flex items-center p-4 gap-4 bg-black">
+                <div className="w-12 h-12 flex items-center justify-center bg-white rounded-full">
+                  <FaChalkboardTeacher className="text-indigo-600 text-xl" />
                 </div>
-
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800">
+                  <h3 className="text-lg font-bold text-white">
                     {cls.name.toUpperCase()}
                   </h3>
-                  <p className="text-sm font-semibold text-gray-700">
+                  <p className="text-sm font-medium text-white/80">
                     Section: {cls.section.toUpperCase()}
                   </p>
                 </div>
               </div>
 
-              {/* Action */}
-              <NavLink
-                title="Class Students"
-                to={`/admin/class/${cls._id}`}
-                className="inline-block text-sm font-medium text-indigo-600 hover:text-indigo-800 transition"
-              >
-                View Details →
-              </NavLink>
-            </div>
+              {/* Card Bottom */}
+              <div className="flex justify-between items-center p-4 border-t border-gray-100 group-hover:bg-gray-50 transition">
+                <span className="text-sm font-medium text-gray-700">
+                  View Details
+                </span>
+                <HiOutlineArrowNarrowRight className="text-indigo-600 text-xl" />
+              </div>
+            </NavLink>
           ))}
 
           {/* Empty State */}
           {state?.classList?.length === 0 && (
-            <div className="col-span-full text-center py-12 text-gray-500">
+            <div className="col-span-full text-center py-16 text-gray-500">
               No classes found.
               <NavLink
                 to="/admin/class-register"
-                className="ml-1 text-indigo-600 font-medium hover:underline"
+                className="ml-2 text-indigo-600 font-medium hover:underline"
               >
                 Create one
               </NavLink>

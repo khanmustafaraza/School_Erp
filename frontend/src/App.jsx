@@ -20,85 +20,105 @@ import ClassTeacherList from "./pages/admin/classteachermanagement/ClassTeacherL
 import SchoolManagement from "./pages/admin/schoolmanagement/SchoolManagement";
 import SchoolRegister from "./pages/admin/schoolmanagement/SchoolRegister";
 import SchoolList from "./pages/admin/schoolmanagement/SchoolList";
- import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import AllStudentList from "./pages/admin/studentmanagement/StudentList";
 import StudentDeatil from "./pages/admin/studentmanagement/StudentDeatil";
+import AttendanceManagement from "./pages/attendancemanagement/AttendanceManagement";
+import StudentClassList from "./pages/admin/studentmanagement/StudentClassList";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
   return (
-  <>
-  <ToastContainer 
-  
-  position="top-center"
-autoClose={500}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick={false}
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
+    <>
+      <ToastContainer
+        position="top-center"
+        autoClose={500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
 
-  />
-  
-    <Routes>
-      <Route path="/" element={<Home />} />
-      {/* <Route path="/login" element={<Login />} /> */}
-      <Route path="/enquiry" element={<Enquiry />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/enquiry" element={<Enquiry />} />
 
-      <Route path="/admin" element={<AdminRoute />}>
-        <Route path="admin-dashboard" element={<AdminDashboard />} />
-        <Route path="enquiry-management" element={<EnquiryManagement />} />
-        <Route
-          path="enquiry-management/enquiry-list"
-          element={<EnquiryList />}
-        />
-        <Route path="school-management" element={<SchoolManagement />} />
-        <Route
-          path="school-management/school-register"
-          element={<SchoolRegister />}
-        />
-        <Route path="school-management/school-list" element={<SchoolList />} />
-        <Route path="user-management" element={<UserManagement />} />
-        <Route
-          path="user-management/user-register"
-          element={<UserRegister />}
-        />
-        <Route path="user-management/admin-list" element={<AdminList />} />
-        <Route path="user-management/teacher-list" element={<TeacherList />} />
-        <Route path="user-management/student-list" element={<StudentList />} />
-        <Route path="class-management" element={<ClassManagement />} />
-        <Route
-          path="class-management/class-register"
-          element={<ClassRegister />}
-        />
-        <Route path="class-management/class-list" element={<ClassList />} />
-        <Route
-          path="classteacher-management/classteacher-register/:id"
-          element={<ClassTeacherRegister />}
-        />
-        <Route
-          path="classteacher-management/classteacher-list"
-          element={<ClassTeacherList />}
-        />
-        <Route
-          path="student-management/student-register/:id"
-          element={<StudentRegister />}
-        />
-        <Route
-          path="student-management/all-student-list"
-          element={<AllStudentList />}
-        />
-        <Route
-          path="student-management/student-detail/:id"
-          element={<StudentDeatil />}
-        />
-      </Route>
-    </Routes>
-  
-  </>
+        <Route path="/admin" element={<AdminRoute />}>
+          <Route path="admin-dashboard" element={<AdminDashboard />} />
+          <Route path="enquiry-management" element={<EnquiryManagement />} />
+          <Route
+            path="enquiry-management/enquiry-list"
+            element={<EnquiryList />}
+          />
+          <Route path="school-management" element={<SchoolManagement />} />
+          <Route
+            path="school-management/school-register"
+            element={<SchoolRegister />}
+          />
+          <Route
+            path="school-management/school-list"
+            element={<SchoolList />}
+          />
+          <Route path="user-management" element={<UserManagement />} />
+          <Route
+            path="user-management/user-register"
+            element={<UserRegister />}
+          />
+          <Route path="user-management/admin-list" element={<AdminList />} />
+          <Route
+            path="user-management/teacher-list"
+            element={<TeacherList />}
+          />
+          <Route
+            path="user-management/student-list"
+            element={<StudentList />}
+          />
+          <Route path="class-management" element={<ClassManagement />} />
+          <Route
+            path="class-management/class-register"
+            element={<ClassRegister />}
+          />
+          <Route path="class-management/class-list" element={<ClassList />} />
+          <Route
+            path="student-management/student-class-list/:id"
+            element={<StudentClassList />}
+          />
+          <Route
+            path="classteacher-management/classteacher-register/:id"
+            element={<ClassTeacherRegister />}
+          />
+          <Route
+            path="classteacher-management/classteacher-list"
+            element={<ClassTeacherList />}
+          />
+          <Route
+            path="student-management/student-register/:id"
+            element={<StudentRegister />}
+          />
+          <Route
+            path="student-management/all-student-list"
+            element={<AllStudentList />}
+          />
+          <Route
+            path="student-management/student-detail/:id"
+            element={<StudentDeatil />}
+          />
+          <Route
+            path="attendance-management"
+            element={<AttendanceManagement />}
+          />
+          <Route
+            path="attendance-management/class-list"
+            element={<ClassList />}
+          />
+        </Route>
+      </Routes>
+    </>
   );
 };
 

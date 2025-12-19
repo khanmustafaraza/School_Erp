@@ -1,7 +1,7 @@
 import Left from "components/left/Left";
 import Top from "components/top/Top";
 // import { useTheme } from "../../context/themecontext/ThemeContext";
-import { FaArrowAltCircleUp, FaSchool } from "react-icons/fa";
+import { FaArrowAltCircleUp, FaClipboardCheck, FaSchool } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import {
   FaIcons,
@@ -81,12 +81,19 @@ const AdminLayout = ({ children }) => {
       icon: <SiGoogleclassroom />,
       link: "/admin/classteacher-management/classteacher-list",
     },
+
+    {
+      id: 7,
+      title: "Attendance Mark",
+      icon: <FaClipboardCheck />,
+      link: "/admin/attendance-management",
+    },
   ];
 
   return (
     <>
       <div
-        className="flex min-h-screen text-gray-900"
+        className="flex  text-gray-900"
         // className={
         //   theme
         //     ? "flex min-h-screen text-gray-900"
