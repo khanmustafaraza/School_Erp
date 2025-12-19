@@ -21,6 +21,8 @@ import SchoolManagement from "./pages/admin/schoolmanagement/SchoolManagement";
 import SchoolRegister from "./pages/admin/schoolmanagement/SchoolRegister";
 import SchoolList from "./pages/admin/schoolmanagement/SchoolList";
  import { ToastContainer} from 'react-toastify';
+import AllStudentList from "./pages/admin/studentmanagement/StudentList";
+import StudentDeatil from "./pages/admin/studentmanagement/StudentDeatil";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -84,6 +86,14 @@ theme="light"
         <Route
           path="student-management/student-register/:id"
           element={<StudentRegister />}
+        />
+        <Route
+          path="student-management/all-student-list"
+          element={<AllStudentList />}
+        />
+        <Route
+          path="student-management/student-detail/:id"
+          element={<StudentDeatil />}
         />
       </Route>
     </Routes>

@@ -1,144 +1,168 @@
-import React from "react";
-import { RiAdminFill } from "react-icons/ri";
+import React, { useEffect } from "react";
 import AdminLayout from "adminLayout/AdminLayout";
+import { FiEye, FiTrash2 } from "react-icons/fi";
+import { FaEdit } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useTheme } from "../../../context/themecontext/ThemeContext";
-import { useStudent } from "adminContext/studentcontext/StudentContext";
+import useAuth from "store/authcontext/AuthContext";
+import MainHeading from "components/headings/MainHeading";
+import usePage from "store/pagelocationcontext/PageLocationContext";
+import PageUrl from "components/pageurl/PageUrl";
+import TableContainer from "components/table/TableContainer";
+import useAdminStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
 
-const Students = () => {
-  const { state } = useStudent();
-  const { theme } = useTheme();
+const AllStudentList = () => {
+  const { state, getAllStudentList } = useAdminStudent();
+  console.log(state.studentList)
+
+  useEffect(() => {
+    getAllStudentList();
+  }, []);
+  const { handlePageUrl, pageUrl } = usePage();
+
+  useEffect(() => {
+    handlePageUrl();
+  }, []);
 
   return (
     <AdminLayout>
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2
-            className={`text-xl flex items-center gap-2 ${
-              theme ? "text-blue-600" : "text-white"
-            }`}
-          >
-            <RiAdminFill className="text-xl" /> Student List
-          </h2>
+      <div className="shadow border p-1">
+        <PageUrl pageUrl={pageUrl} />
+        <MainHeading
+          title="LIST OF ALL STUDENTS"
+          path="/admin/User-management"
+          btnTitle="User Register"
+        />
 
-          <NavLink
-            to="/admin/student-register"
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow transition"
-          >
-            <span className="material-icons text-sm">add</span>
-            Add Student
-          </NavLink>
-        </div>
+       <TableContainer>
+  <thead className="bg-black text-white">
+    <tr>
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        #
+      </th>
 
-        {/* Table */}
-        <div
-          className={`rounded-sm shadow overflow-x-auto border ${
-            theme ? "bg-white border-gray-200" : "bg-gray-900 border-gray-700"
-          }`}
-        >
-          <table className="w-full text-center text-sm">
-            <thead
-              className={`uppercase ${
-                theme
-                  ? "bg-gray-100 text-gray-700"
-                  : "bg-gray-800 text-gray-300"
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Full Name
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Father Name
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Username
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Email
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Class
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Section
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Academic Year
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider">
+        Status
+      </th>
+
+      <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-center">
+        Actions
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {state?.studentList?.map((s, index) => (
+      <tr key={s._id} className="bg-gray-100 hover:bg-gray-300">
+        <td className="px-4 py-3 text-gray-700">
+          {index + 1}
+        </td>
+
+        <td className="px-4 py-3 font-medium text-gray-800">
+          {s?.fullName || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.fatherName || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.userId?.userName || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.userId?.email || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.classId?.name || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.classId?.section || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          {s?.classTeacherId?.academicYear || "-"}
+        </td>
+
+        <td className="px-4 py-3 text-gray-800">
+          <span
+            className={`px-3 py-1 text-sm rounded-full font-medium
+              ${
+                s?.classTeacherId?.status === "active"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
               }`}
+          >
+            {s?.classTeacherId?.status || "-"}
+          </span>
+        </td>
+
+        <td className="px-4 py-3">
+          <div className="flex items-center justify-center gap-1">
+            <button
+              className="p-1.5 rounded-full bg-gray-900 hover:bg-gray-700 
+              text-white transition text-sm"
+              title="View"
             >
-              <tr>
-                <th className="px-4 py-3">#</th>
-                <th className="px-4 py-3">Class Name</th>
-                <th className="px-4 py-3">Section</th>
-                <th className="px-4 py-3">Teacher Name</th>
-                <th className="px-4 py-3">Email</th>
-                <th className="px-4 py-3">Role</th>
-                <th className="px-4 py-3">Created</th>
-                <th className="px-4 py-3">Actions</th>
-              </tr>
-            </thead>
+              <FiEye size={16} />
+            </button>
 
-            <tbody>
-              {/* ✅ Handle Empty State */}
-              {state?.studentList?.length === 0 && (
-                <tr>
-                  <td
-                    colSpan="8"
-                    className="py-6 text-gray-400 italic text-center"
-                  >
-                    No students found. Click <b>Add Student</b> to create one.
-                  </td>
-                </tr>
-              )}
+            <button
+              className="p-1.5 rounded-full bg-red-600 hover:bg-red-900 
+              text-white transition text-sm"
+              title="Delete"
+            >
+              <FiTrash2 size={16} />
+            </button>
 
-              {/* ✅ Render Student Rows */}
-              {state?.studentList?.map((cls, index) => (
-                <tr
-                  key={cls.student?._id || `${cls.user?._id}-${index}`} // ✅ Unique Key
-                  className={`border-t ${
-                    theme
-                      ? "hover:bg-gray-100"
-                      : "hover:bg-gray-800 hover:text-white"
-                  } transition`}
-                >
-                  {/* Serial Number */}
-                  <td className="px-4 py-2">{index + 1}</td>
+            <NavLink to={`/admin/student-management/student-detail/${s._id}`}>
+              <button
+                className="p-1.5 rounded-full bg-teal-500 text-white shadow 
+                hover:bg-teal-700 transition text-sm"
+                title="Edit Student"
+              >
+                <FaEdit size={16} />
+              </button>
+            </NavLink>
+          </div>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</TableContainer>
 
-                  {/* Class Name */}
-                  <td className="px-4 py-2 capitalize flex items-center gap-2 justify-center">
-                    <span className="material-icons text-blue-500">school</span>
-                    {cls.class?.name || "N/A"}
-                  </td>
-
-                  {/* Section */}
-                  <td className="px-4 py-2 capitalize">
-                    {cls.class?.section || "N/A"}
-                  </td>
-
-                  {/* Teacher Name */}
-                  <td className="px-4 py-2 capitalize flex items-center gap-2 justify-center">
-                    <span className="material-icons text-green-500">
-                      person
-                    </span>
-                    {cls.user?.userName || "N/A"}
-                  </td>
-
-                  {/* Email */}
-                  <td className="px-4 py-2">{cls.user?.email || "N/A"}</td>
-
-                  {/* Role */}
-                  <td className="px-4 py-2 capitalize">
-                    {cls.user?.role || "N/A"}
-                  </td>
-
-                  {/* Created Date */}
-                  <td className="px-4 py-2">
-                    {cls.classTeacher?.createdAt
-                      ? new Date(
-                          cls.classTeacher.createdAt
-                        ).toLocaleDateString()
-                      : "N/A"}
-                  </td>
-
-                  {/* Actions */}
-                  <td className="px-4 py-2 flex gap-2 justify-center">
-                    <button className="flex items-center gap-1 text-blue-600 hover:text-blue-800">
-                      <span className="material-icons text-sm">edit</span>
-                      Edit
-                    </button>
-
-                    <button className="flex items-center gap-1 text-red-600 hover:text-red-800">
-                      <span className="material-icons text-sm">delete</span>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </AdminLayout>
   );
 };
 
-export default Students;
+export default AllStudentList;

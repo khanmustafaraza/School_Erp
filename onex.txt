@@ -206,3 +206,93 @@ fetch(`${apiUrl}/api/users`)
                 </button>
               </div>
             )}
+
+
+            import { FiPhone, FiMail, FiUser } from "react-icons/fi";
+
+const StudentProfilePage = ({ student, school }) => {
+  return (
+    <div className="min-h-screen bg-gray-100">
+
+      {/* ================= SCHOOL BANNER ================= */}
+      <div className="relative bg-gray-900 h-64">
+        {school?.school_photo && (
+          <img
+            src={`data:image/png;base64,${school.school_photo}`}
+            alt="School Banner"
+            className="w-full h-full object-cover opacity-70"
+          />
+        )}
+
+        <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center">
+          <div className="px-8 text-white">
+            <h1 className="text-3xl font-bold">
+              {school?.name || "School Name"}
+            </h1>
+            <p className="text-sm mt-1">
+              {school?.board} | Affiliation Code: {school?.affiCode}
+            </p>
+            <p className="text-sm">
+              Code: {school?.code}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= SCHOOL INFO ================= */}
+      <div className="bg-white shadow px-8 py-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p className="text-sm text-gray-500">Sub Name</p>
+          <p className="font-medium">{school?.subName}</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-500">Contact</p>
+          <p className="font-medium">{school?.contact}</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-500">Email</p>
+          <p className="font-medium">{school?.email}</p>
+        </div>
+        <div className="md:col-span-3">
+          <p className="text-sm text-gray-500">Address</p>
+          <p className="font-medium">{school?.address}</p>
+        </div>
+      </div>
+
+      {/* ================= STUDENT PROFILE ================= */}
+      <div className="max-w-6xl mx-auto mt-8 bg-white shadow rounded-lg p-8">
+
+        <h2 className="text-xl font-semibold border-b pb-2 mb-6">
+          Student Details
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <Info label="Full Name" value={student?.fullName} />
+          <Info label="Father Name" value={student?.fatherName} />
+          <Info label="Phone" value={student?.phone} />
+          <Info label="Date of Birth" value={student?.dob?.slice(0, 10)} />
+          <Info label="Class" value={student?.classId?.name} />
+          <Info label="Section" value={student?.classId?.section} />
+          <Info label="Academic Year" value={student?.classTeacherId?.academicYear} />
+          <Info label="Status" value={student?.classTeacherId?.status} />
+
+          <div className="md:col-span-3">
+            <p className="text-sm text-gray-500">Address</p>
+            <p className="font-medium">{student?.address}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ================= REUSABLE FIELD ================= */
+const Info = ({ label, value }) => (
+  <div>
+    <p className="text-sm text-gray-500">{label}</p>
+    <p className="font-medium text-gray-800">{value || "-"}</p>
+  </div>
+);
+
+export default StudentProfilePage;

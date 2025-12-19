@@ -13,9 +13,9 @@ const initialState = {
     dob: "",
     address: "",
     photo: null,
-    userId: "", // Teacher ID
-    classId: "", // Class ID
-    teacherId: "", // ClassTeacher ID
+    userId: "", 
+   
+   
   },
   studentList: [],
 };
@@ -29,7 +29,6 @@ const StudentAdminAppProvider = ({ children }) => {
   const handleStudentChange = (e) => {
     try {
       const { name, value, files } = e.target;
-      console.log(e.target.name, e.target.value);
       const fieldValue = files ? files[0] : value;
       dispatch({
         type: "ADMIN_STUDENT_CHANGE",
@@ -43,14 +42,19 @@ const StudentAdminAppProvider = ({ children }) => {
   // Register a new student
   const handleStudentRegister = async (e, id) => {
     e.preventDefault();
+    const studentData ={
+      ...state.register,
+      userId:id
+    }
 
     const formData = new FormData();
     Object.entries(studentData).forEach(([key, value]) => {
       formData.append(key, value);
     });
 
-    // append extra field
-    formData.append("userId", id);
+    
+    
+    
 
     try {
       const res = await fetch(
@@ -65,7 +69,7 @@ const StudentAdminAppProvider = ({ children }) => {
 
       if (res.ok) {
         dispatch({ type: "RESET_STUDENT_REGISTER" });
-        getStudentList(); // refresh student list
+       
       }
     } catch (error) {
       alert(error.message);
@@ -73,7 +77,7 @@ const StudentAdminAppProvider = ({ children }) => {
   };
 
   // Get all students
-  const getStudentList = async () => {
+  const getAllStudentList = async () => {
     try {
       const res = await fetch(
         "http://localhost:5000/api/admin/student/student-list",
@@ -83,9 +87,10 @@ const StudentAdminAppProvider = ({ children }) => {
         }
       );
       const data = await res.json();
+     
       if (data.success) {
         dispatch({
-          type: "GET_STUDENT_LIST",
+          type: "GET_ALL_STUDENT_LIST",
           payload: data.data,
         });
       }
@@ -95,9 +100,10 @@ const StudentAdminAppProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   getStudentList();
-  // }, []);
+  useEffect(() => {
+    getAllStudentList();
+  }, []);
+ 
 
   return (
     <StudentAdminAppContext.Provider
@@ -105,7 +111,7 @@ const StudentAdminAppProvider = ({ children }) => {
         state,
         handleStudentChange,
         handleStudentRegister,
-        getStudentList,
+        getAllStudentList,
         dispatch,
       }}
     >

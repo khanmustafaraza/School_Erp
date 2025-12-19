@@ -14,10 +14,10 @@ const studentAdminReducer = (state, action) => {
         },
       };
     // todo Get class list
-    case "GET_CLASS_LIST":
+    case "GET_ALL_STUDENT_LIST":
       return {
         ...state,
-        classList: action.payload,
+        studentList: action.payload,
       };
 
     default:

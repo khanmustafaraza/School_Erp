@@ -73,7 +73,7 @@ const AdminLayout = ({ children }) => {
       id: 5,
       title: "Students List",
       icon: <PiStudentBold />,
-      link: "/admin/student-list",
+      link: "/admin/student-management/all-student-list",
     },
     {
       id: 6,

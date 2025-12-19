@@ -18,7 +18,7 @@ const studentSchema = new Schema(
     },
 
     // 👨‍🏫 ClassTeacher reference
-    teacherId: {
+    classTeacherId: {
       type: Schema.Types.ObjectId,
       ref: "ClassTeacher",
       required: true,
@@ -30,7 +30,7 @@ const studentSchema = new Schema(
     phone: { type: String, required: true },
     dob: { type: Date, required: true },
     address: { type: String, required: true, trim: true },
-    photo: { type: String }, // store image path or URL
+    studentPhotoObj: { }, // store image path or URL
 
     // optional fields
     remarks: { type: String, trim: true },
