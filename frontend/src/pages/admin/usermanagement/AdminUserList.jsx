@@ -9,7 +9,7 @@ import usePage from "store/pagelocationcontext/PageLocationContext";
 import PageUrl from "components/pageurl/PageUrl";
 import TableContainer from "components/table/TableContainer";
 
-const StudentList = () => {
+const AdminUserList = () => {
   const { state, getUserList } = useAuth();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const StudentList = () => {
 
           <tbody className="">
             {state?.userList
-              ?.filter((user) => user.role === "student")
+              ?.filter((user) => user.role === "admin")
               .map((u, index) => (
                 <tr key={u._id} className="bg-gray-100 hover:bg-gray-300 ">
                   <td className="px-4 py-3 text-gray-700">{index + 1}</td>
@@ -65,9 +65,9 @@ const StudentList = () => {
                   <td className="px-4 py-3 text-gray-800">{u.email || "-"}</td>
                   <td className="px-4 py-3 text-gray-800">
                     <span
-                      className={`px-3 py-3 text-sm rounded-full font-medium capitalize 
+                      className={`px-3 py-3 text-sm rounded-full font-medium 
       ${
-        u.role === "student"
+        u.role === "admin"
           ? "bg-blue-100 text-blue-800"
           : u.role === "teacher"
           ? "bg-green-100 text-green-800"
@@ -97,7 +97,7 @@ const StudentList = () => {
                       </button>
 
                       <NavLink
-                        to={`/admin/student-management/student-register/${u._id}`}
+                        to={`/admin/classteacher-management/classteacher-register/${u._id}`}
                       >
                         <button
                           className="p-1.5 rounded-full bg-teal-500                  text-white shadow hover:bg-teal-700 transition text-sm"
@@ -117,4 +117,4 @@ const StudentList = () => {
   );
 };
 
-export default StudentList;
+export default AdminUserList;

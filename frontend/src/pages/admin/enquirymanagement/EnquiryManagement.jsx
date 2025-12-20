@@ -3,6 +3,7 @@ import AdminLayout from "adminLayout/AdminLayout";
 import Card from "components/card/Card";
 import { FaIcons } from "components/icons/Icons";
 import { FaListAlt } from "react-icons/fa";
+import { TbArrowBadgeRight } from "react-icons/tb";
 
 const EnquiryManagement = () => {
   const { FaUser } = FaIcons;
@@ -13,6 +14,9 @@ const EnquiryManagement = () => {
       icon: <FaListAlt />,
       title: "Enquiry List",
       subTitle: 2000,
+      iconColor: "#2f855a",
+      subIcon: <TbArrowBadgeRight />,
+      subColor: "#d1f0d6",
 
       bgColor: "#26cad9",
     },
@@ -32,7 +36,7 @@ const EnquiryManagement = () => {
         <div className="flex gap-2 flex-wrap">
           {data?.map((curEle) => (
             <div key={curEle.id} title={`${curEle.title}`}>
-              <Card curEle={curEle}  />
+              <Card curEle={curEle} />
             </div>
           ))}
         </div>

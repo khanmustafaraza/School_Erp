@@ -12,4 +12,6 @@ router.post("/register", upload.single("photo"), studentController.registerStude
 // router.put("/update/:id", classController.classUpdate); // Update class
 router.get("/student-list", studentController.getAllStudentsList); // Get all classes
 
+router.get("/class-student-list/:classId",studentController.getStudentsListByClassId)
+
 module.exports = router;

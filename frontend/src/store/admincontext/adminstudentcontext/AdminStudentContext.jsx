@@ -13,16 +13,15 @@ const initialState = {
     dob: "",
     address: "",
     photo: null,
-    userId: "", 
-   
-   
+    userId: "",
   },
   studentList: [],
+  classStudentList:[]
 };
 
-const StudentAdminAppContext = createContext();
+const AdminStudentAppContext = createContext();
 
-const StudentAdminAppProvider = ({ children }) => {
+const AdminStudentAppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(studentAdminReducer, initialState);
 
   // Handle input changes
@@ -42,19 +41,15 @@ const StudentAdminAppProvider = ({ children }) => {
   // Register a new student
   const handleStudentRegister = async (e, id) => {
     e.preventDefault();
-    const studentData ={
+    const studentData = {
       ...state.register,
-      userId:id
-    }
+      userId: id,
+    };
 
     const formData = new FormData();
     Object.entries(studentData).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
-    
-    
-    
 
     try {
       const res = await fetch(
@@ -69,7 +64,6 @@ const StudentAdminAppProvider = ({ children }) => {
 
       if (res.ok) {
         dispatch({ type: "RESET_STUDENT_REGISTER" });
-       
       }
     } catch (error) {
       alert(error.message);
@@ -87,7 +81,7 @@ const StudentAdminAppProvider = ({ children }) => {
         }
       );
       const data = await res.json();
-     
+
       if (data.success) {
         dispatch({
           type: "GET_ALL_STUDENT_LIST",
@@ -103,31 +97,56 @@ const StudentAdminAppProvider = ({ children }) => {
   useEffect(() => {
     getAllStudentList();
   }, []);
- 
+
+  const getStudentsByClass = async (classId) => {
+  
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/admin/student/class-student-list/${classId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+    
+
+      if (data.success) {
+        dispatch({
+          type: "CLASS_STUDENT_LIST",
+          payload: data.data,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
 
   return (
-    <StudentAdminAppContext.Provider
+    <AdminStudentAppContext.Provider
       value={{
         state,
         handleStudentChange,
         handleStudentRegister,
         getAllStudentList,
-        dispatch,
+
+        getStudentsByClass,
       }}
     >
       {children}
-    </StudentAdminAppContext.Provider>
+    </AdminStudentAppContext.Provider>
   );
 };
 
 // Custom hook
 const useAdminStudent = () => {
-  const context = useContext(StudentAdminAppContext);
+  const context = useContext(AdminStudentAppContext);
   if (!context) {
     throw new Error("useStudent must be used within a StudentAppProvider");
   }
   return context;
 };
 
-export { StudentAdminAppProvider };
+export { AdminStudentAppProvider };
 export default useAdminStudent;

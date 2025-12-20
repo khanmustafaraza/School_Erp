@@ -10,9 +10,9 @@ import "./index.css";
 import { AuthAppProvider } from "store/authcontext/AuthContext.jsx";
 import { ClassAppProvider } from "store/admincontext/classcontext/ClassContext.jsx";
 import { ClassTeacherAppProvider } from "store/admincontext/classteachercontext/ClassTeacherContext.jsx";
-import { StudentAdminAppProvider } from "store/admincontext/studentadmincontext/StudentAdminContext.jsx";
 import { PageAppProvider } from "store/pagelocationcontext/PageLocationContext.jsx";
 import { SchoolAppProvider } from "./store/schoolcontext/SchoolContext.jsx";
+import { AdminStudentAppProvider } from "./store/admincontext/adminstudentcontext/AdminStudentContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -22,9 +22,9 @@ createRoot(document.getElementById("root")).render(
         <AuthAppProvider>
           <ClassAppProvider>
             <ClassTeacherAppProvider>
-              <StudentAdminAppProvider>
+              <AdminStudentAppProvider>
                 <App />
-              </StudentAdminAppProvider>
+              </AdminStudentAppProvider>
             </ClassTeacherAppProvider>
           </ClassAppProvider>
         </AuthAppProvider>

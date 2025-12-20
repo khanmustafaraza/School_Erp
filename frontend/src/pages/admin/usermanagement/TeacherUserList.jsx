@@ -9,7 +9,7 @@ import usePage from "store/pagelocationcontext/PageLocationContext";
 import PageUrl from "components/pageurl/PageUrl";
 import TableContainer from "components/table/TableContainer";
 
-const TeacherList = () => {
+const TeacherUserList = () => {
   const { state, getUserList } = useAuth();
 
   useEffect(() => {
@@ -117,4 +117,4 @@ const TeacherList = () => {
   );
 };
 
-export default TeacherList;
+export default TeacherUserList;

@@ -9,7 +9,7 @@ import FormContainer from "components/form/FormContainer";
 import useClassTeacher from "store/admincontext/classteachercontext/ClassTeacherContext";
 import { useClass } from "store/admincontext/classcontext/ClassContext";
 import { useParams } from "react-router-dom";
-import useAdminStudent from "store/admincontext/studentadmincontext/StudentAdminContext";
+import useAdminStudent from "store/admincontext/adminstudentcontext/AdminStudentContext";
 
 const StudentRegister = () => {
   const { handlePageUrl, pageUrl } = usePage();

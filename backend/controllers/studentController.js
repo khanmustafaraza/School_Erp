@@ -97,8 +97,8 @@ const getStudentDetailByUserId = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
-const getStudentsDetailByClassId = async (req, res) => {
-  const id = req.params.id
+const getStudentsListByClassId = async (req, res) => {
+  const id = req.params.classId
 
   try {
     const result = await Student.find({classId:id})
@@ -116,4 +116,4 @@ const getStudentsDetailByClassId = async (req, res) => {
 };
 
 
-module.exports = { registerStudent,getAllStudentsList };
+module.exports = { registerStudent,getAllStudentsList ,getStudentsListByClassId};

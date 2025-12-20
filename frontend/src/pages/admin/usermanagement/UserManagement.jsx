@@ -21,7 +21,7 @@ const UserManagement = () => {
     },
     {
       id: 1,
-      link: "/admin/user-management/admin-list",
+      link: "/admin/user-management/admin-user-list",
       icon: <MdAdminPanelSettings />,
       title: "Admin List",
       subTitle: 2000,
@@ -32,7 +32,7 @@ const UserManagement = () => {
     },
     {
       id: 2,
-      link: "/admin/user-management/teacher-list",
+      link: "/admin/user-management/teacher-user-list",
       icon: <FaChalkboardTeacher />,
       title: "Teacher List",
       subTitle: 2000,
@@ -43,7 +43,7 @@ const UserManagement = () => {
     },
     {
       id: 3,
-      link: "/admin/user-management/student-list",
+      link: "/admin/user-management/student-user-list",
       icon: <PiStudentDuotone />,
       title: "Student List",
       subTitle: 2000,

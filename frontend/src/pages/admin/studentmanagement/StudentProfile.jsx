@@ -20,16 +20,8 @@ import {
   CartesianGrid,
 } from "recharts";
 
-/**
- * ENTERPRISE ERP – STUDENT 360° VIEW (IMPROVED)
- * ✔ Action toolbar
- * ✔ Breadcrumbs
- * ✔ Sticky summary
- * ✔ Dense tables (fees/attendance)
- * ✔ Print-friendly layout
- */
 
-const StudentDetail = () => {
+const StudentProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
 
   const school = {
@@ -40,7 +32,7 @@ const StudentDetail = () => {
     contact: "152",
     address: "New York, USA",
     school_photo:
-      "iVBORw0KGgoAAAANSUhEUgAABaAAAAOECAYAAABXTZbSAAAAAXNSR0IArs4c6QAAAARnQU...",
+      ""
   };
 
   const student = {
@@ -300,4 +292,4 @@ const Field = ({ label, value }) => (
 // 4) Added alerts / risk badges
 // 5) Added print-friendly styles
 
-export default StudentDetail;
+export default StudentProfile;

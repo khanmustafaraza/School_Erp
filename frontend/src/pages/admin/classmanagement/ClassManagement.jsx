@@ -3,6 +3,7 @@ import AdminLayout from "adminLayout/AdminLayout";
 import Card from "components/card/Card";
 import { FaIcons } from "components/icons/Icons";
 import { FaList, FaRegRegistered } from "react-icons/fa";
+import { TbArrowBadgeRight } from "react-icons/tb";
 
 const ClassManagement = () => {
   const { FaUser } = FaIcons;
@@ -15,6 +16,9 @@ const ClassManagement = () => {
       subTitle: 2000,
 
       bgColor: "#26ccce",
+      iconColor: "#2f855a",
+      subIcon: <TbArrowBadgeRight />,
+      subColor: "#d1f0d6",
     },
     {
       id: 1,
@@ -24,6 +28,9 @@ const ClassManagement = () => {
       subTitle: 2000,
 
       bgColor: "#fbedff",
+      iconColor: "#2f855a",
+      subIcon: <TbArrowBadgeRight />,
+      subColor: "#d1f0d6",
     },
   ];
 

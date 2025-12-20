@@ -29,10 +29,10 @@ const ClassList = () => {
 
         {/* Cards Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-          {state?.classList?.map((cls, idx) => (
-            <NavLink
+          {state?.classList?.map((cls) => (
+            <NavLink title="View Students"
               key={cls._id}
-              to={`/admin/student-management/student-class-list/${cls._id}`}
+              to={`/admin/student-management/class-student-list/${cls._id}/students`}
               className="group bg-white border border-gray-200 rounded-md shadow-sm hover:shadow-lg transition overflow-hidden"
             >
               {/* Card Top */}
@@ -53,7 +53,7 @@ const ClassList = () => {
               {/* Card Bottom */}
               <div className="flex justify-between items-center p-4 border-t border-gray-100 group-hover:bg-gray-50 transition">
                 <span className="text-sm font-medium text-gray-700">
-                  View Details
+                  View Students<sup>*</sup>(Class-Wise)
                 </span>
                 <HiOutlineArrowNarrowRight className="text-indigo-600 text-xl" />
               </div>

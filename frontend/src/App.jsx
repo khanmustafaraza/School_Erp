@@ -8,9 +8,7 @@ import EnquiryManagement from "./pages/admin/enquirymanagement/EnquiryManagement
 import EnquiryList from "./pages/admin/enquirymanagement/EnquiryList";
 import UserManagement from "./pages/admin/usermanagement/UserManagement";
 import UserRegister from "./pages/admin/usermanagement/UserRegister";
-import AdminList from "./pages/admin/usermanagement/AdminList";
-import TeacherList from "./pages/admin/usermanagement/TeacherList";
-import StudentList from "./pages/admin/usermanagement/StudentList";
+
 import ClassManagement from "./pages/admin/classmanagement/ClassManagement";
 import ClassRegister from "./pages/admin/classmanagement/ClassRegister";
 import ClassList from "./pages/admin/classmanagement/ClassList";
@@ -21,10 +19,13 @@ import SchoolManagement from "./pages/admin/schoolmanagement/SchoolManagement";
 import SchoolRegister from "./pages/admin/schoolmanagement/SchoolRegister";
 import SchoolList from "./pages/admin/schoolmanagement/SchoolList";
 import { ToastContainer } from "react-toastify";
-import AllStudentList from "./pages/admin/studentmanagement/StudentList";
-import StudentDeatil from "./pages/admin/studentmanagement/StudentDeatil";
-import AttendanceManagement from "./pages/attendancemanagement/AttendanceManagement";
-import StudentClassList from "./pages/admin/studentmanagement/StudentClassList";
+
+import AllStudentList from "./pages/admin/studentmanagement/AllStudentList";
+import StudentProfile from "./pages/admin/studentmanagement/StudentProfile";
+import ClassStudentList from "./pages/admin/studentmanagement/ClassStudentList";
+import AdminUserList from "./pages/admin/usermanagement/AdminUserList";
+import TeacherUserList from "./pages/admin/usermanagement/TeacherUserList";
+import StudentUserList from "./pages/admin/usermanagement/StudentUserList";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -48,13 +49,23 @@ const App = () => {
         {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/enquiry" element={<Enquiry />} />
 
+        {/* ============ all dmin routes */}
+
         <Route path="/admin" element={<AdminRoute />}>
+          {/* ==============admin dashboard start========== */}
           <Route path="admin-dashboard" element={<AdminDashboard />} />
+          {/* ==============admin dashboard end========== */}
+
+          {/* **************** enquiry management start */}
+
           <Route path="enquiry-management" element={<EnquiryManagement />} />
           <Route
             path="enquiry-management/enquiry-list"
             element={<EnquiryList />}
           />
+          {/* **************** enquiry management end */}
+          {/* **************** start management start */}
+
           <Route path="school-management" element={<SchoolManagement />} />
           <Route
             path="school-management/school-register"
@@ -64,38 +75,54 @@ const App = () => {
             path="school-management/school-list"
             element={<SchoolList />}
           />
+
+          {/* **************** start management end */}
+
+
+
+
+          {/* **************** new user register management start ********* */}
           <Route path="user-management" element={<UserManagement />} />
           <Route
             path="user-management/user-register"
             element={<UserRegister />}
           />
-          <Route path="user-management/admin-list" element={<AdminList />} />
           <Route
-            path="user-management/teacher-list"
-            element={<TeacherList />}
+            path="user-management/admin-user-list"
+            element={<AdminUserList />}
           />
           <Route
-            path="user-management/student-list"
-            element={<StudentList />}
+            path="user-management/teacher-user-list"
+            element={<TeacherUserList />}
           />
+          <Route
+            path="user-management/student-user-list"
+            element={<StudentUserList />}
+          />
+
+          {/* ****************  new user register management end */}
+
+
+          
+
+          {/* """""""""""""" class management start */}
+
           <Route path="class-management" element={<ClassManagement />} />
           <Route
             path="class-management/class-register"
             element={<ClassRegister />}
           />
           <Route path="class-management/class-list" element={<ClassList />} />
+
+          {/* """""""""""""" class management end */}
+
+          {/* student management start */}
+
           <Route
-            path="student-management/student-class-list/:id"
-            element={<StudentClassList />}
+            path="student-management/class-student-list/:id/students"
+            element={<ClassStudentList />}
           />
-          <Route
-            path="classteacher-management/classteacher-register/:id"
-            element={<ClassTeacherRegister />}
-          />
-          <Route
-            path="classteacher-management/classteacher-list"
-            element={<ClassTeacherList />}
-          />
+
           <Route
             path="student-management/student-register/:id"
             element={<StudentRegister />}
@@ -105,17 +132,24 @@ const App = () => {
             element={<AllStudentList />}
           />
           <Route
-            path="student-management/student-detail/:id"
-            element={<StudentDeatil />}
+            path="student-management/student-profile/:id"
+            element={<StudentProfile />}
+          />
+
+          {/* student management end */}
+
+          {/* class teacher management start */}
+
+          <Route
+            path="classteacher-management/classteacher-register/:id"
+            element={<ClassTeacherRegister />}
           />
           <Route
-            path="attendance-management"
-            element={<AttendanceManagement />}
+            path="classteacher-management/classteacher-list"
+            element={<ClassTeacherList />}
           />
-          <Route
-            path="attendance-management/class-list"
-            element={<ClassList />}
-          />
+
+          {/* class teacher management end */}
         </Route>
       </Routes>
     </>

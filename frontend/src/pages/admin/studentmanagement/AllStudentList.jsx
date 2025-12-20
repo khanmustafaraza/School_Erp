@@ -8,7 +8,7 @@ import MainHeading from "components/headings/MainHeading";
 import usePage from "store/pagelocationcontext/PageLocationContext";
 import PageUrl from "components/pageurl/PageUrl";
 import TableContainer from "components/table/TableContainer";
-import useAdminStudent from "../../../store/admincontext/studentadmincontext/StudentAdminContext";
+import useAdminStudent from "../../../store/admincontext/adminstudentcontext/AdminStudentContext";
 
 const AllStudentList = () => {
   const { state, getAllStudentList } = useAdminStudent();
@@ -144,7 +144,7 @@ const AllStudentList = () => {
               <FiTrash2 size={16} />
             </button>
 
-            <NavLink to={`/admin/student-management/student-detail/${s._id}`}>
+            <NavLink to={`/admin/student-management/student-profile/${s._id}`}>
               <button
                 className="p-1.5 rounded-full bg-teal-500 text-white shadow 
                 hover:bg-teal-700 transition text-sm"

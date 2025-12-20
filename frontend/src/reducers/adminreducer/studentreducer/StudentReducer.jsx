@@ -19,6 +19,11 @@ const studentAdminReducer = (state, action) => {
         ...state,
         studentList: action.payload,
       };
+    case "CLASS_STUDENT_LIST":
+      return {
+        ...state,
+        classStudentList: action.payload,
+      };
 
     default:
       return state;
