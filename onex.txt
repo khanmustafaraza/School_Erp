@@ -296,3 +296,60 @@ const Info = ({ label, value }) => (
 );
 
 export default StudentProfilePage;
+
+exports.updateAttendance = async (req, res) => {
+  try {
+    const { attendanceId } = req.params;
+    const { attendanceArr } = req.body;
+
+    const attendance = await Attendance.findById(attendanceId);
+
+    if (!attendance) {
+      return res.status(404).json({
+        success: false,
+        message: "Attendance record not found",
+      });
+    }
+
+    attendance.attendanceArr = attendanceArr;
+    await attendance.save();
+
+    res.json({
+      success: true,
+      message: "Attendance updated successfully",
+      data: attendance,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+exports.getAttendanceSummary = async (req, res) => {
+  try {
+    const { classId, month, year } = req.query;
+
+    const start = new Date(year, month - 1, 1);
+    const end = new Date(year, month, 0);
+
+    const summary = await Attendance.aggregate([
+      {
+        $match: {
+          classId: require("mongoose").Types.ObjectId(classId),
+          date: { $gte: start, $lte: end },
+        },
+      },
+      { $unwind: "$attendanceArr" },
+      {
+        $group: {
+          _id: "$attendanceArr.status",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    res.json({ success: true, data: summary });
+  } catch (error) {
+    res.status(500).json({ success: false });
+  }
+};

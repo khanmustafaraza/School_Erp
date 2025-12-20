@@ -12,6 +12,7 @@ const enquiryRouter = require("./routes/enquiryRoute");
 const classRouter = require("./routes/classRoute");
 const classTeacherRouter = require("./routes/classTeacherRoute");
 const studentRouter = require("./routes/studentRoute");
+const attendanceRouter = require("./routes/attendanceRoute");
 const schoolRouter = require("./routes/schoolRoute");
 const verifyToken = require("./middlewares/tokenMiddleware");
 const verifyAdmin = require("./middlewares/adminMiddleware");
@@ -35,6 +36,7 @@ app.use("/api/admin/class", classRouter);
 app.use("/api/admin/classteacher", classTeacherRouter);
 app.use("/api/admin/student", studentRouter);
 app.use("/api/admin/school", schoolRouter);
+app.use("/api/admin/attendance", attendanceRouter);
 
 // todo authentication  for admin
 app.post("/api/auth/admin", verifyToken, verifyAdmin, (req, res) => {

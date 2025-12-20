@@ -26,6 +26,11 @@ import ClassStudentList from "./pages/admin/studentmanagement/ClassStudentList";
 import AdminUserList from "./pages/admin/usermanagement/AdminUserList";
 import TeacherUserList from "./pages/admin/usermanagement/TeacherUserList";
 import StudentUserList from "./pages/admin/usermanagement/StudentUserList";
+import AttendanceManagement from "./pages/attendancemanagement/AttendanceManagement";
+import MarkAttendanceList from "./pages/attendancemanagement/MarkAttendanceList";
+import MarkAttendance from "./pages/attendancemanagement/MarkAttendance";
+import AttendanceRegister from "./pages/attendancemanagement/AttendanceRegister";
+import AttendanceList from "./pages/attendancemanagement/AttendanceList";
 // import Login from "./pages/auth/Login";
 
 const App = () => {
@@ -78,9 +83,6 @@ const App = () => {
 
           {/* **************** start management end */}
 
-
-
-
           {/* **************** new user register management start ********* */}
           <Route path="user-management" element={<UserManagement />} />
           <Route
@@ -101,9 +103,6 @@ const App = () => {
           />
 
           {/* ****************  new user register management end */}
-
-
-          
 
           {/* """""""""""""" class management start */}
 
@@ -150,6 +149,29 @@ const App = () => {
           />
 
           {/* class teacher management end */}
+
+          {/* =================  attendance management start ================== */}
+          <Route
+            path="attendance-management"
+            element={<AttendanceManagement />}
+          />
+          <Route
+            path="attendance-management/mark-attendance"
+            element={<MarkAttendance />}
+          />
+          <Route
+            path="attendance-management/mark-attendance-list"
+            element={<MarkAttendanceList />}
+          />
+          <Route
+            path="attendance-management/mark-attendance/attendance-register/:id/students"
+            element={<AttendanceRegister />}
+          />
+          <Route
+            path="attendance-management/mark-attendance/attendance-list/:id"
+            element={<AttendanceList />}
+          />
+          {/* ===================== attendance management end ================== */}
         </Route>
       </Routes>
     </>

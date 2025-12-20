@@ -12,9 +12,6 @@ const ClassStudentList = () => {
   const { getStudentsByClass, state } = useAdminStudent();
   const { id } = useParams();
 
-  // Get students from context state
-  const students = state?.students || [];
-
   // Format DOB
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString();
@@ -27,7 +24,6 @@ const ClassStudentList = () => {
       getStudentsByClass(id);
     }
   }, [id]);
-  console.log(state.classStudentList);
 
   return (
     <AdminLayout>
